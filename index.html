@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bone Explorers: The Human Skeletal System</title>
+  <style>
+    :root {
+      --bg: #f0f7ff;
+      --card: #ffffff;
+      --primary: #1d4ed8;
+      --primary-dark: #1e3a8a;
+      --accent: #f59e0b;
+      --accent-soft: #fef3c7;
+      --green: #059669;
+      --green-soft: #d1fae5;
+      --red: #dc2626;
+      --red-soft: #fee2e2;
+      --purple: #7c3aed;
+      --purple-soft: #ede9fe;
+      --teal: #0d9488;
+      --teal-soft: #ccfbf1;
+      --pink: #db2777;
+      --pink-soft: #fce7f3;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #cbd5e1;
+      --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 4px 10px -2px rgba(15, 23, 42, 0.04);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg, #e0f2fe 0%, #f8fafc 45%, #eef2ff 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-size: 19px;
+      line-height: 1.6;
+    }
+
+    /* Top Header Bar (Clean: Home, Title, Progress, Stars — NO jump ahead) */
+    .top-bar {
+      background: #ffffff;
+      border-bottom: 3px solid #bae6fd;
+      padding: 12px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 4px 12px rgba(14, 116, 144, 0.08);
+    }
+
+    .top-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .home-btn {
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 2px solid #7dd3fc;
+      border-radius: 16px;
+      padding: 10px 18px;
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.15s, background 0.15s;
+    }
+
+    .home-btn:hover {
+      background: #bae6fd;
+      transform: translateY(-2px);
+    }
+
+    .site-title {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--primary-dark);
+      letter-spacing: -0.3px;
+    }
+
+    .progress-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      max-width: 380px;
+      min-width: 210px;
+    }
+
+    .page-badge {
+      background: #eff6ff;
+      color: var(--primary);
+      border: 2px solid #bfdbfe;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 14px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #2563eb, #10b981);
+      border-radius: 999px;
+      transition: width 0.35s ease;
+    }
+
+    .star-pill {
+      background: #fef3c7;
+      color: #92400e;
+      border: 2px solid #fcd34d;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 17px;
+      white-space: nowrap;
+    }
+
+    /* Sticky Click-to-Hear Audio Bar */
+    .audio-bar {
+      background: linear-gradient(90deg, #fffbeb, #fef3c7);
+      border-bottom: 3px solid #fde68a;
+      padding: 12px 20px;
+      position: sticky;
+      top: 71px;
+      z-index: 45;
+    }
+
+    .audio-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .audio-buttons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .hear-main-btn {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #ffffff;
+      border: none;
+      border-radius: 18px;
+      padding: 12px 24px;
+      font-size: 20px;
+      font-weight: 900;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 5px 14px rgba(217, 119, 6, 0.32);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .hear-main-btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 18px rgba(217, 119, 6, 0.4);
+    }
+
+    .hear-main-btn.active {
+      background: linear-gradient(135deg, #059669, #047857);
+      box-shadow: 0 5px 14px rgba(5, 150, 105, 0.35);
+    }
+
+    .audio-sub-btn {
+      background: #ffffff;
+      color: #334155;
+      border: 2px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 10px 16px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s, transform 0.15s;
+    }
+
+    .audio-sub-btn:hover:not(:disabled) {
+      background: #f1f5f9;
+      transform: translateY(-1px);
+    }
+
+    .audio-sub-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .voice-picker-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      border: 2px solid #fcd34d;
+      padding: 6px 12px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #78350f;
+    }
+
+    .voice-select {
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 5px 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #0f172a;
+      background: #f8fafc;
+      max-width: 210px;
+      cursor: pointer;
+    }
+
+    .audio-status {
+      font-size: 15px;
+      font-weight: 700;
+      color: #92400e;
+      background: rgba(255, 255, 255, 0.75);
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid #fde68a;
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      max-width: 1120px;
+      width: 100%;
+      margin: 24px auto;
+      padding: 0 20px 30px;
+    }
+
+    .lesson-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 3px solid #dbeafe;
+      padding: 28px;
+      animation: fadeSlide 0.25s ease;
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .topic-tag {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e40af;
+      font-weight: 800;
+      font-size: 15px;
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .lesson-title-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 18px;
+      border-radius: 18px;
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      margin-bottom: 22px;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+
+    .lesson-title-banner.speaking {
+      background: #fef08a;
+      border-color: #eab308;
+      box-shadow: 0 0 0 4px rgba(250, 204, 21, 0.35);
+      transform: scale(1.01);
+    }
+
+    .lesson-title {
+      margin: 0;
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 900;
+      color: var(--primary-dark);
+      line-height: 1.2;
+    }
+
+    .mini-hear-btn {
+      background: #fef3c7;
+      color: #92400e;
+      border: 2px solid #f59e0b;
+      border-radius: 14px;
+      padding: 8px 14px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.15s, background 0.15s;
+    }
+
+    .mini-hear-btn:hover {
+      background: #fde68a;
+      transform: scale(1.04);
+    }
+
+    /* Two-column split for Visual + Story/Facts */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 1fr;
+      gap: 26px;
+      align-items: start;
+    }
+
+    @media (max-width: 860px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+      .audio-bar {
+        top: 0;
+      }
+    }
+
+    /* Real Photo + Interactive Hotspot Visual Stage */
+    .visual-stage {
+      background: #0f172a;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 3px solid #93c5fd;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15);
+      position: relative;
+    }
+
+    .photo-frame {
+      position: relative;
+      width: 100%;
+      min-height: 360px;
+      max-height: 470px;
+      background: radial-gradient(circle at center, #1e293b 0%, #090d16 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 420px;
+      object-fit: contain;
+      display: block;
+      transition: transform 0.35s ease, filter 0.35s ease;
+    }
+
+    /* Interactive Hotspot Pins over Real Photos */
+    .hotspot-pin {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      border: 3px solid #ffffff;
+      border-radius: 999px;
+      padding: 6px 13px;
+      font-size: 14px;
+      font-weight: 900;
+      color: #ffffff;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.55);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+
+    .hotspot-pin:hover {
+      transform: translate(-50%, -50%) scale(1.12);
+      z-index: 20;
+    }
+
+    .hotspot-pin.active-pin {
+      transform: translate(-50%, -50%) scale(1.22);
+      box-shadow: 0 0 0 8px rgba(250, 204, 21, 0.55), 0 0 25px #facc15;
+      z-index: 25;
+      animation: pinPulse 1s infinite alternate;
+    }
+
+    @keyframes pinPulse {
+      from { box-shadow: 0 0 0 6px rgba(250, 204, 21, 0.5), 0 0 18px #facc15; }
+      to { box-shadow: 0 0 0 13px rgba(250, 204, 21, 0.8), 0 0 30px #fde047; }
+    }
+
+    .pin-num {
+      background: rgba(0, 0, 0, 0.32);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+
+    /* Pin Color Themes matching text highlights */
+    .theme-blue { background: #2563eb; }
+    .theme-green { background: #059669; }
+    .theme-amber { background: #d97706; }
+    .theme-purple { background: #7c3aed; }
+    .theme-pink { background: #db2777; }
+    .theme-teal { background: #0d9488; }
+
+    .photo-caption-bar {
+      background: #1e293b;
+      color: #f8fafc;
+      padding: 12px 16px;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      border-top: 2px solid #334155;
+    }
+
+    .active-callout-box {
+      background: #fef3c7;
+      color: #78350f;
+      border-top: 3px solid #f59e0b;
+      padding: 12px 16px;
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    /* Story & Sentence Highlighting Panel */
+    .story-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .sentence-card {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-left-width: 8px;
+      border-radius: 16px;
+      padding: 14px 18px;
+      font-size: 20px;
+      line-height: 1.55;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .sentence-card:hover {
+      background: #f1f5f9;
+      transform: translateX(3px);
+    }
+
+    .sentence-card.speaking {
+      background: #fef08a;
+      border-color: #eab308;
+      box-shadow: 0 6px 18px rgba(234, 179, 8, 0.28);
+      transform: scale(1.015);
+    }
+
+    .sentence-link-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 900;
+      color: #ffffff;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .fun-fact-box {
+      background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+      border: 2px solid #6ee7b7;
+      border-radius: 18px;
+      padding: 16px 18px;
+      margin-top: 6px;
+    }
+
+    .fun-fact-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-weight: 900;
+      color: #065f46;
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    /* Interactive Activities */
+    .activity-box {
+      margin-top: 22px;
+      background: #f8fafc;
+      border: 3px solid #c7d2fe;
+      border-radius: 20px;
+      padding: 22px;
+    }
+
+    .quiz-q-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .quiz-question {
+      font-size: 22px;
+      font-weight: 900;
+      color: #1e1b4b;
+      margin: 0;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 680px) {
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .option-row {
+      display: flex;
+      align-items: stretch;
+      gap: 8px;
+    }
+
+    .option-btn {
+      flex: 1;
+      text-align: left;
+      background: #ffffff;
+      border: 3px solid #cbd5e1;
+      border-radius: 16px;
+      padding: 14px 18px;
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      background: #eff6ff;
+      transform: translateY(-2px);
+    }
+
+    .option-btn.correct {
+      background: var(--green-soft);
+      border-color: var(--green);
+      color: #064e3b;
+    }
+
+    .option-btn.wrong {
+      background: var(--red-soft);
+      border-color: var(--red);
+      color: #7f1d1d;
+    }
+
+    .opt-hear-btn {
+      background: #fef3c7;
+      border: 2px solid #f59e0b;
+      border-radius: 14px;
+      padding: 0 14px;
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+      color: #92400e;
+    }
+
+    .opt-hear-btn:hover {
+      background: #fde68a;
+    }
+
+    .feedback-banner {
+      margin-top: 16px;
+      padding: 16px 20px;
+      border-radius: 16px;
+      font-size: 19px;
+      font-weight: 800;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .feedback-banner.show {
+      display: flex;
+    }
+
+    .feedback-banner.good {
+      background: #d1fae5;
+      border: 2px solid #10b981;
+      color: #065f46;
+    }
+
+    .feedback-banner.try-again {
+      background: #fef3c7;
+      border: 2px solid #f59e0b;
+      color: #92400e;
+    }
+
+    /* Movement Timer */
+    .timer-card {
+      background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+      border: 3px solid #8b5cf6;
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      margin-top: 18px;
+    }
+
+    .timer-display {
+      font-size: 48px;
+      font-weight: 900;
+      color: #4c1d95;
+      margin: 8px 0;
+    }
+
+    .action-btn {
+      background: #7c3aed;
+      color: #ffffff;
+      border: none;
+      border-radius: 16px;
+      padding: 12px 24px;
+      font-size: 19px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    }
+
+    .action-btn:hover {
+      background: #6d28d9;
+    }
+
+    /* Matching Game */
+    .match-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 14px;
+    }
+
+    .match-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .match-item {
+      background: #ffffff;
+      border: 3px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 13px 16px;
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      transition: all 0.15s;
+    }
+
+    .match-item.selected {
+      border-color: #2563eb;
+      background: #dbeafe;
+      transform: scale(1.02);
+    }
+
+    .match-item.matched {
+      border-color: #059669;
+      background: #d1fae5;
+      color: #065f46;
+      cursor: default;
+    }
+
+    /* Home Screen Grid */
+    .home-hero {
+      text-align: center;
+      background: linear-gradient(135deg, #1d4ed8, #0284c7);
+      color: #ffffff;
+      border-radius: 26px;
+      padding: 32px 24px;
+      margin-bottom: 26px;
+      box-shadow: var(--shadow);
+    }
+
+    .home-hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4.5vw, 44px);
+      font-weight: 900;
+    }
+
+    .home-hero p {
+      margin: 0 auto 20px;
+      max-width: 720px;
+      font-size: 20px;
+      opacity: 0.96;
+    }
+
+    .start-big-btn {
+      background: #f59e0b;
+      color: #ffffff;
+      border: none;
+      border-radius: 20px;
+      padding: 16px 34px;
+      font-size: 22px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+      transition: transform 0.15s;
+    }
+
+    .start-big-btn:hover {
+      transform: scale(1.04);
+      background: #d97706;
+    }
+
+    .chapters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 16px;
+    }
+
+    .chapter-card {
+      background: #ffffff;
+      border: 3px solid #dbeafe;
+      border-radius: 18px;
+      padding: 16px;
+      text-align: left;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .chapter-card:hover {
+      transform: translateY(-3px);
+      border-color: #2563eb;
+      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.14);
+    }
+
+    .chapter-card.done {
+      border-color: #6ee7b7;
+      background: #f0fdf4;
+    }
+
+    .chapter-num {
+      font-size: 13px;
+      font-weight: 900;
+      color: #2563eb;
+      text-transform: uppercase;
+    }
+
+    .chapter-name {
+      font-size: 18px;
+      font-weight: 900;
+      color: #0f172a;
+    }
+
+    /* Bottom Large Back / Next Navigation */
+    .bottom-nav {
+      max-width: 1120px;
+      width: 100%;
+      margin: 0 auto 36px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-big-btn {
+      min-width: 170px;
+      padding: 16px 28px;
+      border-radius: 20px;
+      font-size: 22px;
+      font-weight: 900;
+      cursor: pointer;
+      border: 3px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .nav-big-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .btn-back {
+      background: #ffffff;
+      color: #1e3a8a;
+      border-color: #93c5fd;
+      box-shadow: 0 4px 10px rgba(30, 58, 138, 0.08);
+    }
+
+    .btn-back:hover:not(:disabled) {
+      background: #eff6ff;
+      transform: translateX(-3px);
+    }
+
+    .btn-next {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #ffffff;
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.32);
+    }
+
+    .btn-next:hover:not(:disabled) {
+      transform: translateX(3px);
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.42);
+    }
+
+    /* Certificate */
+    .cert-box {
+      background: linear-gradient(135deg, #fffbeb, #fef3c7);
+      border: 6px double #d97706;
+      border-radius: 24px;
+      padding: 32px;
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    .cert-input {
+      font-size: 22px;
+      font-weight: 800;
+      padding: 10px 18px;
+      border: 3px solid #f59e0b;
+      border-radius: 14px;
+      text-align: center;
+      margin: 12px 0;
+      width: min(380px, 90%);
+    }
+
+    @media print {
+      .top-bar, .audio-bar, .bottom-nav, .no-print {
+        display: none !important;
+      }
+      body {
+        background: #ffffff;
+      }
+      .lesson-card {
+        border: none;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-bar">
+    <div class="top-inner">
+      <div class="brand">
+        <button class="home-btn" id="homeBtn" onclick="goHome()" title="Go to Home">
+          <span>Home</span>
+        </button>
+        <div class="site-title">Bone Explorers</div>
+      </div>
+
+      <div class="progress-wrap" id="progressWrap">
+        <span class="page-badge" id="pageBadge">Page 1 of 32</span>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill" style="width: 3%;"></div>
+        </div>
+      </div>
+
+      <div class="star-pill" id="starPill">Stars: 0</div>
+    </div>
+  </header>
+
+  <!-- Sticky Click-to-Hear Audio Bar -->
+  <section class="audio-bar" aria-label="Audio Controls">
+    <div class="audio-inner">
+      <div class="audio-buttons">
+        <button class="hear-main-btn" id="hearPageBtn" onclick="hearCurrentPage()">
+          <span id="hearPageIcon">🔊</span>
+          <span id="hearPageLabel">Hear Page</span>
+        </button>
+        <button class="audio-sub-btn" id="pauseBtn" onclick="togglePauseSpeech()" disabled>
+          Pause
+        </button>
+        <button class="audio-sub-btn" id="stopBtn" onclick="stopSpeech()" disabled>
+          Stop
+        </button>
+        <button class="audio-sub-btn" id="replayBtn" onclick="replaySpeech()">
+          Replay
+        </button>
+      </div>
+
+      <div class="voice-picker-wrap" title="Pick the smoothest voice on your device">
+        <span>Voice:</span>
+        <select id="voiceSelect" class="voice-select" onchange="onVoiceChange()"></select>
+        <button class="audio-sub-btn" style="padding: 4px 10px; font-size: 13px;" onclick="testSelectedVoice()">Test</button>
+      </div>
+
+      <div class="audio-status" id="audioStatus">Tap "Hear Page" to listen!</div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main id="appMain"></main>
+
+  <!-- Large Bottom Back / Next Navigation -->
+  <nav class="bottom-nav" id="bottomNav" aria-label="Page Navigation">
+    <button class="nav-big-btn btn-back" id="prevBtn" onclick="prevPage()">
+      Back
+    </button>
+    <button class="nav-big-btn btn-next" id="nextBtn" onclick="nextPage()">
+      Next
+    </button>
+  </nav>
+
+  <script>
+    // =========================================================================
+    // 1. VERIFIED WIKIMEDIA COMMONS REAL PHOTOGRAPHS & MEDICAL X-RAYS
+    // =========================================================================
+    const PHOTOS = {
+      fullSkeleton: {
+        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Human_Skeleton_-_Life_Science_Gallery_-_BITM_-_Kolkata_2010-06-25_6334.JPG?width=800",
+        credit: "Real human skeleton display (Science Gallery Museum)",
+        alt: "Full-body real human skeleton standing upright"
+      },
+      skullReal: {
+        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Human_skull.jpg?width=800",
+        credit: "Real human skull photograph (Osteology Museum)",
+        alt: "Close-up photograph of a real human skull"
+      },
+      skull3D: {
+        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Human_skull_-_anterior_view.png?width=800",
+        credit: "3D anatomical view of the human skull",
+        alt: "Front view of a human skull showing eye sockets and jaw"
+      },
+      chestXray: {
+        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Normal_posteroanterior_(PA)_chest_radiograph_(X-ray).jpg?width=800",
+        credit: "Real hospital chest X-ray showing rib cage, collarbones, and spine",
+        alt: "Real chest X-ray showing ribs curving around the heart and lungs"
+      },
+      spineReal: {
+        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Vertebral_column.jpg?width=800",
+        credit: "Real human spine (backbone) showing stacked vertebrae",
+        alt: "Photograph of a real human spinal column"
+      },
+      handXray: {
+        url: "https://commons.wikimedia.org/wiki/Special:FilePath/X-ray_of_hand.jpg?width=800",
+        credit: "Real X-ray of a human hand and wrist",
+        alt: "Real X-ray showing the 27 bones of a human hand and wrist"
+      },
+      kidHandXray: {
+        url: "https://commons.wikimedia.org/wiki/Special:FilePath/X-ray_of_hand,_where_bone_age_is_automatically_found_by_BoneXpert_software.jpg?width=800",
+        credit: "Real X-ray of a 7-year-old child's hand showing open growth gaps",
+        alt: "X-ray of a 7-year-old child's hand showing cartilage growth plates"
+      },
+      pelvisReal: {
+        url: "https://commons.wikimedia.org/wiki/Special:FilePath/HK_TST_Science_Museum_Bones_exhibit_32_%E7%9B%86%E9%AA%A8_Human_pelvis.JPG?width=800",
+        credit: "Real human pelvis (hip bone) in a science museum",
+        alt: "Photograph of a real human pelvis bone"
+      },
+      kneeXray: {
+        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Knee_plain_X-ray.jpg?width=800",
+        credit: "Real hospital X-ray of a human knee joint",
+        alt: "X-ray of a knee showing femur, kneecap, tibia, and fibula"
+      },
+      kneeSideXray: {
+        url: "https://commons.wikimedia.org/wiki/Special:FilePath/X-ray_of_a_normal_knee_by_lateral_projection.jpg?width=800",
+        credit: "Side-view X-ray of a knee showing the floating kneecap",
+        alt: "Side X-ray of a knee showing the patella kneecap in front"
+      },
+      femurCutReal: {
+        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Femur_(caput_femoris)_-_bone_structure_detail_(vertical_cut)_3.jpg?width=800",
+        credit: "Real sliced human thigh bone showing hard shell and honeycomb inside",
+        alt: "Real photograph of a sliced femur showing compact outer bone and spongy inside"
+      },
+      marrowReal: {
+        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Bone_Marrow.png?width=800",
+        credit: "Real sliced arm bone showing red and yellow bone marrow inside",
+        alt: "Photograph of cut bone showing red marrow and yellow marrow"
+      },
+      fractureXray: {
+        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Radiology_1300570_Nevit.jpg?width=800",
+        credit: "Real hospital X-ray of a cracked forearm bone (buckle fracture)",
+        alt: "X-ray of a fractured forearm bone"
+      },
+      catSkeleton: {
+        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Cat_skeleton.jpg?width=800",
+        credit: "Real cat skeleton in a veterinary museum",
+        alt: "Real skeleton of a cat showing flexible spine and tail bones"
+      },
+      birdSkeleton: {
+        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Bird_skeleton,_museum_in_Thompson_Yates_Building.jpg?width=800",
+        credit: "Real bird skeleton showing wing bones and large chest keel",
+        alt: "Real skeleton of a bird suspended in a museum"
+      },
+      giraffeSkeleton: {
+        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Giraffe_skeleton_(39921295781).jpg?width=800",
+        credit: "Real giraffe skeleton standing beside a giraffe",
+        alt: "Real giraffe skeleton showing giant neck bones"
+      },
+      trexSkeleton: {
+        url: "https://commons.wikimedia.org/wiki/Special:FilePath/FMNH_Tyrannosaurus_rex_Sue.jpg?width=800",
+        credit: "Real T. rex skeleton named Sue at the Field Museum",
+        alt: "Fossil skeleton of Sue the Tyrannosaurus rex"
+      }
+    };
+
+    // =========================================================================
+    // 2. 32 COMPLETE INTERACTIVE PAGES
+    // =========================================================================
+    const PAGES = [
+      {
+        id: 1,
+        topic: "Welcome to Bone Explorers",
+        title: "What Are Bones, Anyway?",
+        photo: PHOTOS.fullSkeleton,
+        hotspots: [
+          { id: "head", num: 1, label: "Skull Frame", x: 50, y: 11, theme: "theme-blue", info: "Your skull is like a built-in bike helmet protecting your brain!" },
+          { id: "chest", num: 2, label: "Rib Shield", x: 50, y: 31, theme: "theme-green", info: "Your ribs wrap around your heart and lungs like a protective cage." },
+          { id: "legs", num: 3, label: "Leg Pillars", x: 52, y: 72, theme: "theme-amber", info: "Your leg bones are thick pillars that hold up your whole body." }
+        ],
+        sentences: [
+          { target: "head", theme: "theme-blue", badge: "1. Built-In Frame", text: "Imagine a camping tent without its poles, or a house without wooden walls — it would just flop onto the ground like a giant pancake!" },
+          { target: "chest", theme: "theme-green", badge: "2. Body Armour", text: "Your skeleton is your body's super-strong inner frame, and without it, you would basically be a wobbly jellyfish on the floor." },
+          { target: "legs", theme: "theme-amber", badge: "3. Living Rock", text: "Even though bones look dry and hard like rocks in a museum, the bones inside you right now are totally alive, growing, and fixing themselves!" }
+        ],
+        funFact: "Pound for pound, healthy human bone is stronger than steel! A tiny block of bone the size of a matchbox could hold up a pickup truck.",
+        quiz: {
+          question: "What would happen if humans didn't have a skeleton?",
+          options: [
+            "We would flop on the floor like a giant jellyfish",
+            "We would bounce around like rubber basketballs",
+            "We would float up to the ceiling",
+            "Nothing at all would change"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Nailed it! Without bones holding us up, we'd be a squishy puddle of skin and muscles.",
+          retryFeedback: "Think about a tent with no poles! Tap the first choice."
+        }
+      },
+      {
+        id: 2,
+        topic: "Why We Need Bones",
+        title: "Your Skeleton's 4 Big Jobs",
+        photo: PHOTOS.chestXray,
+        hotspots: [
+          { id: "frame", num: 1, label: "1. Hold You Up", x: 50, y: 18, theme: "theme-blue", info: "Your spine and collarbones keep you standing tall." },
+          { id: "shield", num: 2, label: "2. Guard Organs", x: 38, y: 45, theme: "theme-green", info: "Ribs guard your squishy heart and lungs from bumps." },
+          { id: "move", num: 3, label: "3. Help You Move", x: 78, y: 32, theme: "theme-amber", info: "Muscles tug on arm bones like puppet strings so you can wave!" },
+          { id: "factory", num: 4, label: "4. Make Blood", x: 52, y: 70, theme: "theme-purple", info: "Inside bones is a jelly factory making brand-new blood cells." }
+        ],
+        sentences: [
+          { target: "frame", theme: "theme-blue", badge: "1. Shape & Support", text: "Job number one: your bones give your body its shape and hold you upright so you can sit, stand, and walk." },
+          { target: "shield", theme: "theme-green", badge: "2. Organ Guard", text: "Job number two: hard bones act like goalie pads around squishy organs like your brain, heart, and lungs." },
+          { target: "move", theme: "theme-amber", badge: "3. Movement Levers", text: "Job number three: your muscles pull on your bones like ropes on a crane so you can run, jump, and high-five." },
+          { target: "factory", theme: "theme-purple", badge: "4. Blood & Calcium Bank", text: "Job number four: the inside of your bones makes millions of fresh blood cells every second and stores minerals like calcium." }
+        ],
+        funFact: "Every time you breathe in, your rib cage swings up and out like a bucket handle to give your lungs extra room!",
+        quiz: {
+          question: "Which of these is NOT a job of your bones?",
+          options: [
+            "Digesting your pizza after lunch",
+            "Protecting your heart and brain",
+            "Making brand-new blood cells",
+            "Helping your muscles move your body"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Awesome! Your stomach digests pizza — your bones handle support, protection, movement, and blood!",
+          retryFeedback: "Check which job belongs to your tummy instead of your skeleton!"
+        }
+      },
+      {
+        id: 3,
+        topic: "Counting Bones",
+        title: "Why Do Babies Have More Bones Than Adults?",
+        photo: PHOTOS.kidHandXray,
+        hotspots: [
+          { id: "gaps", num: 1, label: "Squishy Growth Gaps", x: 46, y: 65, theme: "theme-blue", info: "See the dark gaps between wrist bones? That's flexible cartilage!" },
+          { id: "fingers", num: 2, label: "Growing Finger Bones", x: 45, y: 30, theme: "theme-green", info: "Kids' bones have special growing ends that slowly join together." }
+        ],
+        sentences: [
+          { target: "gaps", theme: "theme-blue", badge: "1. ~300 Baby Bones", text: "Here is a wild plot twist: when you were born as a tiny baby, you actually had around 300 bones, which is way more than a grown-up!" },
+          { target: "fingers", theme: "theme-green", badge: "2. 206 Adult Bones", text: "Many baby bones start out as bendy rubbery stuff called cartilage — the same stuff in the tip of your nose — and slowly fuse together like snapping small LEGO bricks into one big super-brick until an adult has 206 bones." }
+        ],
+        funFact: "Look at this real X-ray of a 7-year-old's hand! Those dark spaces at the ends of the finger bones are soft growth plates that haven't turned solid yet.",
+        quiz: {
+          question: "How many bones does a full-grown adult have?",
+          options: [
+            "206 bones",
+            "300 bones",
+            "50 bones",
+            "1,000 bones"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Boom! Babies start with about 300, and adults end up with 206 fused bones.",
+          retryFeedback: "Babies start around 300, then smaller pieces join together into 206!"
+        }
+      },
+      {
+        id: 4,
+        topic: "Where Are Your Bones?",
+        title: "Half Your Bones Are in Your Hands & Feet!",
+        photo: PHOTOS.handXray,
+        hotspots: [
+          { id: "wrist", num: 1, label: "8 Pebble Wrist Bones", x: 52, y: 76, theme: "theme-purple", info: "Your wrist alone has 8 tiny pebble-shaped bones!" },
+          { id: "palm", num: 2, label: "5 Palm Bones", x: 50, y: 54, theme: "theme-blue", info: "Five long bones stretch across the middle of your hand." },
+          { id: "tips", num: 3, label: "14 Finger Bones", x: 47, y: 24, theme: "theme-green", info: "Each finger has 3 bones, and your thumb has 2!" }
+        ],
+        sentences: [
+          { target: "wrist", theme: "theme-purple", badge: "1. 8 Wrist Pebbles", text: "If you count all 206 adult bones, more than half of them — 106 bones — are hiding right inside your hands and feet!" },
+          { target: "palm", theme: "theme-blue", badge: "2. 27 Bones Per Hand", text: "Each hand has 27 bones packed into your wrist, palm, and fingers so you can tie shoelaces, play piano, or grip a pencil." },
+          { target: "tips", theme: "theme-green", badge: "3. 26 Bones Per Foot", text: "Each foot has 26 bones working like shock-absorbing springs every time you run or jump." }
+        ],
+        funFact: "27 + 27 + 26 + 26 = 106 bones! That means your hands and feet own more than half of your entire skeleton.",
+        quiz: {
+          question: "How many bones are inside just ONE of your hands and wrists?",
+          options: [
+            "27 bones",
+            "5 bones",
+            "100 bones",
+            "2 bones"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Spot on! 27 bones in each hand lets your fingers wiggle in tons of directions.",
+          retryFeedback: "Count again! There are 8 in the wrist, 5 in the palm, and 14 in the fingers."
+        }
+      },
+      {
+        id: 5,
+        topic: "Interactive Skeleton Map",
+        title: "Tap the Real Skeleton to Explore!",
+        photo: PHOTOS.fullSkeleton,
+        hotspots: [
+          { id: "skull", num: 1, label: "Skull", x: 50, y: 10, theme: "theme-blue", info: "Skull (Cranium): 22 locked bones guarding your brain like a crash helmet." },
+          { id: "clavicle", num: 2, label: "Collarbone", x: 42, y: 21, theme: "theme-teal", info: "Collarbone (Clavicle): Keeps your shoulders wide so your arms can swing freely." },
+          { id: "ribs", num: 3, label: "Rib Cage", x: 52, y: 31, theme: "theme-green", info: "Ribs: 24 curved bones wrapping around your heart and lungs." },
+          { id: "humerus", num: 4, label: "Upper Arm", x: 35, y: 34, theme: "theme-purple", info: "Humerus: Your long upper-arm bone (yes, it sounds like 'humorous' — your funny bone!)." },
+          { id: "spine", num: 5, label: "Spine", x: 50, y: 41, theme: "theme-amber", info: "Spine: 33 stacked ring bones running down the middle of your back." },
+          { id: "pelvis", num: 6, label: "Pelvis (Hips)", x: 50, y: 49, theme: "theme-pink", info: "Pelvis: A sturdy bowl of bones connecting your upper body to your legs." },
+          { id: "femur", num: 7, label: "Thigh Bone", x: 45, y: 63, theme: "theme-blue", info: "Femur: The longest, heaviest, strongest bone in your whole body!" },
+          { id: "tibia", num: 8, label: "Shin Bone", x: 46, y: 82, theme: "theme-green", info: "Tibia: Your thick shin bone that carries your weight when you walk." }
+        ],
+        sentences: [
+          { target: "skull", theme: "theme-blue", badge: "1. Top to Bottom", text: "Welcome to the skeleton tour! Tap any glowing button on this real museum skeleton to see what each major bone does." },
+          { target: "ribs", theme: "theme-green", badge: "2. Middle Shield", text: "In the middle, your rib cage and spine team up to hold you tall and guard your heart and lungs." },
+          { target: "femur", theme: "theme-amber", badge: "3. Power Legs", text: "Down below, your pelvis and giant femur thigh bones power every sprint, kick, and leap!" }
+        ],
+        funFact: "Tap every pin on the skeleton picture! Clicking a pin also speaks its secret bone fact out loud.",
+        type: "explorer"
+      },
+      {
+        id: 6,
+        topic: "Head Protection",
+        title: "The Skull: Your Built-In Bike Helmet",
+        photo: PHOTOS.skullReal,
+        hotspots: [
+          { id: "cranium", num: 1, label: "Brain Dome", x: 52, y: 24, theme: "theme-blue", info: "8 curved dome plates lock together tightly around your squishy brain." },
+          { id: "sutures", num: 2, label: "Zig-Zag Seams", x: 64, y: 38, theme: "theme-purple", info: "See those squiggly lines? They're stitched seams where skull bones fused!" },
+          { id: "orbits", num: 3, label: "Eye Caves", x: 42, y: 50, theme: "theme-green", info: "Deep bony caves keep your eyeballs safe from bumps." },
+          { id: "jaw", num: 4, label: "Moving Jaw", x: 48, y: 80, theme: "theme-amber", info: "Your lower jaw (mandible) is the ONLY skull bone that moves when you talk or chew!" }
+        ],
+        sentences: [
+          { target: "cranium", theme: "theme-blue", badge: "1. 22 Puzzle Pieces", text: "Your skull looks like one solid bowling ball, right? Surprise — it is actually 22 separate bones locked together like a tight 3D jigsaw puzzle!" },
+          { target: "sutures", theme: "theme-purple", badge: "2. Wavy Stitch Lines", text: "Look closely at the side of this real skull and you can see squiggly zig-zag lines where the plates fused together as you grew." },
+          { target: "jaw", theme: "theme-amber", badge: "3. One Moving Part", text: "Twenty-one of your skull bones are glued totally still, while your bottom jaw hinges up and down so you can crunch apples and tell jokes." }
+        ],
+        funFact: "Even with a super-tough skull, your brain still needs a real bike helmet when you ride — double armour is always smarter!",
+        quiz: {
+          question: "Which bone in your skull is the ONLY one that can move?",
+          options: [
+            "Your lower jawbone",
+            "Your forehead bone",
+            "Your nose bridge",
+            "The back of your head"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Yes! Your lower jaw hinges open and shut thousands of times a day for talking and chewing.",
+          retryFeedback: "Wiggle your mouth! Which part of your head actually moves?"
+        }
+      },
+      {
+        id: 7,
+        topic: "Chest Armour",
+        title: "The Rib Cage: Curved Shield for Heart & Lungs",
+        photo: PHOTOS.chestXray,
+        hotspots: [
+          { id: "sternum", num: 1, label: "Breastbone", x: 50, y: 42, theme: "theme-purple", info: "Your sternum is a flat tie-shaped bone right down the middle of your chest." },
+          { id: "trueRibs", num: 2, label: "24 Curved Ribs", x: 33, y: 47, theme: "theme-blue", info: "12 ribs on the left + 12 ribs on the right = 24 curved bars!" },
+          { id: "floating", num: 3, label: "Floating Ribs", x: 67, y: 65, theme: "theme-amber", info: "Your bottom 2 pairs of ribs don't connect in front — they're 'floating' ribs!" }
+        ],
+        sentences: [
+          { target: "trueRibs", theme: "theme-blue", badge: "1. 12 Pairs of Ribs", text: "In this real chest X-ray, you can see 12 pairs of curved ribs wrapping around the chest like the bars of a birdcage." },
+          { target: "sternum", theme: "theme-purple", badge: "2. Front Breastbone", text: "Most ribs hook onto your spine in the back and attach to your flat breastbone in front using stretchy cartilage so your chest can expand." },
+          { target: "floating", theme: "theme-amber", badge: "3. Floating Bottom Ribs", text: "Your bottom two pairs of ribs only attach to your spine in the back, so doctors call them floating ribs!" }
+        ],
+        funFact: "Both boys and girls have the exact same number of ribs: 24 ribs (12 pairs)!",
+        quiz: {
+          question: "How many ribs do most humans have in total?",
+          options: [
+            "24 ribs (12 pairs)",
+            "10 ribs (5 pairs)",
+            "100 ribs (50 pairs)",
+            "2 ribs"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Right on! 12 on the left and 12 on the right makes 24 protective ribs.",
+          retryFeedback: "Count 12 pairs: 12 + 12 = 24!"
+        }
+      },
+      {
+        id: 8,
+        topic: "Your Flexible Backbone",
+        title: "The Spine: 33 Donut Bones in a Stack",
+        photo: PHOTOS.spineReal,
+        hotspots: [
+          { id: "neck", num: 1, label: "7 Neck Bones", x: 50, y: 14, theme: "theme-blue", info: "Your neck has 7 vertebrae — the exact same number as a giraffe's giant neck!" },
+          { id: "vertebrae", num: 2, label: "33 Stacked Rings", x: 52, y: 46, theme: "theme-green", info: "Each bone has a hole in the middle, like a stack of Life Savers candies." },
+          { id: "discs", num: 3, label: "Squishy Cushions", x: 48, y: 68, theme: "theme-amber", info: "Soft pads between bones act like shock absorbers when you jump." }
+        ],
+        sentences: [
+          { target: "vertebrae", theme: "theme-green", badge: "1. Stack of 33 Bones", text: "If your backbone were one giant broomstick, you couldn't bend over to tie your shoes — instead, it is a stack of 33 ring-shaped bones called vertebrae!" },
+          { target: "discs", theme: "theme-amber", badge: "2. Jelly-Donut Pads", text: "Between every pair of spine bones sits a squishy cushion pad that acts like bubble wrap when you jump off a swing." },
+          { target: "neck", theme: "theme-blue", badge: "3. Nerve Highway", text: "Running right through the middle tunnel of those 33 bones is your spinal cord — the super-fast message cable between your brain and your toes!" }
+        ],
+        funFact: "Because those squishy spine pads flatten slightly during the day from gravity, you are actually about 1 centimetre taller in the morning than at bedtime!",
+        quiz: {
+          question: "Why is your spine made of 33 small bones instead of 1 long bone?",
+          options: [
+            "So your back can bend, twist, and absorb jumps",
+            "So you can detach them like blocks",
+            "Because bones can't grow longer than a coin",
+            "So your spine makes ringing sounds"
+          ],
+          correctIndex: 0,
+          goodFeedback: "You got it! 33 stacked bones + squishy pads let you twist, bend, and bounce safely.",
+          retryFeedback: "Think about what happens if you try to bend a straight wooden ruler vs. a chain!"
+        }
+      },
+      {
+        id: 9,
+        topic: "Arm & Hand Bones",
+        title: "From Your Funny Bone to Your Fingertips",
+        photo: PHOTOS.handXray,
+        hotspots: [
+          { id: "forearm", num: 1, label: "2 Forearm Bones", x: 53, y: 92, theme: "theme-blue", info: "Your radius and ulna cross over each other when you twist your doorknob!" },
+          { id: "carpals", num: 2, label: "8 Wrist Bones", x: 52, y: 76, theme: "theme-purple", info: "Eight tiny wrist bones glide smoothly so you can wave." },
+          { id: "phalanges", num: 3, label: "Finger Bones", x: 44, y: 26, theme: "theme-green", info: "Finger and toe bones share the fun name 'phalanges' (fuh-LAN-jeez)." }
+        ],
+        sentences: [
+          { target: "forearm", theme: "theme-blue", badge: "1. Twisting Twin Bones", text: "Your upper arm has one big bone, while your lower arm has two parallel bones that actually criss-cross over each other every time you turn a doorknob!" },
+          { target: "carpals", theme: "theme-purple", badge: "2. 8 Wrist Marbles", text: "At the end of your forearm sit 8 pebble-sized wrist bones that let your hand bend in circles." },
+          { target: "phalanges", theme: "theme-green", badge: "3. Say 'Phalanges!'", text: "Your finger bones are called phalanges — try saying 'fuh-LAN-jeez' three times fast while wiggling your fingers!" }
+        ],
+        funFact: "When you hit your 'funny bone,' you aren't actually hitting a bone! You're bumping a sensitive nerve right behind your elbow.",
+        quiz: {
+          question: "What happens to the two bones in your lower arm when you twist your hand over?",
+          options: [
+            "They cross over each other like an X",
+            "They disappear for a second",
+            "They stretch twice as long",
+            "They lock together forever"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Yes! Put one hand on your forearm and twist your wrist — you can actually feel the bones rolling over each other!",
+          retryFeedback: "Try twisting your forearm right now and feel how the two bones cross!"
+        }
+      },
+      {
+        id: 10,
+        topic: "Hips & Longest Bone",
+        title: "The Pelvis & Femur: Powerhouse of Your Legs",
+        photo: PHOTOS.pelvisReal,
+        hotspots: [
+          { id: "bowl", num: 1, label: "Hip Bowl (Pelvis)", x: 50, y: 38, theme: "theme-pink", info: "Your pelvis is shaped like a wide superhero belt that cradles your tummy organs." },
+          { id: "socket", num: 2, label: "Deep Hip Socket", x: 30, y: 58, theme: "theme-blue", info: "The round top of your thigh bone snaps right into this deep cup!" },
+          { id: "base", num: 3, label: "Spine Anchor", x: 50, y: 22, theme: "theme-amber", info: "Your spine sits right on top of the back of your pelvis." }
+        ],
+        sentences: [
+          { target: "bowl", theme: "theme-pink", badge: "1. The Hip Bowl", text: "Look at this real human pelvis from a science museum — it is shaped like a big curved bowl that holds up your spine and cradles your lower organs." },
+          { target: "socket", theme: "theme-blue", badge: "2. Ball-and-Socket Cup", text: "On each side of the pelvis is a deep round cup where the top of your thigh bone — called the femur — plugs in like a joystick." },
+          { target: "base", theme: "theme-amber", badge: "3. Record-Breaker Femur", text: "Your femur is the longest and strongest bone in your entire body, stretching all the way from your hip down to your knee!" }
+        ],
+        funFact: "Your femur makes up about one-quarter of your total height! And the smallest bone in your body is the stirrup bone inside your ear — smaller than a grain of rice!",
+        quiz: {
+          question: "Which bone is the LONGEST and STRONGEST bone in the human body?",
+          options: [
+            "The femur (thigh bone)",
+            "The stirrup bone in your ear",
+            "Your pinky finger bone",
+            "Your collarbone"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Champion answer! The femur is the heavyweight champ of your skeleton.",
+          retryFeedback: "Think of the biggest bone in your upper leg!"
+        }
+      },
+      {
+        id: 11,
+        topic: "Knees & Feet",
+        title: "Your Floating Kneecap & Springy Feet",
+        photo: PHOTOS.kneeSideXray,
+        hotspots: [
+          { id: "femurEnd", num: 1, label: "Bottom of Femur", x: 50, y: 24, theme: "theme-blue", info: "The rounded bottom of your thigh bone meets your shin bone here." },
+          { id: "patella", num: 2, label: "Kneecap Shield", x: 29, y: 47, theme: "theme-amber", info: "See that triangle bone in front? That's your patella (kneecap)!" },
+          { id: "shin", num: 3, label: "Tibia & Fibula", x: 54, y: 76, theme: "theme-green", info: "Two lower-leg bones: the thick tibia in front and thin fibula beside it." }
+        ],
+        sentences: [
+          { target: "patella", theme: "theme-amber", badge: "1. Floating Shield", text: "Check out this real side-view X-ray of a knee — see that little triangle bone sitting right in front? That's your kneecap, floating inside a tough tendon!" },
+          { target: "femurEnd", theme: "theme-blue", badge: "2. Knee Guard", text: "Your kneecap acts like a sliding shield protecting your knee joint whenever you kneel on the floor or bump into a table." },
+          { target: "shin", theme: "theme-green", badge: "3. Arched Foot Springs", text: "Below your knee, your thick shin bone connects down to 26 foot bones curved into an arch that bounces like a trampoline step!" }
+        ],
+        funFact: "Babies are actually born with soft cartilage kneecaps that don't harden into solid bone until kids are around 3 to 5 years old!",
+        quiz: {
+          question: "Look at the side X-ray of the knee. What is the small triangle bone in front called?",
+          options: [
+            "The kneecap (patella)",
+            "The skull",
+            "The rib cage",
+            "The jawbone"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Sharp eyes! That floating triangle shield is your kneecap.",
+          retryFeedback: "Look at the front of the knee joint in the X-ray!"
+        }
+      },
+      {
+        id: 12,
+        topic: "Inside a Real Bone",
+        title: "Why Aren't Bones Solid Like Bowling Balls?",
+        photo: PHOTOS.femurCutReal,
+        hotspots: [
+          { id: "compact", num: 1, label: "Hard Outer Wall", x: 24, y: 58, theme: "theme-blue", info: "Compact bone is smooth, dense, and super tough like a castle wall." },
+          { id: "spongy", num: 2, label: "Honeycomb Inside", x: 54, y: 40, theme: "theme-amber", info: "Spongy bone has tiny air pockets like a honeycomb or crunchy Aero bar!" }
+        ],
+        sentences: [
+          { target: "compact", theme: "theme-blue", badge: "1. Castle-Wall Outside", text: "This real photograph shows a human thigh bone sliced right down the middle — the outside ring is smooth, super-dense bone built like a fortress wall." },
+          { target: "spongy", theme: "theme-amber", badge: "2. Honeycomb Inside", text: "Look at the inside top of the bone: it is full of tiny criss-crossing holes like a beehive honeycomb or a bubbly chocolate bar! That makes bones super strong AND light enough for you to run fast." }
+        ],
+        funFact: "If your bones were solid rock all the way through, your skeleton would be so heavy you could barely lift your feet off the ground!",
+        quiz: {
+          question: "Why does the inside of a bone look like a honeycomb with tiny holes?",
+          options: [
+            "It keeps bones strong AND lightweight so we can move fast",
+            "Because tiny mice live inside bones",
+            "Because the bone is melting",
+            "So water can leak out"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Genius! Honeycomb triangles are one of nature's strongest, lightest designs.",
+          retryFeedback: "Think about what happens if a bone is heavy solid rock vs. strong honeycomb!"
+        }
+      },
+      {
+        id: 13,
+        topic: "Bone Marrow Factory",
+        title: "Your Bones Are a 24/7 Blood Cell Factory!",
+        photo: PHOTOS.marrowReal,
+        hotspots: [
+          { id: "redMarrow", num: 1, label: "Red Marrow Factory", x: 46, y: 34, theme: "theme-pink", info: "Red marrow makes red blood cells, white germ-fighters, and platelets!" },
+          { id: "yellowMarrow", num: 2, label: "Yellow Energy Marrow", x: 50, y: 74, theme: "theme-amber", info: "Yellow marrow stores emergency fat energy inside long bones." }
+        ],
+        sentences: [
+          { target: "redMarrow", theme: "theme-pink", badge: "1. Red Blood Factory", text: "Tucked inside the spongy pockets of this real sliced bone is soft jelly called red bone marrow — your body's non-stop blood factory!" },
+          { target: "yellowMarrow", theme: "theme-amber", badge: "2. Three Blood Teams", text: "Every single second, your red marrow cranks out over 2 million fresh red blood cells to carry oxygen, white blood cells to zap germs, and sticky platelets to plug up scraped knees!" }
+        ],
+        funFact: "By the time you finish listening to this sentence, your bone marrow has already made about 10 million brand-new blood cells!",
+        quiz: {
+          question: "What amazing thing happens inside your red bone marrow every second?",
+          options: [
+            "It makes millions of brand-new blood cells",
+            "It makes apple juice",
+            "It grows hair",
+            "It stores your snacks"
+          ],
+          correctIndex: 0,
+          goodFeedback: "You nailed it! Bone marrow is your body's 24/7 blood cell factory.",
+          retryFeedback: "Check what red marrow cranks out millions of every second!"
+        }
+      },
+      {
+        id: 14,
+        topic: "Muscles + Bones Team",
+        title: "Muscles Can Only Pull, Never Push!",
+        photo: PHOTOS.fullSkeleton,
+        hotspots: [
+          { id: "bicep", num: 1, label: "Front Pull (Biceps)", x: 33, y: 31, theme: "theme-pink", info: "When your front arm muscle pulls, your elbow bends up!" },
+          { id: "tricep", num: 2, label: "Back Pull (Triceps)", x: 67, y: 31, theme: "theme-blue", info: "When your back arm muscle pulls, your arm straightens back out!" },
+          { id: "tendon", num: 3, label: "Tough Tendon Straps", x: 32, y: 41, theme: "theme-amber", info: "Tendons are like super-strong bungee straps gluing muscle to bone." }
+        ],
+        sentences: [
+          { target: "tendon", theme: "theme-amber", badge: "1. Puppet Strings", text: "Bones are awesome, but they can't move on their own — they need muscles attached by tough cords called tendons to tug them like puppet strings!" },
+          { target: "bicep", theme: "theme-pink", badge: "2. Pulls Only!", text: "Here is a neat rule: muscles can ONLY pull like a rope, never push! So your front arm muscle pulls your forearm up to bend your elbow." },
+          { target: "tricep", theme: "theme-blue", badge: "3. Partner Teamwork", text: "Then, to straighten your arm back out, the front muscle relaxes while the back arm muscle pulls the other way!" }
+        ],
+        funFact: "Feel the back of your ankle right above your heel — that thick cord is your Achilles tendon, the strongest tendon in your body!",
+        quiz: {
+          question: "How do muscles move your bones?",
+          options: [
+            "Muscles pull on bones like ropes — they can never push",
+            "Muscles push bones with tiny springs",
+            "Bones have tiny motors inside them",
+            "Muscles blow air at bones"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Spot on! Muscles work in pairs that take turns pulling.",
+          retryFeedback: "Remember the rope rule: muscles can only pull, never push!"
+        }
+      },
+      {
+        id: 15,
+        topic: "How We Bend",
+        title: "Joints: Where Two Bones Meet",
+        photo: PHOTOS.kneeXray,
+        hotspots: [
+          { id: "gap", num: 1, label: "Smooth Cushion Gap", x: 49, y: 48, theme: "theme-blue", info: "See the dark gap in the X-ray? That's slippery cartilage so bones don't scrape!" },
+          { id: "ligaments", num: 2, label: "Safety Seatbelts", x: 66, y: 48, theme: "theme-green", info: "Tough straps called ligaments hold the two bones together like seatbelts." }
+        ],
+        sentences: [
+          { target: "gap", theme: "theme-blue", badge: "1. Slippery Cushion", text: "Anywhere two bones meet is called a joint — and in this knee X-ray, you can actually see a dark space between the bones filled with super-slick cartilage!" },
+          { target: "ligaments", theme: "theme-green", badge: "2. Natural Oil & Straps", text: "Your joints also make their own slippery fluid — like oil on a squeaky bike chain — while tough straps called ligaments hold the bones safely together." }
+        ],
+        funFact: "Without smooth cartilage and joint oil, your bones would grind together like two pieces of sandpaper every time you took a step!",
+        quiz: {
+          question: "What keeps two bones from grinding together inside a joint?",
+          options: [
+            "Smooth cartilage and slippery joint fluid",
+            "Velcro strips",
+            "Glue and staples",
+            "Dry sand"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Yes! Slippery cartilage and natural joint oil make every bend smooth and painless.",
+          retryFeedback: "Think about what acts like smooth cushion + bike-chain oil inside a knee!"
+        }
+      },
+      {
+        id: 16,
+        topic: "4 Types of Joints",
+        title: "Hinges, Joysticks, Swivels & Gliders!",
+        photo: PHOTOS.fullSkeleton,
+        hotspots: [
+          { id: "pivot", num: 1, label: "Swivel Joint (Neck)", x: 50, y: 15, theme: "theme-purple", info: "Pivot Joint: Lets your head turn side-to-side like a swivel chair!" },
+          { id: "ball", num: 2, label: "Joystick Joint (Shoulder)", x: 37, y: 24, theme: "theme-blue", info: "Ball-and-Socket: Swings your arm in giant 360-degree circles!" },
+          { id: "hinge", num: 3, label: "Door-Hinge Joint (Knee)", x: 46, y: 73, theme: "theme-green", info: "Hinge Joint: Opens and closes one way, just like your bedroom door!" },
+          { id: "gliding", num: 4, label: "Gliding Joint (Wrist)", x: 31, y: 51, theme: "theme-amber", info: "Gliding Joint: Flat bones slide past each other like shuffling cards." }
+        ],
+        sentences: [
+          { target: "hinge", theme: "theme-green", badge: "1. Door Hinge (Elbows & Knees)", text: "Your elbows and knees are hinge joints — they swing back and forth in one direction just like a bedroom door hinge!" },
+          { target: "ball", theme: "theme-blue", badge: "2. Video Game Joystick (Hips & Shoulders)", text: "Your shoulders and hips are ball-and-socket joints — a round bone ball spins inside a cup so you can windmill your arms in full circles." },
+          { target: "pivot", theme: "theme-purple", badge: "3. Swivel & Slide (Neck & Wrists)", text: "Meanwhile, your neck has a swivel joint for shaking your head 'no,' and your wrists have gliding bones that slide smoothly past one another!" }
+        ],
+        funFact: "Try swinging your arm in a big circle (ball-and-socket), then try swinging your knee in a circle — your knee won't go sideways because it's a one-way hinge!",
+        quiz: {
+          question: "Which joint moves in full circles just like a video game thumbstick?",
+          options: [
+            "A ball-and-socket joint (like your shoulder or hip)",
+            "A door-hinge joint (like your knee)",
+            "A glued skull seam",
+            "Your rib cage"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Awesome! Ball-and-socket joints in your shoulders and hips give you full-circle motion.",
+          retryFeedback: "Which joint has a round ball sitting inside a cup so it spins all around?"
+        }
+      },
+      {
+        id: 17,
+        topic: "Growing Taller",
+        title: "How Do Bones Grow Longer?",
+        photo: PHOTOS.kidHandXray,
+        hotspots: [
+          { id: "growthPlate", num: 1, label: "Growth Plates", x: 45, y: 38, theme: "theme-blue", info: "Those dark stripes near the ends of kids' bones are active growth plates!" },
+          { id: "wristGrow", num: 2, label: "Growing Wrist Bones", x: 52, y: 74, theme: "theme-green", info: "New cartilage forms here and slowly hardens into solid bone." }
+        ],
+        sentences: [
+          { target: "growthPlate", theme: "theme-blue", badge: "1. Secret Growth Zones", text: "You don't grow taller from the middle of your bones — instead, kids have special soft spots near the ends of long bones called growth plates!" },
+          { target: "wristGrow", theme: "theme-green", badge: "2. Cartilage Turns to Bone", text: "Your body keeps adding fresh rubbery cartilage at those growth plates and turning it into solid bone, until around age 18 to 20 when the plates close up." }
+        ],
+        funFact: "Doctors can look at an X-ray of a kid's wrist growth plates to tell how much growing time they still have left!",
+        quiz: {
+          question: "Where does a kid's bone actually grow longer?",
+          options: [
+            "At soft growth plates near the ends of the bone",
+            "Only at the tips of your fingernails",
+            "Bones never grow — they just stretch like taffy",
+            "Inside your ears"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Nailed it! Growth plates near the ends of your bones add new length while you sleep and eat healthy food.",
+          retryFeedback: "Look at the dark stripes near the ends of the bones in the kid's hand X-ray!"
+        }
+      },
+      {
+        id: 18,
+        topic: "Bone Repair Crew",
+        title: "How Broken Bones Heal Themselves",
+        photo: PHOTOS.fractureXray,
+        hotspots: [
+          { id: "crack", num: 1, label: "Bone Crack (Fracture)", x: 43, y: 46, theme: "theme-pink", info: "See the bump and crack in this forearm X-ray? Doctors call a break a fracture." },
+          { id: "cast", num: 2, label: "Why Casts Help", x: 64, y: 46, theme: "theme-blue", info: "A cast holds both ends still while your body's repair crew builds new bone." }
+        ],
+        sentences: [
+          { target: "crack", theme: "theme-pink", badge: "1. Tiny Construction Crew", text: "If you wipe out on a skateboard and crack a bone — called a fracture — your body immediately calls in a microscopic construction crew!" },
+          { target: "cast", theme: "theme-blue", badge: "2. Bumpy Bridge to Smooth Bone", text: "First, a soft cushion forms over the crack, then bone-builder cells lay down a bumpy bridge of new bone while a cast keeps everything lined up straight." }
+        ],
+        funFact: "Kids' bones heal WAY faster than adults' bones — often in just 4 to 6 weeks — because kids' bone-builder crews are already working overtime to help you grow!",
+        quiz: {
+          question: "Why do doctors put a cast on a broken arm?",
+          options: [
+            "To hold the bone ends still so the body can glue them together straight",
+            "Because casts have magic healing rays inside",
+            "So nobody can sign it with markers",
+            "To make the arm heavier"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Exactly! Your body heals the bone itself — the cast just holds the pieces still.",
+          retryFeedback: "Think about gluing two pieces of a broken toy together — why do you hold them still?"
+        }
+      },
+      {
+        id: 19,
+        topic: "See-Through Camera",
+        title: "How Do X-Rays See Inside You?",
+        photo: PHOTOS.handXray,
+        hotspots: [
+          { id: "whiteBone", num: 1, label: "Bright White = Dense Bone", x: 48, y: 48, theme: "theme-blue", info: "Calcium in bones blocks X-ray beams, casting a bright white shadow!" },
+          { id: "darkSkin", num: 2, label: "Dark Shadow = Soft Skin", x: 25, y: 45, theme: "theme-purple", info: "X-rays zip right through soft skin and muscle, leaving a dark shadow." }
+        ],
+        sentences: [
+          { target: "darkSkin", theme: "theme-purple", badge: "1. Invisible Light Beams", text: "In 1895, a scientist named Wilhelm Roentgen accidentally discovered invisible light waves that zip straight through skin and clothes — he called them X-rays!" },
+          { target: "whiteBone", theme: "theme-blue", badge: "2. Bone Shadows", text: "Because your bones are packed with dense calcium, they block the X-ray beams and show up bright white on the screen while your soft skin looks shadowy gray!" }
+        ],
+        funFact: "The very first X-ray photo ever taken in 1895 was of Wilhelm Roentgen's wife's hand — you could even see her wedding ring on her finger!",
+        quiz: {
+          question: "Why do bones look bright white on an X-ray picture?",
+          options: [
+            "Dense calcium in bones blocks the X-ray beams like a shadow",
+            "Doctors paint bones white before taking the photo",
+            "Bones glow in the dark",
+            "X-rays only work on white clothes"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Bingo! Bones block X-ray waves just like your hand blocks a flashlight to make a shadow.",
+          retryFeedback: "Think about how bones block the invisible beams while skin lets them pass through!"
+        }
+      },
+      {
+        id: 20,
+        topic: "X-Ray Detective Lab",
+        title: "Can You Spot the Injury on This Real X-Ray?",
+        photo: PHOTOS.fractureXray,
+        hotspots: [
+          { id: "clueA", num: 1, label: "Check Here: Forearm Bump", x: 42, y: 47, theme: "theme-pink", info: "Look closely at the outer edge of that bone — see the little buckle bump?" },
+          { id: "clueB", num: 2, label: "Wrist Bones Below", x: 52, y: 74, theme: "theme-blue", info: "These small wrist bones below look totally normal." }
+        ],
+        sentences: [
+          { target: "clueA", theme: "theme-pink", badge: "1. Put on Your Doctor Coat", text: "Time to play X-ray detective! Look closely at the two long forearm bones in this real hospital X-ray." },
+          { target: "clueB", theme: "theme-blue", badge: "2. Spot the Buckle", text: "Kids' bones are slightly bendy like green tree twigs, so when a kid falls on an outstretched hand, the bone sometimes buckles with a small bump instead of snapping in half!" }
+        ],
+        funFact: "Doctors actually call this kid injury a 'buckle fracture' because the side of the bone buckles outward like a bent drinking straw!",
+        quiz: {
+          question: "What did you spot on this real hospital X-ray?",
+          options: [
+            "A cracked/buckled forearm bone",
+            "A swallowed coin in a stomach",
+            "A broken ankle",
+            "A dinosaur tooth"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Dr. Bone Explorer reporting for duty! You spotted the forearm buckle fracture.",
+          retryFeedback: "Look at Pin 1 on the forearm bone in the middle of the X-ray!"
+        }
+      },
+      {
+        id: 21,
+        topic: "Super-Bone Fuel",
+        title: "How to Build Titanium-Tough Bones",
+        photo: PHOTOS.femurCutReal,
+        hotspots: [
+          { id: "calcium", num: 1, label: "Calcium Bricks", x: 25, y: 55, theme: "theme-blue", info: "Milk, yogurt, cheese, broccoli, and tofu give bones hard calcium bricks!" },
+          { id: "sunshine", num: 2, label: "Vitamin D + Jumping", x: 55, y: 38, theme: "theme-amber", info: "Sunshine Vitamin D helps absorb calcium, and jumping tells bones to pack thicker!" }
+        ],
+        sentences: [
+          { target: "calcium", theme: "theme-blue", badge: "1. Calcium + Vitamin D", text: "Your childhood is the #1 time in your whole life to pack calcium bricks into your bones — foods like milk, yogurt, cheese, leafy greens, and fortified juice are bone gold!" },
+          { target: "sunshine", theme: "theme-amber", badge: "2. Jump, Run & Wear Helmets", text: "Sunshine helps your skin make Vitamin D (the key that unlocks calcium), and jumping, running, and dancing tell your bones to grow even thicker and stronger!" }
+        ],
+        funFact: "Astronauts floating in zero-gravity space lose bone strength because they aren't stomping on the ground — so they have to strap onto space treadmills for 2 hours every day!",
+        quiz: {
+          question: "Which combo makes your bones grow super strong?",
+          options: [
+            "Calcium-rich foods, Vitamin D, and jumping/running games",
+            "Sitting on the couch all day eating candy",
+            "Never going outside in the daylight",
+            "Skipping helmets on your bike"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Super-bone formula unlocked! Calcium + Vitamin D + active play = awesome bones.",
+          retryFeedback: "Pick the healthy foods + active play option!"
+        }
+      },
+      {
+        id: 22,
+        topic: "Animal Skeletons: Cats",
+        title: "Why Can Cats Squeeze Through Tiny Gaps?",
+        photo: PHOTOS.catSkeleton,
+        hotspots: [
+          { id: "catSpine", num: 1, label: "Super-Bendy Spine", x: 52, y: 32, theme: "theme-amber", info: "Cats have extra-stretchy cushions between spine bones so they twist mid-air!" },
+          { id: "catCollar", num: 2, label: "Floating Collarbone", x: 28, y: 44, theme: "theme-blue", info: "A cat's tiny collarbone floats in muscle, letting its shoulders squish narrow!" },
+          { id: "catTail", num: 3, label: "20+ Tail Bones", x: 85, y: 24, theme: "theme-green", info: "A cat's tail is an extension of its spine used like a tightrope balance pole." }
+        ],
+        sentences: [
+          { target: "catCollar", theme: "theme-blue", badge: "1. Secret Shoulder Trick", text: "Look at this real cat skeleton — unlike humans with wide locked collarbones, a cat has tiny free-floating collarbones so anywhere its head fits, its whole body can squeeze through!" },
+          { target: "catSpine", theme: "theme-amber", badge: "2. 230+ Bones", text: "Cats also have about 230 to 250 bones, including extra-flexible back bones and around 20 tail bones that help them flip right-side-up in mid-air!" }
+        ],
+        funFact: "Humans actually have a tiny leftover tailbone at the very bottom of our spine called the coccyx (say 'KOK-siks')!",
+        quiz: {
+          question: "What skeletal trick helps a cat squeeze through super narrow spaces?",
+          options: [
+            "Tiny free-floating collarbones and an extra-bendy spine",
+            "Cats have zero bones at all",
+            "Cats have wheels instead of paws",
+            "Cats have square skulls"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Purr-fect! Free-floating collarbones let cats squish their shoulders narrow.",
+          retryFeedback: "Check Pin 2 on the cat skeleton!"
+        }
+      },
+      {
+        id: 23,
+        topic: "Animal Skeletons: Birds & Giraffes",
+        title: "Hollow Bird Bones & Giant Giraffe Necks!",
+        photo: PHOTOS.giraffeSkeleton,
+        hotspots: [
+          { id: "giraffeNeck", num: 1, label: "7 Giant Neck Bones", x: 65, y: 24, theme: "theme-amber", info: "Believe it or not, a giraffe has ONLY 7 neck bones — just each one is huge!" },
+          { id: "giraffeLegs", num: 2, label: "Stilt-Like Leg Bones", x: 54, y: 74, theme: "theme-blue", info: "Long leg bones let giraffes reach treetop leaves and outrun lions." }
+        ],
+        sentences: [
+          { target: "giraffeNeck", theme: "theme-amber", badge: "1. Giraffe Surprise", text: "Check out this towering giraffe skeleton standing next to a giraffe — you'd guess it has 100 neck bones, right? Nope! It has just 7 neck bones, the exact same number as you, except each bone is as long as a skateboard!" },
+          { target: "giraffeLegs", theme: "theme-blue", badge: "2. Bird Flight Trick", text: "Meanwhile, birds pull off the opposite trick: many of their bones are hollow with criss-cross struts inside, making them feather-light so they can soar through the sky!" }
+        ],
+        funFact: "Almost every mammal on Earth — from a tiny mouse to a human to a giant giraffe — has 7 neck bones!",
+        quiz: {
+          question: "How many neck bones does a towering giraffe have?",
+          options: [
+            "7 neck bones — the exact same number as a human!",
+            "70 neck bones",
+            "1 neck bone",
+            "0 neck bones"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Mind-blowing, right?! Just 7 super-sized neck vertebrae!",
+          retryFeedback: "Look at Pin 1 on the giraffe skeleton — same number as humans!"
+        }
+      },
+      {
+        id: 24,
+        topic: "Dinosaur Bone Detectives",
+        title: "What Giant Fossil Bones Tell Us!",
+        photo: PHOTOS.trexSkeleton,
+        hotspots: [
+          { id: "trexSkull", num: 1, label: "1.5-Metre Skull", x: 24, y: 25, theme: "theme-amber", info: "Sue's giant skull had massive jaw muscles and banana-sized teeth!" },
+          { id: "trexRibs", num: 2, label: "Barrel Rib Cage", x: 52, y: 42, theme: "theme-green", info: "Scientists even found healed broken ribs on Sue's skeleton!" },
+          { id: "trexTail", num: 3, label: "Counter-Balance Tail", x: 84, y: 34, theme: "theme-blue", info: "A heavy bony tail balanced out Sue's giant head so she wouldn't tip forward." }
+        ],
+        sentences: [
+          { target: "trexSkull", theme: "theme-amber", badge: "1. Meet Sue the T. rex", text: "This real fossil skeleton is named Sue — one of the biggest, most complete Tyrannosaurus rex skeletons ever dug out of the rock!" },
+          { target: "trexRibs", theme: "theme-green", badge: "2. Clues Frozen in Stone", text: "Dinosaur bone detectives study bumps, tooth marks, and healed cracks on fossil bones like clues in a mystery book to figure out how dinosaurs walked, ate, and battled!" }
+        ],
+        funFact: "Even after 67 million years in the ground, scientists can count tiny growth rings inside dinosaur leg bones — just like tree rings — to tell how old the dinosaur was!",
+        quiz: {
+          question: "How can dinosaur bone detectives tell if a T. rex survived an injury millions of years ago?",
+          options: [
+            "By spotting bumpy healed bone bridges on its fossil ribs or legs",
+            "By reading the dinosaur's diary",
+            "By checking old photographs",
+            "Dinosaur bones never healed"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Detective skills 10/10! Healed bone bumps stay visible even when bones turn into fossils.",
+          retryFeedback: "Remember how healing bones leave a bumpy bridge? Scientists spot those on fossils!"
+        }
+      },
+      {
+        id: 25,
+        topic: "Weird & Wonderful Facts",
+        title: "5 Wild Bone Facts to Blow Your Friends' Minds",
+        photo: PHOTOS.skull3D,
+        hotspots: [
+          { id: "earBone", num: 1, label: "Rice-Sized Ear Bone", x: 68, y: 54, theme: "theme-purple", info: "Hidden deep inside your ear are 3 tiny bones — the smallest is 3 millimetres!" },
+          { id: "teeth", num: 2, label: "Teeth Aren't Bones!", x: 48, y: 74, theme: "theme-amber", info: "Surprise! Teeth look like bones, but they're actually made of harder enamel." }
+        ],
+        sentences: [
+          { target: "earBone", theme: "theme-purple", badge: "1. Tiny Sound Hammer", text: "Fact one: the smallest bone in your body is the stirrup bone deep inside your ear — it is only 3 millimetres long, smaller than a grain of rice, and vibrates so you can hear music!" },
+          { target: "teeth", theme: "theme-amber", badge: "2. Teeth Twist!", text: "Fact two: even though your teeth sit in your jaw, teeth are NOT bones! They are coated in enamel — the hardest stuff in your whole body — and can't heal themselves like bones do." }
+        ],
+        funFact: "Another wild fact: your hyoid bone under your tongue is the ONLY bone in your body that doesn't connect to any other bone — it just hangs in muscle!",
+        quiz: {
+          question: "True or False: Your teeth are actually bones.",
+          options: [
+            "False — teeth are coated in enamel and are not bones",
+            "True — teeth are made of bone marrow"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Gotcha! Teeth are super tough, but they're made of enamel and dentin, not bone.",
+          retryFeedback: "Check Pin 2 on the 3D skull!"
+        }
+      },
+      {
+        id: 26,
+        topic: "Movement Challenge #1",
+        title: "20-Second Skeleton Joint Freeze!",
+        photo: PHOTOS.fullSkeleton,
+        hotspots: [
+          { id: "arms", num: 1, label: "Shoulder Circles", x: 35, y: 26, theme: "theme-blue", info: "Windmill your ball-and-socket shoulder joints!" },
+          { id: "knees", num: 2, label: "Knee Hinges", x: 46, y: 73, theme: "theme-green", info: "March with high knees using your hinge joints!" }
+        ],
+        sentences: [
+          { target: "arms", theme: "theme-blue", badge: "1. Stand Up & Stretch", text: "Time to give your joints some natural oil! Stand up beside your desk and get ready for a 20-second skeleton workout." },
+          { target: "knees", theme: "theme-green", badge: "2. Move & Freeze", text: "Hit the Start Timer button, do big shoulder circles and high-knee marches for 20 seconds, and freeze like a museum skeleton when the buzzer hits zero!" }
+        ],
+        funFact: "Every time you move your joints, fresh slippery fluid washes over your cartilage like a mini car wash for your bones!",
+        type: "movement",
+        challengeText: "Do big shoulder circles + high-knee marches, then FREEZE like a skeleton at 0!"
+      },
+      {
+        id: 27,
+        topic: "True or False Challenge",
+        title: "Bone Fact or Total Baloney?",
+        photo: PHOTOS.birdSkeleton,
+        hotspots: [
+          { id: "birdWing", num: 1, label: "Bird Wing Bones", x: 26, y: 32, theme: "theme-blue", info: "Birds have arm bones like us, just shaped for feathers!" },
+          { id: "birdKeel", num: 2, label: "Big Chest Fin", x: 52, y: 58, theme: "theme-amber", info: "That giant chest bone holds powerful flapping muscles." }
+        ],
+        sentences: [
+          { target: "birdWing", theme: "theme-blue", badge: "1. Test Your Brain", text: "Think you know your bones? Read or hear this statement and decide if it is 100% True Science or Total Baloney!" },
+          { target: "birdKeel", theme: "theme-amber", badge: "2. Think Carefully", text: "Statement: A human baby has MORE bones than an adult, AND a giraffe has the exact same number of neck bones as a human." }
+        ],
+        funFact: "Look at this real bird skeleton — its huge chest bone (called a keel) acts like a boat's fin to anchor super-strong flying muscles!",
+        quiz: {
+          question: "True or False: Babies have more bones than adults, AND giraffes have 7 neck bones just like humans.",
+          options: [
+            "100% TRUE! Both facts are real science!",
+            "Total Baloney! Both facts are fake!"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Double truth! Babies start with ~300 bones, and giraffes have 7 giant neck vertebrae.",
+          retryFeedback: "Both parts are actually true! Tap the first button."
+        }
+      },
+      {
+        id: 28,
+        topic: "Guess-the-Bone Riddle",
+        title: "Riddle
