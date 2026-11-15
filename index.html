@@ -19,9 +19,7 @@
       --purple: #7c3aed;
       --purple-soft: #ede9fe;
       --teal: #0d9488;
-      --teal-soft: #ccfbf1;
       --pink: #db2777;
-      --pink-soft: #fce7f3;
       --text: #0f172a;
       --muted: #475569;
       --border: #cbd5e1;
@@ -42,10 +40,10 @@
       display: flex;
       flex-direction: column;
       font-size: 19px;
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
-    /* Top Header Bar (Clean: Home, Title, Progress, Stars — NO jump ahead) */
+    /* Top Header Bar (Home, Title, Progress, Stars — no jump-ahead tabs) */
     .top-bar {
       background: #ffffff;
       border-bottom: 3px solid #bae6fd;
@@ -57,7 +55,7 @@
     }
 
     .top-inner {
-      max-width: 1120px;
+      max-width: 1160px;
       margin: 0 auto;
       display: flex;
       align-items: center;
@@ -146,7 +144,7 @@
       white-space: nowrap;
     }
 
-    /* Sticky Click-to-Hear Audio Bar */
+    /* Sticky Click-to-Hear Audio Bar (Locked to Voice 5) */
     .audio-bar {
       background: linear-gradient(90deg, #fffbeb, #fef3c7);
       border-bottom: 3px solid #fde68a;
@@ -157,7 +155,7 @@
     }
 
     .audio-inner {
-      max-width: 1120px;
+      max-width: 1160px;
       margin: 0 auto;
       display: flex;
       align-items: center;
@@ -224,36 +222,21 @@
       cursor: not-allowed;
     }
 
-    .voice-picker-wrap {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .voice-badge {
       background: #ffffff;
       border: 2px solid #fcd34d;
-      padding: 6px 12px;
-      border-radius: 14px;
-      font-size: 15px;
-      font-weight: 700;
-      color: #78350f;
-    }
-
-    .voice-select {
-      border: 1px solid #cbd5e1;
-      border-radius: 10px;
-      padding: 5px 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
       font-size: 14px;
-      font-weight: 700;
-      color: #0f172a;
-      background: #f8fafc;
-      max-width: 210px;
-      cursor: pointer;
+      font-weight: 800;
+      color: #78350f;
     }
 
     .audio-status {
       font-size: 15px;
       font-weight: 700;
       color: #92400e;
-      background: rgba(255, 255, 255, 0.75);
+      background: rgba(255, 255, 255, 0.8);
       padding: 6px 14px;
       border-radius: 999px;
       border: 1px solid #fde68a;
@@ -262,7 +245,7 @@
     /* Main Container */
     main {
       flex: 1;
-      max-width: 1120px;
+      max-width: 1160px;
       width: 100%;
       margin: 24px auto;
       padding: 0 20px 30px;
@@ -317,7 +300,7 @@
 
     .lesson-title {
       margin: 0;
-      font-size: clamp(26px, 4vw, 36px);
+      font-size: clamp(25px, 3.8vw, 35px);
       font-weight: 900;
       color: var(--primary-dark);
       line-height: 1.2;
@@ -344,15 +327,15 @@
       transform: scale(1.04);
     }
 
-    /* Two-column split for Visual + Story/Facts */
+    /* Two-column split for Anatomical Diagram + Big Paragraph First */
     .content-grid {
       display: grid;
-      grid-template-columns: 1.08fr 1fr;
+      grid-template-columns: 1.05fr 1fr;
       gap: 26px;
       align-items: start;
     }
 
-    @media (max-width: 860px) {
+    @media (max-width: 880px) {
       .content-grid {
         grid-template-columns: 1fr;
       }
@@ -361,45 +344,51 @@
       }
     }
 
-    /* Real Photo + Interactive Hotspot Visual Stage */
+    /* Interactive Anatomical Diagram Stage */
     .visual-stage {
       background: #0f172a;
       border-radius: 20px;
       overflow: hidden;
       border: 3px solid #93c5fd;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.14);
       position: relative;
     }
 
-    .photo-frame {
+    .diagram-frame {
       position: relative;
       width: 100%;
-      min-height: 360px;
-      max-height: 470px;
-      background: radial-gradient(circle at center, #1e293b 0%, #090d16 100%);
+      height: 430px;
+      background: radial-gradient(circle at 50% 45%, #1e293b 0%, #0b1120 100%);
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
     }
 
-    .photo-frame img {
+    .diagram-frame svg {
       width: 100%;
-      height: 420px;
-      object-fit: contain;
+      height: 100%;
       display: block;
-      transition: transform 0.35s ease, filter 0.35s ease;
     }
 
-    /* Interactive Hotspot Pins over Real Photos */
+    /* Glowing Anatomical Zone Highlight inside SVG */
+    .anat-zone {
+      transition: opacity 0.25s ease, filter 0.25s ease;
+    }
+
+    .anat-zone.zone-active {
+      filter: drop-shadow(0 0 10px #facc15) drop-shadow(0 0 18px #fef08a);
+    }
+
+    /* Interactive Hotspot Pins over Anatomical Diagram */
     .hotspot-pin {
       position: absolute;
       transform: translate(-50%, -50%);
       z-index: 10;
-      border: 3px solid #ffffff;
+      border: 2.5px solid #ffffff;
       border-radius: 999px;
-      padding: 6px 13px;
-      font-size: 14px;
+      padding: 5px 12px;
+      font-size: 13.5px;
       font-weight: 900;
       color: #ffffff;
       cursor: pointer;
@@ -407,7 +396,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
       white-space: nowrap;
     }
 
@@ -417,48 +406,34 @@
     }
 
     .hotspot-pin.active-pin {
-      transform: translate(-50%, -50%) scale(1.22);
-      box-shadow: 0 0 0 8px rgba(250, 204, 21, 0.55), 0 0 25px #facc15;
+      transform: translate(-50%, -50%) scale(1.2);
+      box-shadow: 0 0 0 7px rgba(250, 204, 21, 0.55), 0 0 22px #facc15;
       z-index: 25;
       animation: pinPulse 1s infinite alternate;
     }
 
     @keyframes pinPulse {
-      from { box-shadow: 0 0 0 6px rgba(250, 204, 21, 0.5), 0 0 18px #facc15; }
-      to { box-shadow: 0 0 0 13px rgba(250, 204, 21, 0.8), 0 0 30px #fde047; }
+      from { box-shadow: 0 0 0 5px rgba(250, 204, 21, 0.5), 0 0 16px #facc15; }
+      to { box-shadow: 0 0 0 12px rgba(250, 204, 21, 0.8), 0 0 28px #fde047; }
     }
 
     .pin-num {
-      background: rgba(0, 0, 0, 0.32);
-      width: 22px;
-      height: 22px;
+      background: rgba(0, 0, 0, 0.35);
+      width: 21px;
+      height: 21px;
       border-radius: 50%;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
+      font-size: 12.5px;
     }
 
-    /* Pin Color Themes matching text highlights */
     .theme-blue { background: #2563eb; }
     .theme-green { background: #059669; }
     .theme-amber { background: #d97706; }
     .theme-purple { background: #7c3aed; }
     .theme-pink { background: #db2777; }
     .theme-teal { background: #0d9488; }
-
-    .photo-caption-bar {
-      background: #1e293b;
-      color: #f8fafc;
-      padding: 12px 16px;
-      font-size: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      border-top: 2px solid #334155;
-    }
 
     .active-callout-box {
       background: #fef3c7;
@@ -473,50 +448,120 @@
       gap: 10px;
     }
 
-    /* Story & Sentence Highlighting Panel */
+    .photo-caption-bar {
+      background: #1e293b;
+      color: #f8fafc;
+      padding: 10px 16px;
+      font-size: 14.5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      border-top: 2px solid #334155;
+    }
+
+    /* Right Column: BIG PARAGRAPH FIRST (Highlighted as it reads!) */
     .story-panel {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 16px;
     }
 
-    .sentence-card {
+    .big-paragraph-card {
       background: #f8fafc;
-      border: 2px solid #e2e8f0;
-      border-left-width: 8px;
-      border-radius: 16px;
-      padding: 14px 18px;
-      font-size: 20px;
-      line-height: 1.55;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      position: relative;
+      border: 3px solid #bfdbfe;
+      border-radius: 20px;
+      padding: 20px 22px;
+      transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
     }
 
-    .sentence-card:hover {
-      background: #f1f5f9;
-      transform: translateX(3px);
-    }
-
-    .sentence-card.speaking {
-      background: #fef08a;
+    .big-paragraph-card.para-speaking {
+      background: #fef9c3;
       border-color: #eab308;
-      box-shadow: 0 6px 18px rgba(234, 179, 8, 0.28);
-      transform: scale(1.015);
+      box-shadow: 0 8px 24px rgba(234, 179, 8, 0.25);
     }
 
-    .sentence-link-badge {
+    .big-para-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .big-para-label {
+      font-size: 14px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #1d4ed8;
+    }
+
+    .big-paragraph-text {
+      font-size: 20.5px;
+      line-height: 1.72;
+      color: #0f172a;
+      margin: 0;
+    }
+
+    .inline-sentence {
+      padding: 2px 5px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .inline-sentence:hover {
+      background: #e0f2fe;
+    }
+
+    .inline-sentence.speaking {
+      background: #fde047;
+      box-shadow: 0 2px 6px rgba(202, 138, 4, 0.35);
+      font-weight: 600;
+    }
+
+    /* Anatomical Terms Chip Bar below Big Paragraph */
+    .anat-chips-box {
+      background: #f1f5f9;
+      border: 2px solid #cbd5e1;
+      border-radius: 16px;
+      padding: 14px 16px;
+    }
+
+    .anat-chips-title {
+      font-size: 14px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #334155;
+      margin-bottom: 8px;
+      letter-spacing: 0.4px;
+    }
+
+    .anat-chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .anat-chip {
+      border: none;
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 15px;
+      font-weight: 800;
+      color: #ffffff;
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 13px;
-      font-weight: 900;
-      color: #ffffff;
-      padding: 3px 10px;
-      border-radius: 999px;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .anat-chip:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.2);
     }
 
     .fun-fact-box {
@@ -524,7 +569,12 @@
       border: 2px solid #6ee7b7;
       border-radius: 18px;
       padding: 16px 18px;
-      margin-top: 6px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .fun-fact-box.speaking {
+      background: #fef08a;
+      border-color: #eab308;
     }
 
     .fun-fact-header {
@@ -540,7 +590,7 @@
 
     /* Interactive Activities */
     .activity-box {
-      margin-top: 22px;
+      margin-top: 24px;
       background: #f8fafc;
       border: 3px solid #c7d2fe;
       border-radius: 20px;
@@ -561,6 +611,12 @@
       font-weight: 900;
       color: #1e1b4b;
       margin: 0;
+      padding: 4px 8px;
+      border-radius: 10px;
+    }
+
+    .quiz-question.speaking {
+      background: #fde047;
     }
 
     .options-grid {
@@ -818,7 +874,7 @@
 
     /* Bottom Large Back / Next Navigation */
     .bottom-nav {
-      max-width: 1120px;
+      max-width: 1160px;
       width: 100%;
       margin: 0 auto 36px;
       padding: 0 20px;
@@ -929,7 +985,7 @@
     </div>
   </header>
 
-  <!-- Sticky Click-to-Hear Audio Bar -->
+  <!-- Sticky Click-to-Hear Audio Bar (Voice 5 Only) -->
   <section class="audio-bar" aria-label="Audio Controls">
     <div class="audio-inner">
       <div class="audio-buttons">
@@ -948,11 +1004,7 @@
         </button>
       </div>
 
-      <div class="voice-picker-wrap" title="Pick the smoothest voice on your device">
-        <span>Voice:</span>
-        <select id="voiceSelect" class="voice-select" onchange="onVoiceChange()"></select>
-        <button class="audio-sub-btn" style="padding: 4px 10px; font-size: 13px;" onclick="testSelectedVoice()">Test</button>
-      </div>
+      <div class="voice-badge" id="voice5Badge">Voice 5</div>
 
       <div class="audio-status" id="audioStatus">Tap "Hear Page" to listen!</div>
     </div>
@@ -973,287 +1025,662 @@
 
   <script>
     // =========================================================================
-    // 1. VERIFIED WIKIMEDIA COMMONS REAL PHOTOGRAPHS & MEDICAL X-RAYS
+    // 1. CUSTOM INTERACTIVE ANATOMICAL DIAGRAMS (Accurate Textbook SVG Art)
     // =========================================================================
-    const PHOTOS = {
-      fullSkeleton: {
-        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Human_Skeleton_-_Life_Science_Gallery_-_BITM_-_Kolkata_2010-06-25_6334.JPG?width=800",
-        credit: "Real human skeleton display (Science Gallery Museum)",
-        alt: "Full-body real human skeleton standing upright"
-      },
-      skullReal: {
-        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Human_skull.jpg?width=800",
-        credit: "Real human skull photograph (Osteology Museum)",
-        alt: "Close-up photograph of a real human skull"
-      },
-      skull3D: {
-        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Human_skull_-_anterior_view.png?width=800",
-        credit: "3D anatomical view of the human skull",
-        alt: "Front view of a human skull showing eye sockets and jaw"
-      },
-      chestXray: {
-        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Normal_posteroanterior_(PA)_chest_radiograph_(X-ray).jpg?width=800",
-        credit: "Real hospital chest X-ray showing rib cage, collarbones, and spine",
-        alt: "Real chest X-ray showing ribs curving around the heart and lungs"
-      },
-      spineReal: {
-        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Vertebral_column.jpg?width=800",
-        credit: "Real human spine (backbone) showing stacked vertebrae",
-        alt: "Photograph of a real human spinal column"
-      },
-      handXray: {
-        url: "https://commons.wikimedia.org/wiki/Special:FilePath/X-ray_of_hand.jpg?width=800",
-        credit: "Real X-ray of a human hand and wrist",
-        alt: "Real X-ray showing the 27 bones of a human hand and wrist"
-      },
-      kidHandXray: {
-        url: "https://commons.wikimedia.org/wiki/Special:FilePath/X-ray_of_hand,_where_bone_age_is_automatically_found_by_BoneXpert_software.jpg?width=800",
-        credit: "Real X-ray of a 7-year-old child's hand showing open growth gaps",
-        alt: "X-ray of a 7-year-old child's hand showing cartilage growth plates"
-      },
-      pelvisReal: {
-        url: "https://commons.wikimedia.org/wiki/Special:FilePath/HK_TST_Science_Museum_Bones_exhibit_32_%E7%9B%86%E9%AA%A8_Human_pelvis.JPG?width=800",
-        credit: "Real human pelvis (hip bone) in a science museum",
-        alt: "Photograph of a real human pelvis bone"
-      },
-      kneeXray: {
-        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Knee_plain_X-ray.jpg?width=800",
-        credit: "Real hospital X-ray of a human knee joint",
-        alt: "X-ray of a knee showing femur, kneecap, tibia, and fibula"
-      },
-      kneeSideXray: {
-        url: "https://commons.wikimedia.org/wiki/Special:FilePath/X-ray_of_a_normal_knee_by_lateral_projection.jpg?width=800",
-        credit: "Side-view X-ray of a knee showing the floating kneecap",
-        alt: "Side X-ray of a knee showing the patella kneecap in front"
-      },
-      femurCutReal: {
-        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Femur_(caput_femoris)_-_bone_structure_detail_(vertical_cut)_3.jpg?width=800",
-        credit: "Real sliced human thigh bone showing hard shell and honeycomb inside",
-        alt: "Real photograph of a sliced femur showing compact outer bone and spongy inside"
-      },
-      marrowReal: {
-        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Bone_Marrow.png?width=800",
-        credit: "Real sliced arm bone showing red and yellow bone marrow inside",
-        alt: "Photograph of cut bone showing red marrow and yellow marrow"
-      },
-      fractureXray: {
-        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Radiology_1300570_Nevit.jpg?width=800",
-        credit: "Real hospital X-ray of a cracked forearm bone (buckle fracture)",
-        alt: "X-ray of a fractured forearm bone"
-      },
-      catSkeleton: {
-        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Cat_skeleton.jpg?width=800",
-        credit: "Real cat skeleton in a veterinary museum",
-        alt: "Real skeleton of a cat showing flexible spine and tail bones"
-      },
-      birdSkeleton: {
-        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Bird_skeleton,_museum_in_Thompson_Yates_Building.jpg?width=800",
-        credit: "Real bird skeleton showing wing bones and large chest keel",
-        alt: "Real skeleton of a bird suspended in a museum"
-      },
-      giraffeSkeleton: {
-        url: "https://commons.wikimedia.org/wiki/Special:FilePath/Giraffe_skeleton_(39921295781).jpg?width=800",
-        credit: "Real giraffe skeleton standing beside a giraffe",
-        alt: "Real giraffe skeleton showing giant neck bones"
-      },
-      trexSkeleton: {
-        url: "https://commons.wikimedia.org/wiki/Special:FilePath/FMNH_Tyrannosaurus_rex_Sue.jpg?width=800",
-        credit: "Real T. rex skeleton named Sue at the Field Museum",
-        alt: "Fossil skeleton of Sue the Tyrannosaurus rex"
+    function renderAnatomicalDiagram(diagramId, activeZoneId) {
+      const z = (id) => `anat-zone ${activeZoneId === id ? "zone-active" : ""}`;
+      const glowStroke = (id, defaultColor) => activeZoneId === id ? "#facc15" : defaultColor;
+
+      switch (diagramId) {
+        case "full_skeleton":
+          return `
+            <svg viewBox="0 0 600 440" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="bgGlow" cx="50%" cy="45%" r="55%">
+                  <stop offset="0%" stop-color="#1e293b"/>
+                  <stop offset="100%" stop-color="#090d16"/>
+                </radialGradient>
+              </defs>
+              <rect width="600" height="440" fill="url(#bgGlow)"/>
+              <!-- Subtle human silhouette -->
+              <path d="M300 18 C326 18 336 42 332 64 C328 80 318 88 312 92 L352 104 L388 190 L402 246 L386 250 L368 194 L344 126 L342 214 L356 312 L364 410 L338 412 L326 314 L300 228 L274 314 L262 412 L236 410 L244 312 L258 214 L256 126 L232 194 L214 250 L198 246 L212 190 L248 104 L288 92 C282 88 272 80 268 64 C264 42 274 18 300 18 Z" fill="rgba(148,163,184,0.12)" stroke="rgba(148,163,184,0.25)" stroke-width="1.5"/>
+
+              <!-- CRANIUM & MANDIBLE -->
+              <g class="${z('skull')}" stroke="${glowStroke('skull', '#cbd5e1')}" stroke-width="2">
+                <ellipse cx="300" cy="46" rx="24" ry="26" fill="#f8fafc"/>
+                <circle cx="291" cy="48" r="5.5" fill="#1e293b"/>
+                <circle cx="309" cy="48" r="5.5" fill="#1e293b"/>
+                <polygon points="300,53 296,61 304,61" fill="#334155"/>
+                <path d="M285 64 Q300 84 315 64 L311 76 Q300 86 289 76 Z" fill="#e2e8f0"/>
+                <line x1="290" y1="68" x2="310" y2="68" stroke="#475569" stroke-width="1.5"/>
+              </g>
+
+              <!-- CLAVICLE -->
+              <g class="${z('clavicle')}" stroke="${glowStroke('clavicle', '#94a3b8')}" stroke-width="4" stroke-linecap="round" fill="none">
+                <path d="M296 95 Q274 89 252 98"/>
+                <path d="M304 95 Q326 89 348 98"/>
+              </g>
+
+              <!-- VERTEBRAL COLUMN -->
+              <g class="${z('spine')}" fill="#e2e8f0" stroke="${glowStroke('spine', '#64748b')}" stroke-width="1.5">
+                ${Array.from({length: 14}, (_, i) => `<rect x="293" y="${84 + i * 9}" width="14" height="7" rx="3"/>`).join("")}
+              </g>
+
+              <!-- RIB CAGE & STERNUM -->
+              <g class="${z('ribs')}" stroke="${glowStroke('ribs', '#e2e8f0')}" stroke-width="3.5" fill="none" stroke-linecap="round">
+                <rect x="296" y="100" width="8" height="44" rx="4" fill="#f8fafc" stroke-width="1.5"/>
+                ${[0,1,2,3,4,5].map(i => `
+                  <path d="M296 ${106 + i*8} C266 ${104 + i*8} 262 ${120 + i*8} 288 ${122 + i*8}"/>
+                  <path d="M304 ${106 + i*8} C334 ${104 + i*8} 338 ${120 + i*8} 312 ${122 + i*8}"/>
+                `).join("")}
+              </g>
+
+              <!-- HUMERUS, RADIUS & ULNA -->
+              <g class="${z('humerus')}" stroke="${glowStroke('humerus', '#f8fafc')}" stroke-width="6.5" stroke-linecap="round" fill="none">
+                <line x1="250" y1="101" x2="232" y2="168"/>
+                <line x1="350" y1="101" x2="368" y2="168"/>
+                <line x1="230" y1="173" x2="213" y2="230" stroke-width="4"/>
+                <line x1="235" y1="173" x2="219" y2="231" stroke-width="3.5"/>
+                <line x1="366" y1="173" x2="381" y2="231" stroke-width="3.5"/>
+                <line x1="370" y1="173" x2="387" y2="230" stroke-width="4"/>
+                <ellipse cx="212" cy="242" rx="7" ry="11" fill="#e2e8f0" stroke-width="1.5"/>
+                <ellipse cx="388" cy="242" rx="7" ry="11" fill="#e2e8f0" stroke-width="1.5"/>
+              </g>
+
+              <!-- PELVIS -->
+              <g class="${z('pelvis')}" fill="#f1f5f9" stroke="${glowStroke('pelvis', '#94a3b8')}" stroke-width="2">
+                <path d="M266 202 C254 196 254 224 272 232 L288 228 L294 212 Z"/>
+                <path d="M334 202 C346 196 346 224 328 232 L312 228 L306 212 Z"/>
+                <polygon points="292,208 308,208 300,228" fill="#cbd5e1"/>
+              </g>
+
+              <!-- FEMUR -->
+              <g class="${z('femur')}" stroke="${glowStroke('femur', '#f8fafc')}" stroke-width="8.5" stroke-linecap="round">
+                <line x1="272" y1="228" x2="278" y2="314"/>
+                <line x1="328" y1="228" x2="322" y2="314"/>
+              </g>
+
+              <!-- PATELLA -->
+              <g class="${z('patella')}" fill="#fde68a" stroke="${glowStroke('patella', '#d97706')}" stroke-width="2">
+                <ellipse cx="278" cy="316" rx="6" ry="7"/>
+                <ellipse cx="322" cy="316" rx="6" ry="7"/>
+              </g>
+
+              <!-- TIBIA & FIBULA -->
+              <g class="${z('tibia')}" stroke="${glowStroke('tibia', '#f8fafc')}" stroke-linecap="round">
+                <line x1="278" y1="324" x2="274" y2="404" stroke-width="7"/>
+                <line x1="269" y1="326" x2="266" y2="403" stroke-width="3.5" stroke="#cbd5e1"/>
+                <line x1="322" y1="324" x2="326" y2="404" stroke-width="7"/>
+                <line x1="331" y1="326" x2="334" y2="403" stroke-width="3.5" stroke="#cbd5e1"/>
+                <path d="M264 408 L282 408 L284 418 L256 418 Z" fill="#e2e8f0" stroke-width="1.5"/>
+                <path d="M318 408 L336 408 L344 418 L316 418 Z" fill="#e2e8f0" stroke-width="1.5"/>
+              </g>
+            </svg>`;
+
+        case "four_jobs":
+          return `
+            <svg viewBox="0 0 600 440" xmlns="http://www.w3.org/2000/svg">
+              <rect width="600" height="440" fill="#0f172a"/>
+              <rect x="20" y="20" width="270" height="190" rx="16" fill="#1e293b" stroke="${glowStroke('frame', '#3b82f6')}" stroke-width="3" class="${z('frame')}"/>
+              <text x="155" y="46" fill="#93c5fd" font-size="14.5" font-weight="bold" text-anchor="middle">1. STRUCTURAL SUPPORT</text>
+              <line x1="155" y1="62" x2="155" y2="188" stroke="#f8fafc" stroke-width="10" stroke-dasharray="10 4" stroke-linecap="round"/>
+              <path d="M115 92 L195 92" stroke="#cbd5e1" stroke-width="7" stroke-linecap="round"/>
+              <path d="M125 162 Q155 182 185 162" stroke="#cbd5e1" stroke-width="8" fill="none" stroke-linecap="round"/>
+
+              <rect x="310" y="20" width="270" height="190" rx="16" fill="#1e293b" stroke="${glowStroke('shield', '#10b981')}" stroke-width="3" class="${z('shield')}"/>
+              <text x="445" y="46" fill="#6ee7b7" font-size="14.5" font-weight="bold" text-anchor="middle">2. ORGAN PROTECTION</text>
+              <ellipse cx="425" cy="128" rx="22" ry="34" fill="#fb7185" opacity="0.45"/>
+              <ellipse cx="465" cy="128" rx="22" ry="34" fill="#fb7185" opacity="0.45"/>
+              <circle cx="445" cy="130" r="14" fill="#ef4444"/>
+              ${[0,1,2,3].map(i => `<path d="M398 ${96+i*18} Q445 ${86+i*18} 492 ${96+i*18}" stroke="#f8fafc" stroke-width="6" fill="none" stroke-linecap="round"/>`).join("")}
+
+              <rect x="20" y="230" width="270" height="190" rx="16" fill="#1e293b" stroke="${glowStroke('move', '#f59e0b')}" stroke-width="3" class="${z('move')}"/>
+              <text x="155" y="256" fill="#fcd34d" font-size="14.5" font-weight="bold" text-anchor="middle">3. MOVEMENT LEVERS</text>
+              <line x1="95" y1="280" x2="145" y2="365" stroke="#f8fafc" stroke-width="10" stroke-linecap="round"/>
+              <line x1="145" y1="365" x2="230" y2="345" stroke="#f8fafc" stroke-width="9" stroke-linecap="round"/>
+              <ellipse cx="122" cy="316" rx="16" ry="32" transform="rotate(-28 122 316)" fill="#f43f5e"/>
+              <line x1="138" y1="340" x2="165" y2="360" stroke="#fde047" stroke-width="4"/>
+
+              <rect x="310" y="230" width="270" height="190" rx="16" fill="#1e293b" stroke="${glowStroke('factory', '#a855f7')}" stroke-width="3" class="${z('factory')}"/>
+              <text x="445" y="256" fill="#d8b4fe" font-size="14.5" font-weight="bold" text-anchor="middle">4. BLOOD CELL PRODUCTION</text>
+              <rect x="360" y="295" width="170" height="65" rx="30" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/>
+              <rect x="378" y="310" width="134" height="35" rx="16" fill="#dc2626"/>
+              <circle cx="405" cy="327" r="9" fill="#fca5a5"/>
+              <circle cx="435" cy="322" r="8" fill="#ffffff"/>
+              <circle cx="465" cy="330" r="9" fill="#fca5a5"/>
+              <circle cx="490" cy="324" r="7" fill="#fde047"/>
+            </svg>`;
+
+        case "hand_bones":
+        case "child_growth_hand":
+          const isChild = diagramId === "child_growth_hand";
+          return `
+            <svg viewBox="0 0 600 440" xmlns="http://www.w3.org/2000/svg">
+              <rect width="600" height="440" fill="#09111e"/>
+              <path d="M235 415 L235 320 L165 255 C154 244 166 226 180 236 L232 276 L232 135 C232 118 254 118 254 135 L254 225 L268 102 C270 84 292 86 290 104 L282 220 L304 92 C307 74 329 78 326 96 L312 222 L340 116 C345 98 366 104 361 122 L338 245 L338 320 L338 415 Z" fill="rgba(56,189,248,0.12)" stroke="rgba(56,189,248,0.35)" stroke-width="2"/>
+
+              <rect x="242" y="355" width="38" height="62" rx="10" fill="#cbd5e1"/>
+              <rect x="292" y="362" width="30" height="55" rx="9" fill="#94a3b8"/>
+
+              <!-- 8 CARPALS -->
+              <g class="${z('wrist')} ${z('carpals')} ${z('gaps')} ${z('wristGrow')}" fill="#c084fc" stroke="${glowStroke('wrist', '#ffffff')}" stroke-width="2">
+                <circle cx="256" cy="334" r="11"/>
+                <circle cx="280" cy="336" r="11"/>
+                <circle cx="304" cy="336" r="10"/>
+                <circle cx="324" cy="334" r="9"/>
+                <circle cx="254" cy="312" r="11"/>
+                <circle cx="278" cy="313" r="11"/>
+                <circle cx="302" cy="313" r="11"/>
+                <circle cx="323" cy="314" r="10"/>
+              </g>
+
+              <!-- 5 METACARPALS -->
+              <g class="${z('palm')}" fill="#60a5fa" stroke="${glowStroke('palm', '#ffffff')}" stroke-width="2">
+                <rect x="214" y="268" width="13" height="42" rx="6" transform="rotate(-34 214 268)"/>
+                <rect x="244" y="234" width="13" height="64" rx="6"/>
+                <rect x="272" y="230" width="13" height="68" rx="6"/>
+                <rect x="299" y="234" width="13" height="64" rx="6"/>
+                <rect x="323" y="242" width="12" height="56" rx="6"/>
+              </g>
+
+              <!-- 14 PHALANGES -->
+              <g class="${z('tips')} ${z('phalanges')} ${z('fingers')} ${z('growthPlate')}" fill="#34d399" stroke="${glowStroke('tips', '#ffffff')}" stroke-width="2">
+                <rect x="190" y="244" width="11" height="24" rx="5" transform="rotate(-38 190 244)"/>
+                <rect x="174" y="226" width="10" height="19" rx="5" transform="rotate(-38 174 226)"/>
+                <rect x="244" y="192" width="12" height="32" rx="5"/>
+                <rect x="245" y="160" width="11" height="24" rx="5"/>
+                <rect x="246" y="135" width="10" height="18" rx="5"/>
+                <rect x="273" y="184" width="12" height="36" rx="5"/>
+                <rect x="274" y="148" width="11" height="28" rx="5"/>
+                <rect x="275" y="120" width="10" height="20" rx="5"/>
+                <rect x="301" y="188" width="12" height="34" rx="5"/>
+                <rect x="302" y="154" width="11" height="26" rx="5"/>
+                <rect x="303" y="128" width="10" height="19" rx="5"/>
+                <rect x="326" y="202" width="11" height="28" rx="5"/>
+                <rect x="328" y="174" width="10" height="21" rx="5"/>
+                <rect x="330" y="152" width="9" height="16" rx="5"/>
+              </g>
+
+              ${isChild ? `
+                <g fill="#facc15">
+                  <rect x="243" y="226" width="14" height="5" rx="2"/>
+                  <rect x="272" y="222" width="14" height="5" rx="2"/>
+                  <rect x="300" y="224" width="14" height="5" rx="2"/>
+                  <rect x="325" y="232" width="13" height="5" rx="2"/>
+                  <rect x="244" y="186" width="13" height="4" rx="2"/>
+                  <rect x="273" y="178" width="13" height="4" rx="2"/>
+                </g>
+                <text x="465" y="185" fill="#fde047" font-size="15" font-weight="bold" text-anchor="middle">EPIPHYSEAL</text>
+                <text x="465" y="205" fill="#fde047" font-size="15" font-weight="bold" text-anchor="middle">GROWTH PLATES</text>
+                <line x1="342" y1="224" x2="395" y2="195" stroke="#fde047" stroke-width="2.5" stroke-dasharray="4 3"/>
+              ` : `
+                <text x="475" y="160" fill="#6ee7b7" font-size="15" font-weight="bold" text-anchor="middle">14 PHALANGES</text>
+                <text x="475" y="260" fill="#93c5fd" font-size="15" font-weight="bold" text-anchor="middle">5 METACARPALS</text>
+                <text x="475" y="330" fill="#d8b4fe" font-size="15" font-weight="bold" text-anchor="middle">8 CARPALS</text>
+              `}
+            </svg>`;
+
+        case "skull_anatomy":
+          return `
+            <svg viewBox="0 0 600 440" xmlns="http://www.w3.org/2000/svg">
+              <rect width="600" height="440" fill="#0f172a"/>
+              <g class="${z('cranium')} ${z('earBone')}">
+                <path d="M190 210 C175 110 245 45 340 50 C425 55 465 125 450 205 C442 248 415 270 385 275 L350 250 L265 250 L225 268 C202 260 194 235 190 210 Z" fill="#f8fafc" stroke="${glowStroke('cranium', '#94a3b8')}" stroke-width="3"/>
+              </g>
+              <g class="${z('sutures')}" stroke="${glowStroke('sutures', '#7c3aed')}" stroke-width="3.5" fill="none" stroke-linecap="round">
+                <polyline points="285,54 292,70 282,86 293,104 284,122 294,140 286,158"/>
+                <polyline points="290,150 315,144 338,154 362,146 386,158 410,152 432,168"/>
+              </g>
+              <g class="${z('orbits')}">
+                <ellipse cx="235" cy="195" rx="26" ry="24" fill="#1e293b" stroke="${glowStroke('orbits', '#059669')}" stroke-width="4"/>
+                <polygon points="200,215 190,248 212,248" fill="#1e293b"/>
+              </g>
+              <g class="${z('teeth')}">
+                <path d="M195 252 L275 252 L270 284 L198 284 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+                ${[0,1,2,3,4,5].map(i => `<rect x="${203 + i*11}" y="280" width="9" height="13" rx="3" fill="#ffffff" stroke="${glowStroke('teeth', '#cbd5e1')}" stroke-width="1.5"/>`).join("")}
+              </g>
+              <g class="${z('jaw')}">
+                <path d="M332 232 L348 318 C348 345 322 362 282 362 L212 362 C196 362 192 342 200 322 L272 322 L302 232 Z" fill="#f1f5f9" stroke="${glowStroke('jaw', '#d97706')}" stroke-width="3.5"/>
+                ${[0,1,2,3,4,5].map(i => `<rect x="${205 + i*11}" y="309" width="9" height="13" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>`).join("")}
+                <path d="M174 316 Q164 342 178 366" stroke="#f59e0b" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+                <polygon points="178,372 170,362 184,361" fill="#f59e0b"/>
+              </g>
+            </svg>`;
+
+        case "rib_cage":
+          return `
+            <svg viewBox="0 0 600 440" xmlns="http://www.w3.org/2000/svg">
+              <rect width="600" height="440" fill="#0f172a"/>
+              <ellipse cx="250" cy="215" rx="52" ry="90" fill="#38bdf8" opacity="0.22"/>
+              <ellipse cx="350" cy="215" rx="52" ry="90" fill="#38bdf8" opacity="0.22"/>
+              <path d="M295 195 C280 175 258 190 272 218 L300 246 L328 218 C342 190 320 175 305 195 Z" fill="#ef4444" opacity="0.75"/>
+              <rect x="290" y="55" width="20" height="335" rx="8" fill="#64748b" opacity="0.5"/>
+              <g class="${z('trueRibs')}" stroke="${glowStroke('trueRibs', '#f8fafc')}" stroke-width="9" fill="none" stroke-linecap="round">
+                ${[0,1,2,3,4,5,6,7,8].map(i => {
+                  const y = 85 + i * 24;
+                  const spread = 68 + Math.sin(i / 8 * Math.PI) * 55;
+                  return `
+                    <path d="M292 ${y} C${292 - spread} ${y - 6} ${292 - spread} ${y + 20} 286 ${y + 18}"/>
+                    <path d="M308 ${y} C${308 + spread} ${y - 6} ${308 + spread} ${y + 20} 314 ${y + 18}"/>
+                  `;
+                }).join("")}
+              </g>
+              <g class="${z('sternum')}">
+                <path d="M287 82 L313 82 L310 112 L314 242 L300 268 L286 242 L290 112 Z" fill="#e9d5ff" stroke="${glowStroke('sternum', '#7c3aed')}" stroke-width="3"/>
+              </g>
+              <g class="${z('floating')}" stroke="${glowStroke('floating', '#fbbf24')}" stroke-width="8" fill="none" stroke-linecap="round">
+                <path d="M292 308 C242 304 218 320 205 334"/>
+                <path d="M308 308 C358 304 382 320 395 334"/>
+                <path d="M292 332 C252 330 232 344 222 356"/>
+                <path d="M308 332 C348 330 368 344 378 356"/>
+              </g>
+            </svg>`;
+
+        case "spine_anatomy":
+          return `
+            <svg viewBox="0 0 600 440" xmlns="http://www.w3.org/2000/svg">
+              <rect width="600" height="440" fill="#0f172a"/>
+              <g class="${z('neck')}">
+                ${[0,1,2,3,4,5,6].map(i => `<rect x="${210 - i*2}" y="${40 + i*14}" width="36" height="10" rx="4" fill="#93c5fd" stroke="${glowStroke('neck', '#2563eb')}" stroke-width="1.5"/>`).join("")}
+              </g>
+              <g class="${z('vertebrae')}">
+                ${Array.from({length: 14}, (_, i) => {
+                  const x = 198 + Math.sin(i / 13 * Math.PI) * 26;
+                  const y = 142 + i * 16;
+                  return `
+                    <rect x="${x}" y="${y}" width="44" height="11" rx="4" fill="#f8fafc" stroke="${glowStroke('vertebrae', '#059669')}" stroke-width="1.5"/>
+                    <rect x="${x + 42}" y="${y + 2}" width="16" height="6" rx="2" fill="#cbd5e1"/>
+                  `;
+                }).join("")}
+              </g>
+              <polygon points="196,368 238,368 214,412" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+              <rect x="330" y="95" width="235" height="240" rx="18" fill="#1e293b" stroke="#64748b" stroke-width="2"/>
+              <text x="448" y="122" fill="#f8fafc" font-size="14" font-weight="bold" text-anchor="middle">ZOOM: VERTEBRAE + DISC</text>
+              <rect x="375" y="142" width="130" height="48" rx="12" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+              <text x="440" y="171" fill="#0f172a" font-size="14" font-weight="bold" text-anchor="middle">VERTEBRA</text>
+              <g class="${z('discs')}">
+                <rect x="372" y="196" width="136" height="24" rx="12" fill="#fbbf24" stroke="${glowStroke('discs', '#d97706')}" stroke-width="3"/>
+                <text x="440" y="213" fill="#451a03" font-size="13" font-weight="bold" text-anchor="middle">INTERVERTEBRAL DISC</text>
+              </g>
+              <rect x="375" y="226" width="130" height="48" rx="12" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+              <text x="440" y="255" fill="#0f172a" font-size="14" font-weight="bold" text-anchor="middle">VERTEBRA</text>
+              <line x1="242" y1="220" x2="330" y2="210" stroke="#fbbf24" stroke-width="2.5" stroke-dasharray="5 4"/>
+            </svg>`;
+
+        case "pelvis_femur":
+          return `
+            <svg viewBox="0 0 600 440" xmlns="http://www.w3.org/2000/svg">
+              <rect width="600" height="440" fill="#0f172a"/>
+              <g class="${z('bowl')} ${z('base')}" fill="#f8fafc" stroke="${glowStroke('bowl', '#db2777')}" stroke-width="3">
+                <path d="M265 95 C195 75 165 135 195 195 C215 235 245 245 275 230 L288 190 L288 125 Z"/>
+                <path d="M335 95 C405 75 435 135 405 195 C385 235 355 245 325 230 L312 190 L312 125 Z"/>
+                <polygon points="282,102 318,102 300,175" fill="#e2e8f0"/>
+                <path d="M265 215 Q300 228 335 215" fill="none" stroke-width="8" stroke-linecap="round"/>
+              </g>
+              <g class="${z('socket')}">
+                <circle cx="222" cy="198" r="22" fill="#93c5fd" stroke="${glowStroke('socket', '#2563eb')}" stroke-width="4"/>
+                <path d="M222 198 L250 225 L234 405 L208 405 L218 228 Z" fill="#f8fafc" stroke="${glowStroke('socket', '#2563eb')}" stroke-width="3"/>
+                <circle cx="378" cy="198" r="22" fill="#93c5fd" stroke="#2563eb" stroke-width="3"/>
+                <path d="M378 198 L350 225 L366 405 L392 405 L382 228 Z" fill="#f8fafc" stroke="#94a3b8" stroke-width="2.5"/>
+              </g>
+            </svg>`;
+
+        case "knee_patella":
+        case "knee_joint":
+          return `
+            <svg viewBox="0 0 600 440" xmlns="http://www.w3.org/2000/svg">
+              <rect width="600" height="440" fill="#0f172a"/>
+              <g class="${z('femurEnd')}">
+                <path d="M255 30 L335 30 L345 175 C348 205 252 205 255 175 Z" fill="#f8fafc" stroke="${glowStroke('femurEnd', '#2563eb')}" stroke-width="3"/>
+              </g>
+              <g class="${z('gap')} ${z('ligaments')}">
+                <path d="M254 196 Q300 212 346 196" stroke="${glowStroke('gap', '#38bdf8')}" stroke-width="9" fill="none" stroke-linecap="round"/>
+                <path d="M252 220 Q300 228 348 220" stroke="${glowStroke('gap', '#38bdf8')}" stroke-width="8" fill="none" stroke-linecap="round"/>
+                <line x1="246" y1="155" x2="246" y2="265" stroke="${glowStroke('ligaments', '#10b981')}" stroke-width="7" stroke-linecap="round"/>
+                <line x1="354" y1="155" x2="354" y2="265" stroke="${glowStroke('ligaments', '#10b981')}" stroke-width="7" stroke-linecap="round"/>
+              </g>
+              <g class="${z('patella')}">
+                <ellipse cx="215" cy="195" rx="22" ry="30" fill="#fde68a" stroke="${glowStroke('patella', '#d97706')}" stroke-width="4"/>
+                <line x1="215" y1="125" x2="215" y2="275" stroke="#f59e0b" stroke-width="5" stroke-dasharray="6 4"/>
+              </g>
+              <g class="${z('shin')} ${z('balanceShin')} ${z('balanceKnee')}">
+                <path d="M254 232 L342 232 L332 410 L268 410 Z" fill="#f8fafc" stroke="${glowStroke('shin', '#059669')}" stroke-width="3"/>
+                <path d="M352 246 L374 246 L368 410 L350 410 Z" fill="#cbd5e1" stroke="#64748b" stroke-width="2"/>
+              </g>
+            </svg>`;
+
+        case "bone_cross_section":
+          return `
+            <svg viewBox="0 0 600 440" xmlns="http://www.w3.org/2000/svg">
+              <rect width="600" height="440" fill="#0f172a"/>
+              <g class="${z('compact')} ${z('calcium')} ${z('boss1')}">
+                <path d="M185 85 C155 85 145 130 175 160 L195 385 L405 385 L425 160 C455 130 445 85 415 85 C385 85 370 110 300 110 C230 110 215 85 185 85 Z" fill="#f8fafc" stroke="${glowStroke('compact', '#2563eb')}" stroke-width="5"/>
+              </g>
+              <g class="${z('spongy')} ${z('sunshine')}">
+                <path d="M192 102 C175 102 172 132 195 155 L405 155 C428 132 425 102 408 102 C382 102 365 124 300 124 C235 124 218 102 192 102 Z" fill="#fed7aa" stroke="${glowStroke('spongy', '#d97706')}" stroke-width="3"/>
+                ${Array.from({length: 18}, (_, i) => `<circle cx="${205 + (i%6)*38}" cy="${122 + Math.floor(i/6)*12}" r="4.5" fill="#9a3412" opacity="0.55"/>`).join("")}
+              </g>
+              <g class="${z('redMarrow')} ${z('yellowMarrow')} ${z('boss2')}">
+                <rect x="225" y="158" width="150" height="75" rx="12" fill="#ef4444" stroke="${glowStroke('redMarrow', '#db2777')}" stroke-width="3"/>
+                <text x="300" y="200" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">RED BONE MARROW</text>
+                <rect x="225" y="236" width="150" height="130" rx="12" fill="#facc15" stroke="${glowStroke('yellowMarrow', '#d97706')}" stroke-width="3"/>
+                <text x="300" y="305" fill="#422006" font-size="16" font-weight="bold" text-anchor="middle">YELLOW BONE MARROW</text>
+              </g>
+            </svg>`;
+
+        case "muscle_tendon_pull":
+          return `
+            <svg viewBox="0 0 600 440" xmlns="http://www.w3.org/2000/svg">
+              <rect width="600" height="440" fill="#0f172a"/>
+              <polygon points="145,70 215,85 175,165" fill="#cbd5e1"/>
+              <line x1="195" y1="105" x2="255" y2="275" stroke="#f8fafc" stroke-width="18" stroke-linecap="round"/>
+              <line x1="255" y1="275" x2="435" y2="225" stroke="#f8fafc" stroke-width="14" stroke-linecap="round"/>
+              <g class="${z('bicep')}">
+                <ellipse cx="242" cy="182" rx="28" ry="58" transform="rotate(-18 242 182)" fill="#f43f5e" stroke="${glowStroke('bicep', '#ffffff')}" stroke-width="3"/>
+                <text x="335" y="155" fill="#fda4af" font-size="15" font-weight="bold">BICEPS CONTRACTS (PULLS UP)</text>
+              </g>
+              <g class="${z('tricep')}">
+                <ellipse cx="195" cy="202" rx="18" ry="54" transform="rotate(-18 195 202)" fill="#3b82f6" stroke="${glowStroke('tricep', '#93c5fd')}" stroke-width="2.5"/>
+                <text x="95" y="245" fill="#93c5fd" font-size="14" font-weight="bold" text-anchor="middle">TRICEPS RELAXES</text>
+              </g>
+              <g class="${z('tendon')}">
+                <line x1="258" y1="234" x2="298" y2="262" stroke="${glowStroke('tendon', '#fde047')}" stroke-width="7" stroke-linecap="round"/>
+                <text x="355" y="285" fill="#fde047" font-size="15" font-weight="bold">TENDON ATTACHES TO RADIUS</text>
+              </g>
+            </svg>`;
+
+        case "four_joints":
+          return `
+            <svg viewBox="0 0 600 440" xmlns="http://www.w3.org/2000/svg">
+              <rect width="600" height="440" fill="#0f172a"/>
+              <rect x="20" y="20" width="270" height="190" rx="16" fill="#1e293b" stroke="${glowStroke('hinge', '#10b981')}" stroke-width="3" class="${z('hinge')}"/>
+              <text x="155" y="48" fill="#6ee7b7" font-size="15" font-weight="bold" text-anchor="middle">1. HINGE JOINT (KNEE / ELBOW)</text>
+              <rect x="135" y="65" width="40" height="58" rx="12" fill="#f8fafc"/>
+              <path d="M135 128 L175 128 L195 185 L158 195 Z" fill="#cbd5e1"/>
+              <path d="M198 140 Q218 165 198 190" stroke="#34d399" stroke-width="4" fill="none"/>
+
+              <rect x="310" y="20" width="270" height="190" rx="16" fill="#1e293b" stroke="${glowStroke('ball', '#3b82f6')}" stroke-width="3" class="${z('ball')}"/>
+              <text x="445" y="48" fill="#93c5fd" font-size="15" font-weight="bold" text-anchor="middle">2. BALL-AND-SOCKET (SHOULDER / HIP)</text>
+              <path d="M395 100 C375 115 375 155 395 170" stroke="#94a3b8" stroke-width="10" fill="none" stroke-linecap="round"/>
+              <circle cx="418" cy="135" r="24" fill="#60a5fa" stroke="#ffffff" stroke-width="2.5"/>
+              <line x1="436" y1="145" x2="515" y2="178" stroke="#f8fafc" stroke-width="16" stroke-linecap="round"/>
+
+              <rect x="20" y="230" width="270" height="190" rx="16" fill="#1e293b" stroke="${glowStroke('pivot', '#a855f7')}" stroke-width="3" class="${z('pivot')}"/>
+              <text x="155" y="258" fill="#d8b4fe" font-size="15" font-weight="bold" text-anchor="middle">3. PIVOT JOINT (C1-C2 NECK)</text>
+              <ellipse cx="155" cy="335" rx="44" ry="20" fill="none" stroke="#c084fc" stroke-width="10"/>
+              <rect x="143" y="285" width="24" height="95" rx="10" fill="#f8fafc"/>
+
+              <rect x="310" y="230" width="270" height="190" rx="16" fill="#1e293b" stroke="${glowStroke('gliding', '#f59e0b')}" stroke-width="3" class="${z('gliding')}"/>
+              <text x="445" y="258" fill="#fcd34d" font-size="15" font-weight="bold" text-anchor="middle">4. GLIDING JOINT (CARPALS / TARSALS)</text>
+              <rect x="370" y="295" width="66" height="36" rx="10" fill="#f8fafc"/>
+              <rect x="448" y="295" width="66" height="36" rx="10" fill="#e2e8f0"/>
+              <rect x="385" y="342" width="66" height="36" rx="10" fill="#cbd5e1"/>
+              <rect x="462" y="342" width="66" height="36" rx="10" fill="#f8fafc"/>
+            </svg>`;
+
+        case "fracture_repair":
+          return `
+            <svg viewBox="0 0 600 440" xmlns="http://www.w3.org/2000/svg">
+              <rect width="600" height="440" fill="#0f172a"/>
+              <!-- Stage 1: Fracture -->
+              <g class="${z('crack')} ${z('clueA')}">
+                <text x="165" y="55" fill="#fda4af" font-size="16" font-weight="bold" text-anchor="middle">1. BONE FRACTURE</text>
+                <path d="M135 85 L195 85 L195 215 L155 232 L135 218 Z" fill="#f8fafc" stroke="${glowStroke('crack', '#db2777')}" stroke-width="3"/>
+                <path d="M135 236 L160 248 L195 232 L195 375 L135 375 Z" fill="#f8fafc" stroke="${glowStroke('crack', '#db2777')}" stroke-width="3"/>
+                <polygon points="118,225 132,220 124,234" fill="#f43f5e"/>
+                <polygon points="212,225 198,220 206,234" fill="#f43f5e"/>
+              </g>
+              <!-- Stage 2: Callus & Remodeling -->
+              <g class="${z('cast')} ${z('clueB')}">
+                <text x="425" y="55" fill="#93c5fd" font-size="16" font-weight="bold" text-anchor="middle">2. BONE CALLUS HEALING</text>
+                <rect x="395" y="85" width="60" height="290" rx="12" fill="#f8fafc" stroke="${glowStroke('cast', '#2563eb')}" stroke-width="3"/>
+                <ellipse cx="425" cy="228" rx="44" ry="34" fill="#93c5fd" opacity="0.7" stroke="#3b82f6" stroke-width="3"/>
+                <text x="425" y="233" fill="#0f172a" font-size="13" font-weight="bold" text-anchor="middle">NEW BONE CALLUS</text>
+              </g>
+            </svg>`;
+
+        case "comparative_animals":
+          return `
+            <svg viewBox="0 0 600 440" xmlns="http://www.w3.org/2000/svg">
+              <rect width="600" height="440" fill="#0f172a"/>
+              <!-- Cat Skeleton -->
+              <g class="${z('catCollar')} ${z('catSpine')}">
+                <rect x="25" y="25" width="265" height="185" rx="16" fill="#1e293b" stroke="${glowStroke('catCollar', '#3b82f6')}" stroke-width="2.5"/>
+                <text x="157" y="50" fill="#93c5fd" font-size="14.5" font-weight="bold" text-anchor="middle">CAT SKELETON (FLEXIBLE SPINE)</text>
+                <circle cx="80" cy="108" r="18" fill="#f8fafc"/>
+                <path d="M98 112 Q155 88 215 112 Q245 122 268 95" stroke="#f8fafc" stroke-width="8" fill="none" stroke-linecap="round"/>
+                <line x1="112" y1="118" x2="105" y2="182" stroke="#cbd5e1" stroke-width="6" stroke-linecap="round"/>
+                <line x1="205" y1="118" x2="215" y2="182" stroke="#cbd5e1" stroke-width="6" stroke-linecap="round"/>
+              </g>
+              <!-- Giraffe Neck (7 Cervical Vertebrae) -->
+              <g class="${z('giraffeNeck')} ${z('giraffeLegs')}">
+                <rect x="310" y="25" width="265" height="185" rx="16" fill="#1e293b" stroke="${glowStroke('giraffeNeck', '#f59e0b')}" stroke-width="2.5"/>
+                <text x="442" y="50" fill="#fcd34d" font-size="14.5" font-weight="bold" text-anchor="middle">GIRAFFE: 7 CERVICAL VERTEBRAE</text>
+                ${[0,1,2,3,4,5,6].map(i => `<rect x="${428 - i*3}" y="${66 + i*18}" width="18" height="14" rx="4" fill="#fde68a" stroke="#d97706" stroke-width="1.5"/>`).join("")}
+              </g>
+              <!-- Bird Hollow Bone & Keel -->
+              <g class="${z('birdWing')} ${z('birdKeel')}">
+                <rect x="25" y="230" width="265" height="185" rx="16" fill="#1e293b" stroke="${glowStroke('birdKeel', '#10b981')}" stroke-width="2.5"/>
+                <text x="157" y="255" fill="#6ee7b7" font-size="14.5" font-weight="bold" text-anchor="middle">BIRD: PNEUMATIC (HOLLOW) BONE</text>
+                <ellipse cx="157" cy="335" rx="75" ry="38" fill="#f8fafc"/>
+                <ellipse cx="157" cy="335" rx="58" ry="24" fill="#0f172a"/>
+                <line x1="105" y1="335" x2="135" y2="314" stroke="#34d399" stroke-width="4"/>
+                <line x1="135" y1="356" x2="175" y2="314" stroke="#34d399" stroke-width="4"/>
+                <line x1="175" y1="356" x2="208" y2="330" stroke="#34d399" stroke-width="4"/>
+              </g>
+              <!-- T. rex Fossil -->
+              <g class="${z('trexSkull')} ${z('trexRibs')} ${z('grad1')}">
+                <rect x="310" y="230" width="265" height="185" rx="16" fill="#1e293b" stroke="${glowStroke('trexSkull', '#db2777')}" stroke-width="2.5"/>
+                <text x="442" y="255" fill="#f9a8d4" font-size="14.5" font-weight="bold" text-anchor="middle">T. REX FOSSIL SKELETON</text>
+                <path d="M350 295 L408 282 L412 316 L362 322 Z" fill="#fef3c7"/>
+                <path d="M362 332 L404 328 L398 345 L360 342 Z" fill="#fde68a"/>
+                <path d="M412 308 Q475 302 548 285" stroke="#fef3c7" stroke-width="8" fill="none" stroke-linecap="round"/>
+                <line x1="455" y1="312" x2="448" y2="395" stroke="#fde68a" stroke-width="9" stroke-linecap="round"/>
+              </g>
+            </svg>`;
+
+        default:
+          return renderAnatomicalDiagram("full_skeleton", activeZoneId);
       }
-    };
+    }
 
     // =========================================================================
-    // 2. 32 COMPLETE INTERACTIVE PAGES
+    // 2. 32 COMPLETE, HIGH-ENERGY PAGES WITH 100% ACCURATE ANATOMICAL LABELS
     // =========================================================================
     const PAGES = [
       {
         id: 1,
         topic: "Welcome to Bone Explorers",
         title: "What Are Bones, Anyway?",
-        photo: PHOTOS.fullSkeleton,
+        diagram: "full_skeleton",
+        diagramCaption: "Anterior view of the human skeletal system",
         hotspots: [
-          { id: "head", num: 1, label: "Skull Frame", x: 50, y: 11, theme: "theme-blue", info: "Your skull is like a built-in bike helmet protecting your brain!" },
-          { id: "chest", num: 2, label: "Rib Shield", x: 50, y: 31, theme: "theme-green", info: "Your ribs wrap around your heart and lungs like a protective cage." },
-          { id: "legs", num: 3, label: "Leg Pillars", x: 52, y: 72, theme: "theme-amber", info: "Your leg bones are thick pillars that hold up your whole body." }
+          { id: "skull", num: 1, label: "Cranium (Skull)", x: 50, y: 11, theme: "theme-blue", info: "Your cranium is a curved dome of 8 cranial bones that shields your brain from impacts." },
+          { id: "ribs", num: 2, label: "Thoracic Rib Cage", x: 50, y: 31, theme: "theme-green", info: "Your 24 ribs and sternum wrap around your heart and lungs like an armoured cage." },
+          { id: "femur", num: 3, label: "Femur & Tibia", x: 53, y: 72, theme: "theme-amber", info: "Your femur (thigh bone) and tibia (shin bone) support your body weight when you stand, run, and leap." }
         ],
         sentences: [
-          { target: "head", theme: "theme-blue", badge: "1. Built-In Frame", text: "Imagine a camping tent without its poles, or a house without wooden walls — it would just flop onto the ground like a giant pancake!" },
-          { target: "chest", theme: "theme-green", badge: "2. Body Armour", text: "Your skeleton is your body's super-strong inner frame, and without it, you would basically be a wobbly jellyfish on the floor." },
-          { target: "legs", theme: "theme-amber", badge: "3. Living Rock", text: "Even though bones look dry and hard like rocks in a museum, the bones inside you right now are totally alive, growing, and fixing themselves!" }
+          { target: "skull", text: "Imagine pitching a giant camping tent without any poles — WHOOMP, it would collapse onto the grass like a pancake!" },
+          { target: "ribs", text: "Your human skeleton is the ultimate internal frame that gives your body its shape and protects your vital organs." },
+          { target: "femur", text: "Even though museum skeletons look dry like rocks, the 206 bones inside you right now are living, blood-pumping organs that grow and repair themselves every single day!" }
         ],
-        funFact: "Pound for pound, healthy human bone is stronger than steel! A tiny block of bone the size of a matchbox could hold up a pickup truck.",
+        funFact: "Ounce for ounce, healthy compact bone is stronger than steel! A tiny cubic block of bone the size of a matchbox can support over 8,000 kilograms.",
         quiz: {
-          question: "What would happen if humans didn't have a skeleton?",
+          question: "What would happen if humans didn't have a skeletal system?",
           options: [
-            "We would flop on the floor like a giant jellyfish",
+            "We would collapse onto the floor with no shape or support",
             "We would bounce around like rubber basketballs",
             "We would float up to the ceiling",
             "Nothing at all would change"
           ],
           correctIndex: 0,
-          goodFeedback: "Nailed it! Without bones holding us up, we'd be a squishy puddle of skin and muscles.",
-          retryFeedback: "Think about a tent with no poles! Tap the first choice."
+          goodFeedback: "Boom! Without your cranium, spine, ribs, and leg bones, your muscles and skin would have zero frame to hold them up.",
+          retryFeedback: "Think about that tent with no poles! Tap the first choice."
         }
       },
       {
         id: 2,
-        topic: "Why We Need Bones",
-        title: "Your Skeleton's 4 Big Jobs",
-        photo: PHOTOS.chestXray,
+        topic: "4 Major Functions",
+        title: "Your Skeleton's 4 Awesome Superpowers!",
+        diagram: "four_jobs",
+        diagramCaption: "The 4 physiological functions of the skeletal system",
         hotspots: [
-          { id: "frame", num: 1, label: "1. Hold You Up", x: 50, y: 18, theme: "theme-blue", info: "Your spine and collarbones keep you standing tall." },
-          { id: "shield", num: 2, label: "2. Guard Organs", x: 38, y: 45, theme: "theme-green", info: "Ribs guard your squishy heart and lungs from bumps." },
-          { id: "move", num: 3, label: "3. Help You Move", x: 78, y: 32, theme: "theme-amber", info: "Muscles tug on arm bones like puppet strings so you can wave!" },
-          { id: "factory", num: 4, label: "4. Make Blood", x: 52, y: 70, theme: "theme-purple", info: "Inside bones is a jelly factory making brand-new blood cells." }
+          { id: "frame", num: 1, label: "1. Structural Support", x: 26, y: 24, theme: "theme-blue", info: "Your vertebral column (spine) and pelvic girdle hold your entire body upright." },
+          { id: "shield", num: 2, label: "2. Organ Protection", x: 74, y: 24, theme: "theme-green", info: "Your cranium protects your brain, and your rib cage shields your heart and lungs." },
+          { id: "move", num: 3, label: "3. Movement Levers", x: 26, y: 74, theme: "theme-amber", info: "Skeletal muscles pull on bones at joints so you can sprint, throw, and dance." },
+          { id: "factory", num: 4, label: "4. Blood Cell Production", x: 74, y: 74, theme: "theme-purple", info: "Red bone marrow manufactures millions of new blood cells every second!" }
         ],
         sentences: [
-          { target: "frame", theme: "theme-blue", badge: "1. Shape & Support", text: "Job number one: your bones give your body its shape and hold you upright so you can sit, stand, and walk." },
-          { target: "shield", theme: "theme-green", badge: "2. Organ Guard", text: "Job number two: hard bones act like goalie pads around squishy organs like your brain, heart, and lungs." },
-          { target: "move", theme: "theme-amber", badge: "3. Movement Levers", text: "Job number three: your muscles pull on your bones like ropes on a crane so you can run, jump, and high-five." },
-          { target: "factory", theme: "theme-purple", badge: "4. Blood & Calcium Bank", text: "Job number four: the inside of your bones makes millions of fresh blood cells every second and stores minerals like calcium." }
+          { target: "frame", text: "Your skeleton pulls off four epic jobs at the exact same time without you ever having to think about it!" },
+          { target: "shield", text: "First, it gives your body structural support; second, hard bones like your cranium and rib cage shield delicate organs like your brain, heart, and lungs." },
+          { target: "move", text: "Third, your bones act as rigid levers that muscles tug on so you can sprint and high-five, and fourth, your red bone marrow manufactures brand-new blood cells 24/7!" }
         ],
-        funFact: "Every time you breathe in, your rib cage swings up and out like a bucket handle to give your lungs extra room!",
+        funFact: "Every time you take a deep breath, your ribs swing upward and outward so your lungs can inflate like balloons!",
         quiz: {
-          question: "Which of these is NOT a job of your bones?",
+          question: "Which of these is NOT one of the skeleton's 4 major jobs?",
           options: [
-            "Digesting your pizza after lunch",
-            "Protecting your heart and brain",
-            "Making brand-new blood cells",
-            "Helping your muscles move your body"
+            "Digesting your lunch in your stomach",
+            "Protecting your brain, heart, and lungs",
+            "Producing new blood cells in bone marrow",
+            "Giving your body structural support and levers for movement"
           ],
           correctIndex: 0,
-          goodFeedback: "Awesome! Your stomach digests pizza — your bones handle support, protection, movement, and blood!",
-          retryFeedback: "Check which job belongs to your tummy instead of your skeleton!"
+          goodFeedback: "Nailed it! Your digestive system handles lunch — your skeleton handles support, protection, movement, and blood production!",
+          retryFeedback: "Spot the job that belongs to your stomach instead of your skeleton!"
         }
       },
       {
         id: 3,
-        topic: "Counting Bones",
-        title: "Why Do Babies Have More Bones Than Adults?",
-        photo: PHOTOS.kidHandXray,
+        topic: "Ossification & Bone Count",
+        title: "Why Do Babies Have ~300 Bones While Adults Have 206?",
+        diagram: "child_growth_hand",
+        diagramCaption: "Developing hand bones and epiphyseal growth plates",
         hotspots: [
-          { id: "gaps", num: 1, label: "Squishy Growth Gaps", x: 46, y: 65, theme: "theme-blue", info: "See the dark gaps between wrist bones? That's flexible cartilage!" },
-          { id: "fingers", num: 2, label: "Growing Finger Bones", x: 45, y: 30, theme: "theme-green", info: "Kids' bones have special growing ends that slowly join together." }
+          { id: "gaps", num: 1, label: "Cartilage & Ossification", x: 46, y: 72, theme: "theme-purple", info: "Many infant bones start as flexible hyaline cartilage and gradually harden into bone (ossification)." },
+          { id: "growthPlate", num: 2, label: "Epiphyseal Growth Plates", x: 45, y: 45, theme: "theme-amber", info: "Epiphyseal growth plates near the ends of long bones add new length as you grow!" }
         ],
         sentences: [
-          { target: "gaps", theme: "theme-blue", badge: "1. ~300 Baby Bones", text: "Here is a wild plot twist: when you were born as a tiny baby, you actually had around 300 bones, which is way more than a grown-up!" },
-          { target: "fingers", theme: "theme-green", badge: "2. 206 Adult Bones", text: "Many baby bones start out as bendy rubbery stuff called cartilage — the same stuff in the tip of your nose — and slowly fuse together like snapping small LEGO bricks into one big super-brick until an adult has 206 bones." }
+          { target: "gaps", text: "Here is a wild science secret: when you were born as a newborn baby, you actually had around 300 bones — nearly 100 more than your teacher!" },
+          { target: "growthPlate", text: "Many of a baby's bones begin as bendy, rubbery cartilage and slowly harden and fuse together through a process called ossification until a full-grown adult has 206 solid bones." }
         ],
-        funFact: "Look at this real X-ray of a 7-year-old's hand! Those dark spaces at the ends of the finger bones are soft growth plates that haven't turned solid yet.",
+        funFact: "The tip of your nose and the tops of your ears are still made of flexible cartilage today — wiggle them to feel what baby skeleton parts start out like!",
         quiz: {
-          question: "How many bones does a full-grown adult have?",
+          question: "How many bones does a full-grown adult human have?",
           options: [
             "206 bones",
             "300 bones",
-            "50 bones",
+            "52 bones",
             "1,000 bones"
           ],
           correctIndex: 0,
-          goodFeedback: "Boom! Babies start with about 300, and adults end up with 206 fused bones.",
-          retryFeedback: "Babies start around 300, then smaller pieces join together into 206!"
+          goodFeedback: "Spot on! Babies start with ~300 separate pieces that fuse into 206 adult bones.",
+          retryFeedback: "Babies start around 300, then smaller bones fuse together into 206!"
         }
       },
       {
         id: 4,
-        topic: "Where Are Your Bones?",
-        title: "Half Your Bones Are in Your Hands & Feet!",
-        photo: PHOTOS.handXray,
+        topic: "Hands & Feet",
+        title: "More Than Half Your Bones Are in Your Hands & Feet!",
+        diagram: "hand_bones",
+        diagramCaption: "The 27 bones of a human hand: Carpals, Metacarpals & Phalanges",
         hotspots: [
-          { id: "wrist", num: 1, label: "8 Pebble Wrist Bones", x: 52, y: 76, theme: "theme-purple", info: "Your wrist alone has 8 tiny pebble-shaped bones!" },
-          { id: "palm", num: 2, label: "5 Palm Bones", x: 50, y: 54, theme: "theme-blue", info: "Five long bones stretch across the middle of your hand." },
-          { id: "tips", num: 3, label: "14 Finger Bones", x: 47, y: 24, theme: "theme-green", info: "Each finger has 3 bones, and your thumb has 2!" }
+          { id: "wrist", num: 1, label: "8 Carpals (Wrist)", x: 48, y: 74, theme: "theme-purple", info: "8 small carpal bones fit together in your wrist for smooth multi-angle motion." },
+          { id: "palm", num: 2, label: "5 Metacarpals (Palm)", x: 48, y: 58, theme: "theme-blue", info: "5 long metacarpal bones form the sturdy framework of your palm." },
+          { id: "tips", num: 3, label: "14 Phalanges (Fingers)", x: 48, y: 34, theme: "theme-green", info: "14 phalanges form your fingers (3 per finger, 2 in your thumb)." }
         ],
         sentences: [
-          { target: "wrist", theme: "theme-purple", badge: "1. 8 Wrist Pebbles", text: "If you count all 206 adult bones, more than half of them — 106 bones — are hiding right inside your hands and feet!" },
-          { target: "palm", theme: "theme-blue", badge: "2. 27 Bones Per Hand", text: "Each hand has 27 bones packed into your wrist, palm, and fingers so you can tie shoelaces, play piano, or grip a pencil." },
-          { target: "tips", theme: "theme-green", badge: "3. 26 Bones Per Foot", text: "Each foot has 26 bones working like shock-absorbing springs every time you run or jump." }
+          { target: "wrist", text: "Out of all 206 bones in an adult body, a whopping 106 of them — more than half your entire skeleton — are packed right inside your hands and feet!" },
+          { target: "palm", text: "Each hand contains 27 bones: 8 carpals in your wrist, 5 metacarpals across your palm, and 14 phalanges in your fingers and thumb." },
+          { target: "tips", text: "Meanwhile, each foot packs 26 tarsals, metatarsals, and phalanges so you can balance, sprint, and spring off the ground!" }
         ],
-        funFact: "27 + 27 + 26 + 26 = 106 bones! That means your hands and feet own more than half of your entire skeleton.",
+        funFact: "Do the math: 27 + 27 + 26 + 26 = 106 bones! Your hands and feet own the majority of your skeleton.",
         quiz: {
-          question: "How many bones are inside just ONE of your hands and wrists?",
+          question: "How many bones are inside just ONE human hand and wrist?",
           options: [
-            "27 bones",
+            "27 bones (8 carpals, 5 metacarpals, 14 phalanges)",
             "5 bones",
             "100 bones",
-            "2 bones"
+            "3 bones"
           ],
           correctIndex: 0,
-          goodFeedback: "Spot on! 27 bones in each hand lets your fingers wiggle in tons of directions.",
-          retryFeedback: "Count again! There are 8 in the wrist, 5 in the palm, and 14 in the fingers."
+          goodFeedback: "Awesome! 8 + 5 + 14 = 27 precision bones per hand.",
+          retryFeedback: "Add them up: 8 carpals + 5 metacarpals + 14 phalanges!"
         }
       },
       {
         id: 5,
         topic: "Interactive Skeleton Map",
-        title: "Tap the Real Skeleton to Explore!",
-        photo: PHOTOS.fullSkeleton,
+        title: "Tap the Pins to Master Major Human Bones!",
+        diagram: "full_skeleton",
+        diagramCaption: "Tap any numbered anatomical pin to inspect & hear it",
         hotspots: [
-          { id: "skull", num: 1, label: "Skull", x: 50, y: 10, theme: "theme-blue", info: "Skull (Cranium): 22 locked bones guarding your brain like a crash helmet." },
-          { id: "clavicle", num: 2, label: "Collarbone", x: 42, y: 21, theme: "theme-teal", info: "Collarbone (Clavicle): Keeps your shoulders wide so your arms can swing freely." },
-          { id: "ribs", num: 3, label: "Rib Cage", x: 52, y: 31, theme: "theme-green", info: "Ribs: 24 curved bones wrapping around your heart and lungs." },
-          { id: "humerus", num: 4, label: "Upper Arm", x: 35, y: 34, theme: "theme-purple", info: "Humerus: Your long upper-arm bone (yes, it sounds like 'humorous' — your funny bone!)." },
-          { id: "spine", num: 5, label: "Spine", x: 50, y: 41, theme: "theme-amber", info: "Spine: 33 stacked ring bones running down the middle of your back." },
-          { id: "pelvis", num: 6, label: "Pelvis (Hips)", x: 50, y: 49, theme: "theme-pink", info: "Pelvis: A sturdy bowl of bones connecting your upper body to your legs." },
-          { id: "femur", num: 7, label: "Thigh Bone", x: 45, y: 63, theme: "theme-blue", info: "Femur: The longest, heaviest, strongest bone in your whole body!" },
-          { id: "tibia", num: 8, label: "Shin Bone", x: 46, y: 82, theme: "theme-green", info: "Tibia: Your thick shin bone that carries your weight when you walk." }
+          { id: "skull", num: 1, label: "Cranium & Mandible", x: 50, y: 10, theme: "theme-blue", info: "Cranium & Mandible (Skull): 22 cranial and facial bones protecting your brain." },
+          { id: "clavicle", num: 2, label: "Clavicle", x: 40, y: 21, theme: "theme-teal", info: "Clavicle (Collarbone): Connects your sternum to your shoulder blade (scapula)." },
+          { id: "ribs", num: 3, label: "Sternum & Ribs", x: 52, y: 31, theme: "theme-green", info: "Thoracic Cage: 24 curved ribs and the central sternum guarding your heart and lungs." },
+          { id: "humerus", num: 4, label: "Humerus", x: 34, y: 34, theme: "theme-purple", info: "Humerus: The long upper-arm bone connecting your shoulder to your elbow." },
+          { id: "spine", num: 5, label: "Vertebral Column", x: 50, y: 41, theme: "theme-amber", info: "Vertebral Column (Spine): 33 stacked vertebrae protecting your spinal cord." },
+          { id: "pelvis", num: 6, label: "Pelvis", x: 50, y: 49, theme: "theme-pink", info: "Pelvic Girdle: A strong ring of hip bones supporting your spine and leg joints." },
+          { id: "femur", num: 7, label: "Femur", x: 44, y: 63, theme: "theme-blue", info: "Femur: The longest, heaviest, strongest bone in the human body." },
+          { id: "tibia", num: 8, label: "Tibia & Fibula", x: 44, y: 82, theme: "theme-green", info: "Tibia & Fibula: Your weight-bearing shin bone and slender outer lower-leg bone." }
         ],
         sentences: [
-          { target: "skull", theme: "theme-blue", badge: "1. Top to Bottom", text: "Welcome to the skeleton tour! Tap any glowing button on this real museum skeleton to see what each major bone does." },
-          { target: "ribs", theme: "theme-green", badge: "2. Middle Shield", text: "In the middle, your rib cage and spine team up to hold you tall and guard your heart and lungs." },
-          { target: "femur", theme: "theme-amber", badge: "3. Power Legs", text: "Down below, your pelvis and giant femur thigh bones power every sprint, kick, and leap!" }
+          { target: "skull", text: "Welcome to the Anatomy Lab! Tap any glowing pin on the skeleton diagram to illuminate that exact bone and hear what it does." },
+          { target: "ribs", text: "Notice how your axial skeleton — the cranium, vertebral column, sternum, and ribs — runs right down the centre to guard your brain, spinal cord, heart, and lungs." },
+          { target: "femur", text: "Your appendicular skeleton — your clavicles, humerus, pelvis, femur, tibia, and fibula — powers every throw, leap, and sprint!" }
         ],
-        funFact: "Tap every pin on the skeleton picture! Clicking a pin also speaks its secret bone fact out loud.",
+        funFact: "Tap every single pin on the skeleton diagram to hear all 8 major anatomical landmarks!",
         type: "explorer"
       },
       {
         id: 6,
-        topic: "Head Protection",
-        title: "The Skull: Your Built-In Bike Helmet",
-        photo: PHOTOS.skullReal,
+        topic: "Cranium & Mandible",
+        title: "The Skull: 22 Interlocking Bones + 1 Hinged Jaw",
+        diagram: "skull_anatomy",
+        diagramCaption: "Lateral view of the Cranium, Cranial Sutures, Orbits & Mandible",
         hotspots: [
-          { id: "cranium", num: 1, label: "Brain Dome", x: 52, y: 24, theme: "theme-blue", info: "8 curved dome plates lock together tightly around your squishy brain." },
-          { id: "sutures", num: 2, label: "Zig-Zag Seams", x: 64, y: 38, theme: "theme-purple", info: "See those squiggly lines? They're stitched seams where skull bones fused!" },
-          { id: "orbits", num: 3, label: "Eye Caves", x: 42, y: 50, theme: "theme-green", info: "Deep bony caves keep your eyeballs safe from bumps." },
-          { id: "jaw", num: 4, label: "Moving Jaw", x: 48, y: 80, theme: "theme-amber", info: "Your lower jaw (mandible) is the ONLY skull bone that moves when you talk or chew!" }
+          { id: "cranium", num: 1, label: "Cranium", x: 55, y: 26, theme: "theme-blue", info: "The cranium is formed by 8 curved cranial bones that enclose and protect your brain." },
+          { id: "sutures", num: 2, label: "Cranial Sutures", x: 64, y: 36, theme: "theme-purple", info: "Cranial sutures are zig-zag fibrous joints where skull plates fuse tightly together." },
+          { id: "orbits", num: 3, label: "Orbits", x: 39, y: 45, theme: "theme-green", info: "Bony eye sockets called orbits surround and protect your eyes." },
+          { id: "jaw", num: 4, label: "Mandible", x: 45, y: 78, theme: "theme-amber", info: "Your mandible (lower jaw) is the ONLY freely movable bone in your skull!" }
         ],
         sentences: [
-          { target: "cranium", theme: "theme-blue", badge: "1. 22 Puzzle Pieces", text: "Your skull looks like one solid bowling ball, right? Surprise — it is actually 22 separate bones locked together like a tight 3D jigsaw puzzle!" },
-          { target: "sutures", theme: "theme-purple", badge: "2. Wavy Stitch Lines", text: "Look closely at the side of this real skull and you can see squiggly zig-zag lines where the plates fused together as you grew." },
-          { target: "jaw", theme: "theme-amber", badge: "3. One Moving Part", text: "Twenty-one of your skull bones are glued totally still, while your bottom jaw hinges up and down so you can crunch apples and tell jokes." }
+          { target: "cranium", text: "Your skull looks like one solid helmet, right? Plot twist: it is actually 22 separate cranial and facial bones locked together like a 3D jigsaw puzzle!" },
+          { target: "sutures", text: "Those wavy zig-zag lines across the cranium are called cranial sutures — immovable joints that fuse the plates into an ultra-strong dome." },
+          { target: "jaw", text: "Twenty-one of your skull bones stay completely locked in place, while your mandible hinges up and down so you can chew crunchy apples and laugh out loud!" }
         ],
-        funFact: "Even with a super-tough skull, your brain still needs a real bike helmet when you ride — double armour is always smarter!",
+        funFact: "Even with a tough cranium, always wear a certified helmet when biking or boarding — double armour keeps your brain extra safe!",
         quiz: {
-          question: "Which bone in your skull is the ONLY one that can move?",
+          question: "Which bone in your skull is the ONLY freely movable one?",
           options: [
-            "Your lower jawbone",
-            "Your forehead bone",
-            "Your nose bridge",
-            "The back of your head"
+            "The mandible (lower jawbone)",
+            "The frontal bone of your forehead",
+            "The nasal bone",
+            "The occipital bone at the back of your head"
           ],
           correctIndex: 0,
-          goodFeedback: "Yes! Your lower jaw hinges open and shut thousands of times a day for talking and chewing.",
-          retryFeedback: "Wiggle your mouth! Which part of your head actually moves?"
+          goodFeedback: "Yes! Your mandible hinges open and closed thousands of times a day for speaking and chewing.",
+          retryFeedback: "Move your mouth! Which skull bone actually hinges up and down?"
         }
       },
       {
         id: 7,
-        topic: "Chest Armour",
-        title: "The Rib Cage: Curved Shield for Heart & Lungs",
-        photo: PHOTOS.chestXray,
+        topic: "Thoracic Cage",
+        title: "The Rib Cage & Sternum: Armoured Shield for Heart & Lungs",
+        diagram: "rib_cage",
+        diagramCaption: "Anterior view of the Sternum, 24 Ribs & Floating Ribs",
         hotspots: [
-          { id: "sternum", num: 1, label: "Breastbone", x: 50, y: 42, theme: "theme-purple", info: "Your sternum is a flat tie-shaped bone right down the middle of your chest." },
-          { id: "trueRibs", num: 2, label: "24 Curved Ribs", x: 33, y: 47, theme: "theme-blue", info: "12 ribs on the left + 12 ribs on the right = 24 curved bars!" },
-          { id: "floating", num: 3, label: "Floating Ribs", x: 67, y: 65, theme: "theme-amber", info: "Your bottom 2 pairs of ribs don't connect in front — they're 'floating' ribs!" }
+          { id: "sternum", num: 1, label: "Sternum", x: 50, y: 40, theme: "theme-purple", info: "Your sternum (breastbone) anchors the front of your rib cage right down the centre of your chest." },
+          { id: "trueRibs", num: 2, label: "24 Curved Ribs", x: 30, y: 44, theme: "theme-blue", info: "12 pairs of curved ribs (24 total) wrap around your heart and lungs." },
+          { id: "floating", num: 3, label: "Floating Ribs", x: 66, y: 74, theme: "theme-amber", info: "Pairs 11 and 12 are floating ribs — they attach to your spine in back but stay open in front!" }
         ],
         sentences: [
-          { target: "trueRibs", theme: "theme-blue", badge: "1. 12 Pairs of Ribs", text: "In this real chest X-ray, you can see 12 pairs of curved ribs wrapping around the chest like the bars of a birdcage." },
-          { target: "sternum", theme: "theme-purple", badge: "2. Front Breastbone", text: "Most ribs hook onto your spine in the back and attach to your flat breastbone in front using stretchy cartilage so your chest can expand." },
-          { target: "floating", theme: "theme-amber", badge: "3. Floating Bottom Ribs", text: "Your bottom two pairs of ribs only attach to your spine in the back, so doctors call them floating ribs!" }
+          { target: "trueRibs", text: "Wrap your hands around your sides and feel those curved bars — you have 12 pairs of ribs (24 ribs total) forming an armoured thoracic cage around your heart and lungs!" },
+          { target: "sternum", text: "Your upper ribs connect in front to your flat sternum using flexible costal cartilage so your chest can expand every time you inhale." },
+          { target: "floating", text: "Your bottom two pairs of ribs only attach to your vertebral column in the back and end freely in front, which is why anatomists call them floating ribs!" }
         ],
-        funFact: "Both boys and girls have the exact same number of ribs: 24 ribs (12 pairs)!",
+        funFact: "Despite an old myth, both boys and girls have the exact same number of ribs: 24 ribs (12 pairs)!",
         quiz: {
-          question: "How many ribs do most humans have in total?",
+          question: "How many ribs do humans normally have in total?",
           options: [
             "24 ribs (12 pairs)",
             "10 ribs (5 pairs)",
@@ -1261,552 +1688,1461 @@
             "2 ribs"
           ],
           correctIndex: 0,
-          goodFeedback: "Right on! 12 on the left and 12 on the right makes 24 protective ribs.",
+          goodFeedback: "Right on! 12 on the left + 12 on the right = 24 protective ribs.",
           retryFeedback: "Count 12 pairs: 12 + 12 = 24!"
         }
       },
       {
         id: 8,
-        topic: "Your Flexible Backbone",
-        title: "The Spine: 33 Donut Bones in a Stack",
-        photo: PHOTOS.spineReal,
+        topic: "Vertebral Column",
+        title: "The Spine: 33 Stacked Vertebrae & Shock-Absorbing Discs",
+        diagram: "spine_anatomy",
+        diagramCaption: "Lateral view of the Vertebral Column & Intervertebral Discs",
         hotspots: [
-          { id: "neck", num: 1, label: "7 Neck Bones", x: 50, y: 14, theme: "theme-blue", info: "Your neck has 7 vertebrae — the exact same number as a giraffe's giant neck!" },
-          { id: "vertebrae", num: 2, label: "33 Stacked Rings", x: 52, y: 46, theme: "theme-green", info: "Each bone has a hole in the middle, like a stack of Life Savers candies." },
-          { id: "discs", num: 3, label: "Squishy Cushions", x: 48, y: 68, theme: "theme-amber", info: "Soft pads between bones act like shock absorbers when you jump." }
+          { id: "neck", num: 1, label: "7 Cervical Vertebrae", x: 38, y: 18, theme: "theme-blue", info: "Your neck has 7 cervical vertebrae — the exact same count as a giraffe!" },
+          { id: "vertebrae", num: 2, label: "33 Vertebrae", x: 35, y: 55, theme: "theme-green", info: "33 ring-shaped vertebrae stack together to protect your spinal cord." },
+          { id: "discs", num: 3, label: "Intervertebral Discs", x: 74, y: 48, theme: "theme-amber", info: "Fibrocartilage intervertebral discs cushion every vertebra when you run and jump." }
         ],
         sentences: [
-          { target: "vertebrae", theme: "theme-green", badge: "1. Stack of 33 Bones", text: "If your backbone were one giant broomstick, you couldn't bend over to tie your shoes — instead, it is a stack of 33 ring-shaped bones called vertebrae!" },
-          { target: "discs", theme: "theme-amber", badge: "2. Jelly-Donut Pads", text: "Between every pair of spine bones sits a squishy cushion pad that acts like bubble wrap when you jump off a swing." },
-          { target: "neck", theme: "theme-blue", badge: "3. Nerve Highway", text: "Running right through the middle tunnel of those 33 bones is your spinal cord — the super-fast message cable between your brain and your toes!" }
+          { target: "vertebrae", text: "If your backbone were a single rigid rod, you could never bend forward to tie your shoes — instead, your vertebral column is a flexible S-curved stack of 33 ring-shaped vertebrae!" },
+          { target: "discs", text: "Between every pair of vertebrae sits a tough, shock-absorbing cushion called an intervertebral disc that soaks up impact whenever you jump." },
+          { target: "neck", text: "Passing straight down the central tunnel of those 33 vertebrae is your spinal cord — the high-speed nerve highway connecting your brain to your entire body!" }
         ],
-        funFact: "Because those squishy spine pads flatten slightly during the day from gravity, you are actually about 1 centimetre taller in the morning than at bedtime!",
+        funFact: "Gravity gently compresses your intervertebral discs during the day, making you about 1 centimetre taller when you wake up in the morning than at bedtime!",
         quiz: {
-          question: "Why is your spine made of 33 small bones instead of 1 long bone?",
+          question: "Why is your vertebral column made of 33 individual vertebrae instead of 1 solid bone?",
           options: [
-            "So your back can bend, twist, and absorb jumps",
+            "So your back can bend, twist, and absorb shocks while guarding your spinal cord",
             "So you can detach them like blocks",
-            "Because bones can't grow longer than a coin",
-            "So your spine makes ringing sounds"
+            "Because bones cannot grow longer than a coin",
+            "So your spine makes rattling sounds"
           ],
           correctIndex: 0,
-          goodFeedback: "You got it! 33 stacked bones + squishy pads let you twist, bend, and bounce safely.",
-          retryFeedback: "Think about what happens if you try to bend a straight wooden ruler vs. a chain!"
+          goodFeedback: "Spot on! 33 stacked vertebrae + intervertebral discs give you flexibility AND spinal cord protection.",
+          retryFeedback: "Think about bending a flexible chain versus a stiff wooden ruler!"
         }
       },
       {
         id: 9,
-        topic: "Arm & Hand Bones",
-        title: "From Your Funny Bone to Your Fingertips",
-        photo: PHOTOS.handXray,
+        topic: "Upper Limb Anatomy",
+        title: "Humerus, Radius, Ulna & 27 Hand Bones!",
+        diagram: "hand_bones",
+        diagramCaption: "Carpals, Metacarpals & Phalanges of the human hand",
         hotspots: [
-          { id: "forearm", num: 1, label: "2 Forearm Bones", x: 53, y: 92, theme: "theme-blue", info: "Your radius and ulna cross over each other when you twist your doorknob!" },
-          { id: "carpals", num: 2, label: "8 Wrist Bones", x: 52, y: 76, theme: "theme-purple", info: "Eight tiny wrist bones glide smoothly so you can wave." },
-          { id: "phalanges", num: 3, label: "Finger Bones", x: 44, y: 26, theme: "theme-green", info: "Finger and toe bones share the fun name 'phalanges' (fuh-LAN-jeez)." }
+          { id: "carpals", num: 1, label: "8 Carpals", x: 48, y: 74, theme: "theme-purple", info: "8 carpal bones in your wrist glide against each other so your hand can tilt and rotate." },
+          { id: "palm", num: 2, label: "5 Metacarpals", x: 48, y: 58, theme: "theme-blue", info: "5 metacarpals connect your wrist carpals to your knuckles." },
+          { id: "phalanges", num: 3, label: "14 Phalanges", x: 48, y: 34, theme: "theme-green", info: "Phalanges (fuh-LAN-jeez) are the segmented bones of your fingers and toes." }
         ],
         sentences: [
-          { target: "forearm", theme: "theme-blue", badge: "1. Twisting Twin Bones", text: "Your upper arm has one big bone, while your lower arm has two parallel bones that actually criss-cross over each other every time you turn a doorknob!" },
-          { target: "carpals", theme: "theme-purple", badge: "2. 8 Wrist Marbles", text: "At the end of your forearm sit 8 pebble-sized wrist bones that let your hand bend in circles." },
-          { target: "phalanges", theme: "theme-green", badge: "3. Say 'Phalanges!'", text: "Your finger bones are called phalanges — try saying 'fuh-LAN-jeez' three times fast while wiggling your fingers!" }
+          { target: "carpals", text: "Your upper arm has one sturdy bone called the humerus, while your forearm has two parallel bones — the radius and ulna — that cross right over each other when you twist a doorknob!" },
+          { target: "palm", text: "At your wrist, 8 compact carpals connect to 5 long metacarpals across your palm." },
+          { target: "phalanges", text: "Finally, 14 hinged phalanges let your fingers curl around a basketball, strum a guitar, or type at lightning speed!" }
         ],
-        funFact: "When you hit your 'funny bone,' you aren't actually hitting a bone! You're bumping a sensitive nerve right behind your elbow.",
+        funFact: "Bumping your 'funny bone' isn't hitting a bone at all — you're actually tapping your ulnar nerve where it passes right behind your elbow!",
         quiz: {
-          question: "What happens to the two bones in your lower arm when you twist your hand over?",
+          question: "What happens to your radius and ulna (your two forearm bones) when you turn your palm face-down?",
           options: [
-            "They cross over each other like an X",
-            "They disappear for a second",
+            "The radius crosses over the ulna like an X",
+            "One of the bones vanishes temporarily",
             "They stretch twice as long",
-            "They lock together forever"
+            "They fuse into one bone"
           ],
           correctIndex: 0,
-          goodFeedback: "Yes! Put one hand on your forearm and twist your wrist — you can actually feel the bones rolling over each other!",
-          retryFeedback: "Try twisting your forearm right now and feel how the two bones cross!"
+          goodFeedback: "Yes! Hold your forearm with your other hand and twist your wrist — you can actually feel the radius rotating over the ulna!",
+          retryFeedback: "Try rotating your wrist right now and feel the two forearm bones cross!"
         }
       },
       {
         id: 10,
-        topic: "Hips & Longest Bone",
-        title: "The Pelvis & Femur: Powerhouse of Your Legs",
-        photo: PHOTOS.pelvisReal,
+        topic: "Pelvic Girdle & Femur",
+        title: "The Pelvis & Femur: Heavyweight Champions of Your Legs",
+        diagram: "pelvis_femur",
+        diagramCaption: "Pelvic Girdle, Acetabulum Hip Socket & Femur",
         hotspots: [
-          { id: "bowl", num: 1, label: "Hip Bowl (Pelvis)", x: 50, y: 38, theme: "theme-pink", info: "Your pelvis is shaped like a wide superhero belt that cradles your tummy organs." },
-          { id: "socket", num: 2, label: "Deep Hip Socket", x: 30, y: 58, theme: "theme-blue", info: "The round top of your thigh bone snaps right into this deep cup!" },
-          { id: "base", num: 3, label: "Spine Anchor", x: 50, y: 22, theme: "theme-amber", info: "Your spine sits right on top of the back of your pelvis." }
+          { id: "bowl", num: 1, label: "Pelvic Girdle", x: 50, y: 34, theme: "theme-pink", info: "Your pelvis forms a sturdy bony basin supporting your vertebral column and abdominal organs." },
+          { id: "socket", num: 2, label: "Hip Ball-and-Socket", x: 35, y: 46, theme: "theme-blue", info: "The spherical head of your femur fits into the deep cup-shaped socket of your pelvis." },
+          { id: "base", num: 3, label: "Femur Shaft", x: 37, y: 74, theme: "theme-amber", info: "Your femur (thigh bone) is the longest, heaviest, and strongest bone in the human body." }
         ],
         sentences: [
-          { target: "bowl", theme: "theme-pink", badge: "1. The Hip Bowl", text: "Look at this real human pelvis from a science museum — it is shaped like a big curved bowl that holds up your spine and cradles your lower organs." },
-          { target: "socket", theme: "theme-blue", badge: "2. Ball-and-Socket Cup", text: "On each side of the pelvis is a deep round cup where the top of your thigh bone — called the femur — plugs in like a joystick." },
-          { target: "base", theme: "theme-amber", badge: "3. Record-Breaker Femur", text: "Your femur is the longest and strongest bone in your entire body, stretching all the way from your hip down to your knee!" }
+          { target: "bowl", text: "Your pelvic girdle is a wide, ultra-strong ring of hip bones that anchors your vertebral column and transfers your upper-body weight into your legs!" },
+          { target: "socket", text: "On each side of the pelvis is a deep cup socket where the round head of your femur plugs in like a high-tech ball-and-socket joystick." },
+          { target: "base", text: "Stretching from your hip down to your knee, your femur is the undisputed heavyweight champion — the longest and strongest bone in the human body!" }
         ],
-        funFact: "Your femur makes up about one-quarter of your total height! And the smallest bone in your body is the stirrup bone inside your ear — smaller than a grain of rice!",
+        funFact: "Your femur accounts for about one-quarter of your total height — while the smallest bone in your body, the stapes inside your middle ear, is only 3 millimetres long!",
         quiz: {
           question: "Which bone is the LONGEST and STRONGEST bone in the human body?",
           options: [
             "The femur (thigh bone)",
-            "The stirrup bone in your ear",
-            "Your pinky finger bone",
-            "Your collarbone"
+            "The stapes bone in your middle ear",
+            "A distal phalanx in your pinky finger",
+            "The clavicle (collarbone)"
           ],
           correctIndex: 0,
-          goodFeedback: "Champion answer! The femur is the heavyweight champ of your skeleton.",
-          retryFeedback: "Think of the biggest bone in your upper leg!"
+          goodFeedback: "Champion answer! The femur is the longest, heaviest, strongest bone you own.",
+          retryFeedback: "Think of the massive upper-leg bone connecting your hip to your knee!"
         }
       },
       {
         id: 11,
-        topic: "Knees & Feet",
-        title: "Your Floating Kneecap & Springy Feet",
-        photo: PHOTOS.kneeSideXray,
+        topic: "Knee & Lower Leg",
+        title: "Patella, Tibia & Fibula: Built for Running & Jumping",
+        diagram: "knee_patella",
+        diagramCaption: "Lateral view of the Femur, Patella, Tibia & Fibula",
         hotspots: [
-          { id: "femurEnd", num: 1, label: "Bottom of Femur", x: 50, y: 24, theme: "theme-blue", info: "The rounded bottom of your thigh bone meets your shin bone here." },
-          { id: "patella", num: 2, label: "Kneecap Shield", x: 29, y: 47, theme: "theme-amber", info: "See that triangle bone in front? That's your patella (kneecap)!" },
-          { id: "shin", num: 3, label: "Tibia & Fibula", x: 54, y: 76, theme: "theme-green", info: "Two lower-leg bones: the thick tibia in front and thin fibula beside it." }
+          { id: "femurEnd", num: 1, label: "Distal Femur", x: 52, y: 24, theme: "theme-blue", info: "The rounded condyles at the bottom of your femur hinge smoothly on top of your tibia." },
+          { id: "patella", num: 2, label: "Patella (Kneecap)", x: 35, y: 45, theme: "theme-amber", info: "Your patella sits inside your quadriceps tendon to shield your knee joint and boost leg leverage." },
+          { id: "shin", num: 3, label: "Tibia & Fibula", x: 54, y: 74, theme: "theme-green", info: "Your thick tibia bears your body weight, while the slender fibula stabilizes your ankle." }
         ],
         sentences: [
-          { target: "patella", theme: "theme-amber", badge: "1. Floating Shield", text: "Check out this real side-view X-ray of a knee — see that little triangle bone sitting right in front? That's your kneecap, floating inside a tough tendon!" },
-          { target: "femurEnd", theme: "theme-blue", badge: "2. Knee Guard", text: "Your kneecap acts like a sliding shield protecting your knee joint whenever you kneel on the floor or bump into a table." },
-          { target: "shin", theme: "theme-green", badge: "3. Arched Foot Springs", text: "Below your knee, your thick shin bone connects down to 26 foot bones curved into an arch that bounces like a trampoline step!" }
+          { target: "patella", text: "Look at the front of your knee joint — tucked right inside a tough tendon is your patella (kneecap), a shield-shaped sesamoid bone that protects the joint and gives your thigh muscles extra pulling power!" },
+          { target: "femurEnd", text: "Inside the knee, the rounded bottom of your femur rests atop the flat plateau of your tibia." },
+          { target: "shin", text: "Below your knee, your thick weight-bearing tibia and slender outer fibula connect down to 26 arched foot bones that absorb shock like built-in suspension springs!" }
         ],
-        funFact: "Babies are actually born with soft cartilage kneecaps that don't harden into solid bone until kids are around 3 to 5 years old!",
+        funFact: "Babies are born with patellae made of soft cartilage that gradually ossify into solid bone between ages 3 and 5!",
         quiz: {
-          question: "Look at the side X-ray of the knee. What is the small triangle bone in front called?",
+          question: "What is the anatomical name for your kneecap?",
           options: [
-            "The kneecap (patella)",
-            "The skull",
-            "The rib cage",
-            "The jawbone"
+            "Patella",
+            "Cranium",
+            "Sternum",
+            "Mandible"
           ],
           correctIndex: 0,
-          goodFeedback: "Sharp eyes! That floating triangle shield is your kneecap.",
-          retryFeedback: "Look at the front of the knee joint in the X-ray!"
+          goodFeedback: "Sharp! Your patella shields the front of your knee joint.",
+          retryFeedback: "Check Pin #2 on the knee diagram!"
         }
       },
       {
         id: 12,
-        topic: "Inside a Real Bone",
-        title: "Why Aren't Bones Solid Like Bowling Balls?",
-        photo: PHOTOS.femurCutReal,
+        topic: "Bone Tissue Structure",
+        title: "Compact Bone & Spongy Bone: Strong Yet Feather-Light!",
+        diagram: "bone_cross_section",
+        diagramCaption: "Longitudinal cross-section of a human femur",
         hotspots: [
-          { id: "compact", num: 1, label: "Hard Outer Wall", x: 24, y: 58, theme: "theme-blue", info: "Compact bone is smooth, dense, and super tough like a castle wall." },
-          { id: "spongy", num: 2, label: "Honeycomb Inside", x: 54, y: 40, theme: "theme-amber", info: "Spongy bone has tiny air pockets like a honeycomb or crunchy Aero bar!" }
+          { id: "compact", num: 1, label: "Compact Bone", x: 28, y: 58, theme: "theme-blue", info: "Compact (cortical) bone forms the dense, super-strong outer shell of every bone." },
+          { id: "spongy", num: 2, label: "Spongy (Trabecular) Bone", x: 52, y: 31, theme: "theme-amber", info: "Spongy bone contains a 3D lattice of bony struts (trabeculae) that resist stress without heavy weight." }
         ],
         sentences: [
-          { target: "compact", theme: "theme-blue", badge: "1. Castle-Wall Outside", text: "This real photograph shows a human thigh bone sliced right down the middle — the outside ring is smooth, super-dense bone built like a fortress wall." },
-          { target: "spongy", theme: "theme-amber", badge: "2. Honeycomb Inside", text: "Look at the inside top of the bone: it is full of tiny criss-crossing holes like a beehive honeycomb or a bubbly chocolate bar! That makes bones super strong AND light enough for you to run fast." }
+          { target: "compact", text: "Slice a femur open lengthwise and you discover an engineering masterpiece: the outer wall is dense, ivory-hard compact bone built to resist bending and twisting!" },
+          { target: "spongy", text: "Inside the rounded ends sits spongy (trabecular) bone — a criss-crossing honeycomb lattice of tiny struts that makes bones remarkably lightweight so you can sprint without dragging heavy stone legs!" }
         ],
-        funFact: "If your bones were solid rock all the way through, your skeleton would be so heavy you could barely lift your feet off the ground!",
+        funFact: "Architects actually copy the criss-cross truss design of spongy bone when building giant bridges and skyscrapers!",
         quiz: {
-          question: "Why does the inside of a bone look like a honeycomb with tiny holes?",
+          question: "Why do bones have a honeycomb-like spongy bone interior instead of being solid rock all the way through?",
           options: [
-            "It keeps bones strong AND lightweight so we can move fast",
-            "Because tiny mice live inside bones",
-            "Because the bone is melting",
-            "So water can leak out"
+            "It keeps bones ultra-strong while reducing weight so we can move fast",
+            "Because bones are slowly dissolving",
+            "So air bubbles can whistle when we run",
+            "Because compact bone only grows in fingers"
           ],
           correctIndex: 0,
-          goodFeedback: "Genius! Honeycomb triangles are one of nature's strongest, lightest designs.",
-          retryFeedback: "Think about what happens if a bone is heavy solid rock vs. strong honeycomb!"
+          goodFeedback: "Genius! Spongy trabecular bone combines maximum strength with minimum weight.",
+          retryFeedback: "Think about strength-to-weight engineering!"
         }
       },
       {
         id: 13,
-        topic: "Bone Marrow Factory",
-        title: "Your Bones Are a 24/7 Blood Cell Factory!",
-        photo: PHOTOS.marrowReal,
+        topic: "Hematopoiesis (Blood Factory)",
+        title: "Red & Yellow Bone Marrow: Your 24/7 Blood Cell Factory!",
+        diagram: "bone_cross_section",
+        diagramCaption: "Red Bone Marrow & Yellow Bone Marrow inside the medullary cavity",
         hotspots: [
-          { id: "redMarrow", num: 1, label: "Red Marrow Factory", x: 46, y: 34, theme: "theme-pink", info: "Red marrow makes red blood cells, white germ-fighters, and platelets!" },
-          { id: "yellowMarrow", num: 2, label: "Yellow Energy Marrow", x: 50, y: 74, theme: "theme-amber", info: "Yellow marrow stores emergency fat energy inside long bones." }
+          { id: "redMarrow", num: 1, label: "Red Bone Marrow", x: 50, y: 45, theme: "theme-pink", info: "Red bone marrow produces red blood cells, white blood cells, and platelets." },
+          { id: "yellowMarrow", num: 2, label: "Yellow Bone Marrow", x: 50, y: 69, theme: "theme-amber", info: "Yellow bone marrow stores adipose (fat) energy inside the central shaft of long bones." }
         ],
         sentences: [
-          { target: "redMarrow", theme: "theme-pink", badge: "1. Red Blood Factory", text: "Tucked inside the spongy pockets of this real sliced bone is soft jelly called red bone marrow — your body's non-stop blood factory!" },
-          { target: "yellowMarrow", theme: "theme-amber", badge: "2. Three Blood Teams", text: "Every single second, your red marrow cranks out over 2 million fresh red blood cells to carry oxygen, white blood cells to zap germs, and sticky platelets to plug up scraped knees!" }
+          { target: "redMarrow", text: "Deep inside your spongy bone cavities lives red bone marrow — a living biological factory that cranks out over 2 million brand-new red blood cells every single second!" },
+          { target: "yellowMarrow", text: "Red marrow also builds germ-fighting white blood cells and clot-forming platelets, while yellow bone marrow inside long bone shafts stores backup energy reserves!" }
         ],
-        funFact: "By the time you finish listening to this sentence, your bone marrow has already made about 10 million brand-new blood cells!",
+        funFact: "By the time you finish reading this single sentence, your red bone marrow has already produced roughly 10 million fresh red blood cells!",
         quiz: {
-          question: "What amazing thing happens inside your red bone marrow every second?",
+          question: "What essential job does red bone marrow perform inside your bones?",
           options: [
-            "It makes millions of brand-new blood cells",
-            "It makes apple juice",
-            "It grows hair",
-            "It stores your snacks"
+            "It produces red blood cells, white blood cells, and platelets",
+            "It digests carbohydrates",
+            "It pumps air into your lungs",
+            "It grows tooth enamel"
           ],
           correctIndex: 0,
-          goodFeedback: "You nailed it! Bone marrow is your body's 24/7 blood cell factory.",
-          retryFeedback: "Check what red marrow cranks out millions of every second!"
+          goodFeedback: "You nailed it! Red bone marrow is your body's 24/7 blood cell factory.",
+          retryFeedback: "Check Pin #1 on the femur cross-section!"
         }
       },
       {
         id: 14,
-        topic: "Muscles + Bones Team",
-        title: "Muscles Can Only Pull, Never Push!",
-        photo: PHOTOS.fullSkeleton,
+        topic: "Musculoskeletal Teamwork",
+        title: "Muscles & Tendons: Why Muscles Can Only Pull!",
+        diagram: "muscle_tendon_pull",
+        diagramCaption: "Biceps brachii, Triceps brachii & Tendon attachment on the radius",
         hotspots: [
-          { id: "bicep", num: 1, label: "Front Pull (Biceps)", x: 33, y: 31, theme: "theme-pink", info: "When your front arm muscle pulls, your elbow bends up!" },
-          { id: "tricep", num: 2, label: "Back Pull (Triceps)", x: 67, y: 31, theme: "theme-blue", info: "When your back arm muscle pulls, your arm straightens back out!" },
-          { id: "tendon", num: 3, label: "Tough Tendon Straps", x: 32, y: 41, theme: "theme-amber", info: "Tendons are like super-strong bungee straps gluing muscle to bone." }
+          { id: "bicep", num: 1, label: "Biceps Brachii", x: 38, y: 38, theme: "theme-pink", info: "When your biceps contracts, it pulls your radius upward to flex your elbow." },
+          { id: "tricep", num: 2, label: "Triceps Brachii", x: 25, y: 48, theme: "theme-blue", info: "When your triceps contracts, it pulls your ulna to extend (straighten) your arm." },
+          { id: "tendon", num: 3, label: "Tendon", x: 48, y: 58, theme: "theme-amber", info: "Tendons are tough collagen cords that anchor skeletal muscles onto bones." }
         ],
         sentences: [
-          { target: "tendon", theme: "theme-amber", badge: "1. Puppet Strings", text: "Bones are awesome, but they can't move on their own — they need muscles attached by tough cords called tendons to tug them like puppet strings!" },
-          { target: "bicep", theme: "theme-pink", badge: "2. Pulls Only!", text: "Here is a neat rule: muscles can ONLY pull like a rope, never push! So your front arm muscle pulls your forearm up to bend your elbow." },
-          { target: "tricep", theme: "theme-blue", badge: "3. Partner Teamwork", text: "Then, to straighten your arm back out, the front muscle relaxes while the back arm muscle pulls the other way!" }
+          { target: "tendon", text: "Bones cannot move by themselves — they rely on skeletal muscles anchored to bone by ultra-tough collagen cords called tendons!" },
+          { target: "bicep", text: "Here is the golden rule of biomechanics: muscles can ONLY pull (contract), never push! So when your biceps brachii contracts, it pulls your forearm up to bend your elbow." },
+          { target: "tricep", text: "To straighten your arm back out, your biceps relaxes while its partner on the back of your arm — the triceps brachii — contracts and pulls the opposite way!" }
         ],
-        funFact: "Feel the back of your ankle right above your heel — that thick cord is your Achilles tendon, the strongest tendon in your body!",
+        funFact: "Feel the thick cord right above the back of your heel — that is your Achilles tendon, the strongest tendon in the human body!",
         quiz: {
-          question: "How do muscles move your bones?",
+          question: "How do skeletal muscles move your bones?",
           options: [
-            "Muscles pull on bones like ropes — they can never push",
-            "Muscles push bones with tiny springs",
-            "Bones have tiny motors inside them",
-            "Muscles blow air at bones"
+            "Muscles pull on bones via tendons — they can only pull, never push",
+            "Muscles push bones apart like hydraulic pistons",
+            "Bones have electric motors inside their joints",
+            "Tendons inflate with air"
           ],
           correctIndex: 0,
-          goodFeedback: "Spot on! Muscles work in pairs that take turns pulling.",
-          retryFeedback: "Remember the rope rule: muscles can only pull, never push!"
+          goodFeedback: "Spot on! Antagonistic muscle pairs take turns pulling on bones via tendons.",
+          retryFeedback: "Remember the golden rule: muscles only pull, never push!"
         }
       },
       {
         id: 15,
-        topic: "How We Bend",
-        title: "Joints: Where Two Bones Meet",
-        photo: PHOTOS.kneeXray,
+        topic: "Joint Anatomy",
+        title: "Articular Cartilage, Synovial Fluid & Ligaments",
+        diagram: "knee_joint",
+        diagramCaption: "Articular Cartilage & Collateral Ligaments stabilizing the knee joint",
         hotspots: [
-          { id: "gap", num: 1, label: "Smooth Cushion Gap", x: 49, y: 48, theme: "theme-blue", info: "See the dark gap in the X-ray? That's slippery cartilage so bones don't scrape!" },
-          { id: "ligaments", num: 2, label: "Safety Seatbelts", x: 66, y: 48, theme: "theme-green", info: "Tough straps called ligaments hold the two bones together like seatbelts." }
+          { id: "gap", num: 1, label: "Articular Cartilage", x: 50, y: 46, theme: "theme-blue", info: "Glass-smooth articular cartilage caps bone ends and works with synovial fluid to eliminate friction." },
+          { id: "ligaments", num: 2, label: "Ligaments", x: 62, y: 48, theme: "theme-green", info: "Ligaments are strong fibrous bands that connect bone to bone across a joint." }
         ],
         sentences: [
-          { target: "gap", theme: "theme-blue", badge: "1. Slippery Cushion", text: "Anywhere two bones meet is called a joint — and in this knee X-ray, you can actually see a dark space between the bones filled with super-slick cartilage!" },
-          { target: "ligaments", theme: "theme-green", badge: "2. Natural Oil & Straps", text: "Your joints also make their own slippery fluid — like oil on a squeaky bike chain — while tough straps called ligaments hold the bones safely together." }
+          { target: "gap", text: "Anywhere two or more bones meet is called a joint — and to stop bone from grinding against bone, the ends are coated in glass-smooth articular cartilage bathed in slippery synovial fluid!" },
+          { target: "ligaments", text: "Meanwhile, tough fibrous straps called ligaments connect bone to bone like heavy-duty seatbelts so your joints stay stable when you pivot and jump!" }
         ],
-        funFact: "Without smooth cartilage and joint oil, your bones would grind together like two pieces of sandpaper every time you took a step!",
+        funFact: "Synovial fluid inside healthy joints is even slipperier than an ice cube gliding across wet glass!",
         quiz: {
-          question: "What keeps two bones from grinding together inside a joint?",
+          question: "What connects bone to bone and stabilizes a joint?",
           options: [
-            "Smooth cartilage and slippery joint fluid",
-            "Velcro strips",
-            "Glue and staples",
-            "Dry sand"
+            "Ligaments",
+            "Enamel",
+            "Red bone marrow",
+            "Cranial sutures"
           ],
           correctIndex: 0,
-          goodFeedback: "Yes! Slippery cartilage and natural joint oil make every bend smooth and painless.",
-          retryFeedback: "Think about what acts like smooth cushion + bike-chain oil inside a knee!"
+          goodFeedback: "Boom! Ligaments connect bone to bone, while tendons connect muscle to bone.",
+          retryFeedback: "Check Pin #2 on the knee joint diagram!"
         }
       },
       {
         id: 16,
-        topic: "4 Types of Joints",
-        title: "Hinges, Joysticks, Swivels & Gliders!",
-        photo: PHOTOS.fullSkeleton,
+        topic: "4 Synovial Joint Types",
+        title: "Hinge, Ball-and-Socket, Pivot & Gliding Joints!",
+        diagram: "four_joints",
+        diagramCaption: "Four major types of freely movable synovial joints",
         hotspots: [
-          { id: "pivot", num: 1, label: "Swivel Joint (Neck)", x: 50, y: 15, theme: "theme-purple", info: "Pivot Joint: Lets your head turn side-to-side like a swivel chair!" },
-          { id: "ball", num: 2, label: "Joystick Joint (Shoulder)", x: 37, y: 24, theme: "theme-blue", info: "Ball-and-Socket: Swings your arm in giant 360-degree circles!" },
-          { id: "hinge", num: 3, label: "Door-Hinge Joint (Knee)", x: 46, y: 73, theme: "theme-green", info: "Hinge Joint: Opens and closes one way, just like your bedroom door!" },
-          { id: "gliding", num: 4, label: "Gliding Joint (Wrist)", x: 31, y: 51, theme: "theme-amber", info: "Gliding Joint: Flat bones slide past each other like shuffling cards." }
+          { id: "hinge", num: 1, label: "Hinge Joint", x: 26, y: 24, theme: "theme-green", info: "Hinge Joints (elbow, knee): Flex and extend in one plane like a door hinge." },
+          { id: "ball", num: 2, label: "Ball-and-Socket", x: 74, y: 24, theme: "theme-blue", info: "Ball-and-Socket Joints (shoulder, hip): Allow full 360-degree circular motion." },
+          { id: "pivot", num: 3, label: "Pivot Joint", x: 26, y: 74, theme: "theme-purple", info: "Pivot Joint (C1–C2 cervical vertebrae): Lets your head rotate side to side." },
+          { id: "gliding", num: 4, label: "Gliding Joint", x: 74, y: 74, theme: "theme-amber", info: "Gliding Joints (carpals, tarsals): Flat bone surfaces slide smoothly past each other." }
         ],
         sentences: [
-          { target: "hinge", theme: "theme-green", badge: "1. Door Hinge (Elbows & Knees)", text: "Your elbows and knees are hinge joints — they swing back and forth in one direction just like a bedroom door hinge!" },
-          { target: "ball", theme: "theme-blue", badge: "2. Video Game Joystick (Hips & Shoulders)", text: "Your shoulders and hips are ball-and-socket joints — a round bone ball spins inside a cup so you can windmill your arms in full circles." },
-          { target: "pivot", theme: "theme-purple", badge: "3. Swivel & Slide (Neck & Wrists)", text: "Meanwhile, your neck has a swivel joint for shaking your head 'no,' and your wrists have gliding bones that slide smoothly past one another!" }
+          { target: "hinge", text: "Different joints are engineered for different moves: your knees and elbows are hinge joints that open and close in one plane just like a door hinge!" },
+          { target: "ball", text: "Your shoulders and hips are ball-and-socket joints where a round bone head spins inside a cup socket so you can windmill your arms in full circles." },
+          { target: "pivot", text: "Your top two neck vertebrae form a pivot joint for shaking your head 'no,' while your wrist carpals form gliding joints that slide smoothly past one another!" }
         ],
-        funFact: "Try swinging your arm in a big circle (ball-and-socket), then try swinging your knee in a circle — your knee won't go sideways because it's a one-way hinge!",
+        funFact: "Try windmilling your shoulder in a giant circle (ball-and-socket), then try swinging your knee sideways — your hinge joint locks against sideways bending!",
         quiz: {
-          question: "Which joint moves in full circles just like a video game thumbstick?",
+          question: "Which synovial joint type gives your shoulder and hip full circular motion?",
           options: [
-            "A ball-and-socket joint (like your shoulder or hip)",
-            "A door-hinge joint (like your knee)",
-            "A glued skull seam",
-            "Your rib cage"
+            "Ball-and-socket joint",
+            "Hinge joint",
+            "Cranial suture",
+            "Pivot joint"
           ],
           correctIndex: 0,
-          goodFeedback: "Awesome! Ball-and-socket joints in your shoulders and hips give you full-circle motion.",
-          retryFeedback: "Which joint has a round ball sitting inside a cup so it spins all around?"
+          goodFeedback: "Awesome! Ball-and-socket joints give you multi-directional circular range of motion.",
+          retryFeedback: "Look at Quadrant #2 on the joints diagram!"
         }
       },
       {
         id: 17,
-        topic: "Growing Taller",
-        title: "How Do Bones Grow Longer?",
-        photo: PHOTOS.kidHandXray,
+        topic: "Skeletal Growth",
+        title: "Epiphyseal Growth Plates: How Your Bones Grow Longer!",
+        diagram: "child_growth_hand",
+        diagramCaption: "Epiphyseal growth plates (yellow) near the ends of growing bones",
         hotspots: [
-          { id: "growthPlate", num: 1, label: "Growth Plates", x: 45, y: 38, theme: "theme-blue", info: "Those dark stripes near the ends of kids' bones are active growth plates!" },
-          { id: "wristGrow", num: 2, label: "Growing Wrist Bones", x: 52, y: 74, theme: "theme-green", info: "New cartilage forms here and slowly hardens into solid bone." }
+          { id: "growthPlate", num: 1, label: "Epiphyseal Growth Plates", x: 45, y: 45, theme: "theme-amber", info: "Epiphyseal growth plates are layers of hyaline cartilage near bone ends where new bone forms." },
+          { id: "wristGrow", num: 2, label: "Carpal Ossification", x: 48, y: 74, theme: "theme-purple", info: "Carpal bones gradually ossify from cartilage centers throughout childhood." }
         ],
         sentences: [
-          { target: "growthPlate", theme: "theme-blue", badge: "1. Secret Growth Zones", text: "You don't grow taller from the middle of your bones — instead, kids have special soft spots near the ends of long bones called growth plates!" },
-          { target: "wristGrow", theme: "theme-green", badge: "2. Cartilage Turns to Bone", text: "Your body keeps adding fresh rubbery cartilage at those growth plates and turning it into solid bone, until around age 18 to 20 when the plates close up." }
+          { target: "growthPlate", text: "You don't grow taller from the middle of your bones — instead, children and teens have active epiphyseal growth plates near the ends of their long bones!" },
+          { target: "wristGrow", text: "Inside each epiphyseal growth plate, chondrocytes build fresh cartilage that steadily ossifies into solid bone until around ages 18 to 20, when the plates fuse closed." }
         ],
-        funFact: "Doctors can look at an X-ray of a kid's wrist growth plates to tell how much growing time they still have left!",
+        funFact: "Pediatricians can examine a hand-and-wrist X-ray to see how open a kid's epiphyseal growth plates are and estimate how much taller they will grow!",
         quiz: {
-          question: "Where does a kid's bone actually grow longer?",
+          question: "Where does lengthwise bone growth take place in kids and teens?",
           options: [
-            "At soft growth plates near the ends of the bone",
-            "Only at the tips of your fingernails",
-            "Bones never grow — they just stretch like taffy",
-            "Inside your ears"
+            "At the epiphyseal growth plates near the ends of long bones",
+            "Only at the tips of fingernails",
+            "Inside the dental enamel",
+            "Bones never grow — they only stretch"
           ],
           correctIndex: 0,
-          goodFeedback: "Nailed it! Growth plates near the ends of your bones add new length while you sleep and eat healthy food.",
-          retryFeedback: "Look at the dark stripes near the ends of the bones in the kid's hand X-ray!"
+          goodFeedback: "Spot on! Epiphyseal growth plates add new bone length while you sleep and eat nutritious food.",
+          retryFeedback: "Check Pin #1 on the growing hand diagram!"
         }
       },
       {
         id: 18,
-        topic: "Bone Repair Crew",
-        title: "How Broken Bones Heal Themselves",
-        photo: PHOTOS.fractureXray,
+        topic: "Fracture Healing",
+        title: "Fractures & Bone Callus: How Bones Repair Themselves!",
+        diagram: "fracture_repair",
+        diagramCaption: "1. Bone fracture vs. 2. Fibrocartilage & bony callus remodeling",
         hotspots: [
-          { id: "crack", num: 1, label: "Bone Crack (Fracture)", x: 43, y: 46, theme: "theme-pink", info: "See the bump and crack in this forearm X-ray? Doctors call a break a fracture." },
-          { id: "cast", num: 2, label: "Why Casts Help", x: 64, y: 46, theme: "theme-blue", info: "A cast holds both ends still while your body's repair crew builds new bone." }
+          { id: "crack", num: 1, label: "Bone Fracture", x: 28, y: 52, theme: "theme-pink", info: "A fracture is any crack or break in bone tissue caused by sudden force." },
+          { id: "cast", num: 2, label: "Bone Callus Bridge", x: 72, y: 52, theme: "theme-blue", info: "Osteoblast cells build a protective bone callus collar that remodels back into smooth compact bone." }
         ],
         sentences: [
-          { target: "crack", theme: "theme-pink", badge: "1. Tiny Construction Crew", text: "If you wipe out on a skateboard and crack a bone — called a fracture — your body immediately calls in a microscopic construction crew!" },
-          { target: "cast", theme: "theme-blue", badge: "2. Bumpy Bridge to Smooth Bone", text: "First, a soft cushion forms over the crack, then bone-builder cells lay down a bumpy bridge of new bone while a cast keeps everything lined up straight." }
+          { target: "crack", text: "If you take a tumble and crack a bone — called a fracture — your body's microscopic construction crew springs into action within minutes!" },
+          { target: "cast", text: "While a cast immobilizes the bone in straight alignment, specialized cells called osteoblasts lay down a thick mineral bridge called a bone callus that eventually remodels back into smooth, strong compact bone!" }
         ],
-        funFact: "Kids' bones heal WAY faster than adults' bones — often in just 4 to 6 weeks — because kids' bone-builder crews are already working overtime to help you grow!",
+        funFact: "Kids' fractures heal roughly twice as fast as adults' because kids' osteoblasts are already running at turbo speed to grow their skeleton!",
         quiz: {
-          question: "Why do doctors put a cast on a broken arm?",
+          question: "What is the scientific name for the new mineral bridge your body builds to mend a fracture?",
           options: [
-            "To hold the bone ends still so the body can glue them together straight",
-            "Because casts have magic healing rays inside",
-            "So nobody can sign it with markers",
-            "To make the arm heavier"
+            "A bone callus",
+            "A cranial suture",
+            "Synovial fluid",
+            "Tooth enamel"
           ],
           correctIndex: 0,
-          goodFeedback: "Exactly! Your body heals the bone itself — the cast just holds the pieces still.",
-          retryFeedback: "Think about gluing two pieces of a broken toy together — why do you hold them still?"
+          goodFeedback: "Nailed it! Osteoblasts build a bone callus to knit the fractured ends back together.",
+          retryFeedback: "Check Pin #2 on the fracture repair diagram!"
         }
       },
       {
         id: 19,
-        topic: "See-Through Camera",
-        title: "How Do X-Rays See Inside You?",
-        photo: PHOTOS.handXray,
+        topic: "Medical Imaging",
+        title: "How Do X-Rays Capture Shadows of Your Skeleton?",
+        diagram: "hand_bones",
+        diagramCaption: "Dense calcium-rich bones absorb X-rays and appear bright on radiographs",
         hotspots: [
-          { id: "whiteBone", num: 1, label: "Bright White = Dense Bone", x: 48, y: 48, theme: "theme-blue", info: "Calcium in bones blocks X-ray beams, casting a bright white shadow!" },
-          { id: "darkSkin", num: 2, label: "Dark Shadow = Soft Skin", x: 25, y: 45, theme: "theme-purple", info: "X-rays zip right through soft skin and muscle, leaving a dark shadow." }
+          { id: "palm", num: 1, label: "Calcium-Dense Bone", x: 48, y: 58, theme: "theme-blue", info: "Calcium hydroxyapatite in bone absorbs X-ray photons, casting a bright white silhouette." },
+          { id: "tips", num: 2, label: "Soft Tissue Transparency", x: 48, y: 34, theme: "theme-green", info: "X-ray waves pass straight through low-density skin and muscle." }
         ],
         sentences: [
-          { target: "darkSkin", theme: "theme-purple", badge: "1. Invisible Light Beams", text: "In 1895, a scientist named Wilhelm Roentgen accidentally discovered invisible light waves that zip straight through skin and clothes — he called them X-rays!" },
-          { target: "whiteBone", theme: "theme-blue", badge: "2. Bone Shadows", text: "Because your bones are packed with dense calcium, they block the X-ray beams and show up bright white on the screen while your soft skin looks shadowy gray!" }
+          { target: "tips", text: "In 1895, physicist Wilhelm Roentgen discovered high-energy electromagnetic waves called X-rays that zip right through soft skin and muscle!" },
+          { target: "palm", text: "Because your bones are packed with dense calcium minerals, they absorb the X-rays and cast a crisp white shadow on the detector so doctors can inspect your skeleton without surgery!" }
         ],
-        funFact: "The very first X-ray photo ever taken in 1895 was of Wilhelm Roentgen's wife's hand — you could even see her wedding ring on her finger!",
+        funFact: "The very first human X-ray ever captured in 1895 showed Wilhelm Roentgen's wife's hand — including the dark shadow of her gold wedding ring!",
         quiz: {
-          question: "Why do bones look bright white on an X-ray picture?",
+          question: "Why do bones show up bright white on a medical X-ray?",
           options: [
-            "Dense calcium in bones blocks the X-ray beams like a shadow",
-            "Doctors paint bones white before taking the photo",
-            "Bones glow in the dark",
-            "X-rays only work on white clothes"
+            "Dense calcium minerals in bone absorb the X-ray waves",
+            "Doctors coat bones in white paint first",
+            "Bones naturally glow in the dark",
+            "X-rays bounce off skin only"
           ],
           correctIndex: 0,
-          goodFeedback: "Bingo! Bones block X-ray waves just like your hand blocks a flashlight to make a shadow.",
-          retryFeedback: "Think about how bones block the invisible beams while skin lets them pass through!"
+          goodFeedback: "Bingo! Dense calcium absorbs X-ray photons just like your hand blocks a flashlight beam.",
+          retryFeedback: "Think about which mineral makes bones dense enough to block X-rays!"
         }
       },
       {
         id: 20,
-        topic: "X-Ray Detective Lab",
-        title: "Can You Spot the Injury on This Real X-Ray?",
-        photo: PHOTOS.fractureXray,
+        topic: "Radiology Detective",
+        title: "X-Ray Case File: Spot the Buckle (Torus) Fracture!",
+        diagram: "fracture_repair",
+        diagramCaption: "Diagnostic comparison: Fractured shaft vs. healing bone callus",
         hotspots: [
-          { id: "clueA", num: 1, label: "Check Here: Forearm Bump", x: 42, y: 47, theme: "theme-pink", info: "Look closely at the outer edge of that bone — see the little buckle bump?" },
-          { id: "clueB", num: 2, label: "Wrist Bones Below", x: 52, y: 74, theme: "theme-blue", info: "These small wrist bones below look totally normal." }
+          { id: "clueA", num: 1, label: "Fracture Site", x: 28, y: 52, theme: "theme-pink", info: "A sudden impact compresses or cracks the outer cortex of the bone shaft." },
+          { id: "clueB", num: 2, label: "Remodeling Zone", x: 72, y: 52, theme: "theme-blue", info: "Osteoblasts deposit new calcium crystals while osteoclasts smooth the surface." }
         ],
         sentences: [
-          { target: "clueA", theme: "theme-pink", badge: "1. Put on Your Doctor Coat", text: "Time to play X-ray detective! Look closely at the two long forearm bones in this real hospital X-ray." },
-          { target: "clueB", theme: "theme-blue", badge: "2. Spot the Buckle", text: "Kids' bones are slightly bendy like green tree twigs, so when a kid falls on an outstretched hand, the bone sometimes buckles with a small bump instead of snapping in half!" }
+          { target: "clueA", text: "Put on your radiologist badge! Because children's bones contain more flexible collagen than adult bones, falling onto an outstretched hand often causes a buckle (torus) fracture where one side of the cortex bulges outward instead of snapping cleanly." },
+          { target: "clueB", text: "Two teams of bone cells team up to finish the repair: osteoblasts build fresh bone matrix, and osteoclasts sculpt away the extra bump until the shaft looks brand-new!" }
         ],
-        funFact: "Doctors actually call this kid injury a 'buckle fracture' because the side of the bone buckles outward like a bent drinking straw!",
+        funFact: "Your skeleton has two remodeling crews working 24/7: OsteoBlasts Build bone, and OsteoClasts Carve and recycle old bone!",
         quiz: {
-          question: "What did you spot on this real hospital X-ray?",
+          question: "Which specialized bone cells BUILD new bone matrix?",
           options: [
-            "A cracked/buckled forearm bone",
-            "A swallowed coin in a stomach",
-            "A broken ankle",
-            "A dinosaur tooth"
+            "Osteoblasts",
+            "Erythrocytes",
+            "Chondrocytes",
+            "Neurons"
           ],
           correctIndex: 0,
-          goodFeedback: "Dr. Bone Explorer reporting for duty! You spotted the forearm buckle fracture.",
-          retryFeedback: "Look at Pin 1 on the forearm bone in the middle of the X-ray!"
+          goodFeedback: "Remember 'B for Build' — Osteoblasts build new bone!",
+          retryFeedback: "Hint: OsteoBlasts starts with B for Build!"
         }
       },
       {
         id: 21,
-        topic: "Super-Bone Fuel",
-        title: "How to Build Titanium-Tough Bones",
-        photo: PHOTOS.femurCutReal,
+        topic: "Bone Nutrition & Exercise",
+        title: "Calcium, Vitamin D & Impact Exercise: Fuel Your Skeleton!",
+        diagram: "bone_cross_section",
+        diagramCaption: "Mineralized compact bone and trabecular struts strengthened by exercise",
         hotspots: [
-          { id: "calcium", num: 1, label: "Calcium Bricks", x: 25, y: 55, theme: "theme-blue", info: "Milk, yogurt, cheese, broccoli, and tofu give bones hard calcium bricks!" },
-          { id: "sunshine", num: 2, label: "Vitamin D + Jumping", x: 55, y: 38, theme: "theme-amber", info: "Sunshine Vitamin D helps absorb calcium, and jumping tells bones to pack thicker!" }
+          { id: "calcium", num: 1, label: "Calcium & Phosphorus", x: 28, y: 58, theme: "theme-blue", info: "Dairy, fortified plant milks, tofu, salmon, and leafy greens supply calcium and phosphorus." },
+          { id: "sunshine", num: 2, label: "Vitamin D + Weight-Bearing Play", x: 52, y: 31, theme: "theme-amber", info: "Vitamin D helps your gut absorb calcium, while jumping signals osteoblasts to add density!" }
         ],
         sentences: [
-          { target: "calcium", theme: "theme-blue", badge: "1. Calcium + Vitamin D", text: "Your childhood is the #1 time in your whole life to pack calcium bricks into your bones — foods like milk, yogurt, cheese, leafy greens, and fortified juice are bone gold!" },
-          { target: "sunshine", theme: "theme-amber", badge: "2. Jump, Run & Wear Helmets", text: "Sunshine helps your skin make Vitamin D (the key that unlocks calcium), and jumping, running, and dancing tell your bones to grow even thicker and stronger!" }
+          { target: "calcium", text: "Your childhood and teen years are peak bone-banking time! Foods rich in calcium and phosphorus — like yogurt, cheese, milk, fortified soy milk, broccoli, and almonds — deliver the mineral bricks your osteoblasts need." },
+          { target: "sunshine", text: "Sunlight triggers your skin to make Vitamin D (the key that unlocks calcium absorption), and weight-bearing play like running, jumping, and basketball signals your bones to pack denser trabeculae!" }
         ],
-        funFact: "Astronauts floating in zero-gravity space lose bone strength because they aren't stomping on the ground — so they have to strap onto space treadmills for 2 hours every day!",
+        funFact: "Astronauts floating in microgravity aboard the International Space Station lose bone density rapidly because there is no gravity pulling on their skeleton — so they exercise 2 hours daily on special resistance machines!",
         quiz: {
-          question: "Which combo makes your bones grow super strong?",
+          question: "Which combination builds maximum peak bone density during childhood?",
           options: [
-            "Calcium-rich foods, Vitamin D, and jumping/running games",
-            "Sitting on the couch all day eating candy",
-            "Never going outside in the daylight",
-            "Skipping helmets on your bike"
+            "Calcium-rich foods, Vitamin D, and weight-bearing jumping/running play",
+            "Zero outdoor sunlight and no physical movement",
+            "Only eating sugary candy",
+            "Sleeping in zero gravity"
           ],
           correctIndex: 0,
-          goodFeedback: "Super-bone formula unlocked! Calcium + Vitamin D + active play = awesome bones.",
-          retryFeedback: "Pick the healthy foods + active play option!"
+          goodFeedback: "Super-bone recipe unlocked! Calcium + Vitamin D + active play = titanium-tough bones.",
+          retryFeedback: "Pick the nutrient + weight-bearing exercise combo!"
         }
       },
       {
         id: 22,
-        topic: "Animal Skeletons: Cats",
-        title: "Why Can Cats Squeeze Through Tiny Gaps?",
-        photo: PHOTOS.catSkeleton,
+        topic: "Comparative Anatomy: Cats",
+        title: "Feline Anatomy: Why Can Cats Squeeze Through Tight Spaces?",
+        diagram: "comparative_animals",
+        diagramCaption: "Comparative skeletons: Cat, Giraffe, Bird & Tyrannosaurus rex",
         hotspots: [
-          { id: "catSpine", num: 1, label: "Super-Bendy Spine", x: 52, y: 32, theme: "theme-amber", info: "Cats have extra-stretchy cushions between spine bones so they twist mid-air!" },
-          { id: "catCollar", num: 2, label: "Floating Collarbone", x: 28, y: 44, theme: "theme-blue", info: "A cat's tiny collarbone floats in muscle, letting its shoulders squish narrow!" },
-          { id: "catTail", num: 3, label: "20+ Tail Bones", x: 85, y: 24, theme: "theme-green", info: "A cat's tail is an extension of its spine used like a tightrope balance pole." }
+          { id: "catSpine", num: 1, label: "Flexible Cat Spine & Clavicle", x: 26, y: 24, theme: "theme-blue", info: "Cats have free-floating vestigial clavicles and extra-elastic intervertebral discs!" },
+          { id: "giraffeNeck", num: 2, label: "7 Cervical Vertebrae", x: 74, y: 24, theme: "theme-amber", info: "Both humans and giraffes have exactly 7 cervical vertebrae!" }
         ],
         sentences: [
-          { target: "catCollar", theme: "theme-blue", badge: "1. Secret Shoulder Trick", text: "Look at this real cat skeleton — unlike humans with wide locked collarbones, a cat has tiny free-floating collarbones so anywhere its head fits, its whole body can squeeze through!" },
-          { target: "catSpine", theme: "theme-amber", badge: "2. 230+ Bones", text: "Cats also have about 230 to 250 bones, including extra-flexible back bones and around 20 tail bones that help them flip right-side-up in mid-air!" }
+          { target: "catSpine", text: "Compare your skeleton to a cat's! Unlike humans whose clavicles lock the shoulders wide, a cat has tiny free-floating clavicles suspended in muscle plus ultra-flexible intervertebral discs — so anywhere a cat's head fits, its shoulders can narrow to follow!" },
+          { target: "giraffeNeck", text: "Cats also pack ~244 bones, including 18 to 23 caudal (tail) vertebrae that act like a high-wire balance pole during mid-air leaps!" }
         ],
-        funFact: "Humans actually have a tiny leftover tailbone at the very bottom of our spine called the coccyx (say 'KOK-siks')!",
+        funFact: "Humans actually have 3 to 5 fused tail vertebrae at the very base of our spine called the coccyx (tailbone)!",
         quiz: {
-          question: "What skeletal trick helps a cat squeeze through super narrow spaces?",
+          question: "What anatomical adaptation lets a cat narrow its shoulders to fit through tight gaps?",
           options: [
-            "Tiny free-floating collarbones and an extra-bendy spine",
-            "Cats have zero bones at all",
-            "Cats have wheels instead of paws",
-            "Cats have square skulls"
+            "Free-floating vestigial clavicles and a highly flexible vertebral column",
+            "Cats have zero bones in their bodies",
+            "Cats have hinged skulls",
+            "Cats have only 10 bones total"
           ],
           correctIndex: 0,
-          goodFeedback: "Purr-fect! Free-floating collarbones let cats squish their shoulders narrow.",
-          retryFeedback: "Check Pin 2 on the cat skeleton!"
+          goodFeedback: "Purr-fect anatomy answer! Free-floating clavicles let cats compress their shoulder girdle.",
+          retryFeedback: "Check Pin #1 on the comparative skeletons diagram!"
         }
       },
       {
         id: 23,
-        topic: "Animal Skeletons: Birds & Giraffes",
-        title: "Hollow Bird Bones & Giant Giraffe Necks!",
-        photo: PHOTOS.giraffeSkeleton,
+        topic: "Comparative Anatomy: Giraffes & Birds",
+        title: "7 Giant Neck Vertebrae & Pneumatic (Hollow) Bird Bones!",
+        diagram: "comparative_animals",
+        diagramCaption: "Giraffe cervical vertebrae & hollow pneumatic bird bone struts",
         hotspots: [
-          { id: "giraffeNeck", num: 1, label: "7 Giant Neck Bones", x: 65, y: 24, theme: "theme-amber", info: "Believe it or not, a giraffe has ONLY 7 neck bones — just each one is huge!" },
-          { id: "giraffeLegs", num: 2, label: "Stilt-Like Leg Bones", x: 54, y: 74, theme: "theme-blue", info: "Long leg bones let giraffes reach treetop leaves and outrun lions." }
+          { id: "giraffeNeck", num: 1, label: "7 Giraffe Cervical Vertebrae", x: 74, y: 24, theme: "theme-amber", info: "A giraffe has 7 cervical vertebrae — the exact same count as humans, just up to 25 cm each!" },
+          { id: "birdKeel", num: 2, label: "Pneumatic (Hollow) Bone", x: 26, y: 74, theme: "theme-green", info: "Birds have hollow pneumatic bones reinforced by internal struts for lightweight flight." }
         ],
         sentences: [
-          { target: "giraffeNeck", theme: "theme-amber", badge: "1. Giraffe Surprise", text: "Check out this towering giraffe skeleton standing next to a giraffe — you'd guess it has 100 neck bones, right? Nope! It has just 7 neck bones, the exact same number as you, except each bone is as long as a skateboard!" },
-          { target: "giraffeLegs", theme: "theme-blue", badge: "2. Bird Flight Trick", text: "Meanwhile, birds pull off the opposite trick: many of their bones are hollow with criss-cross struts inside, making them feather-light so they can soar through the sky!" }
+          { target: "giraffeNeck", text: "Look at a towering giraffe skeleton and you might guess it has 50 neck bones — surprise! Almost every mammal on Earth, from a tiny mouse to you to a giraffe, has exactly 7 cervical vertebrae!" },
+          { target: "birdKeel", text: "Meanwhile, birds evolved pneumatic (air-filled) bones with internal criss-cross struts plus a deep breastbone keel to anchor powerful flight muscles while staying light enough to soar!" }
         ],
-        funFact: "Almost every mammal on Earth — from a tiny mouse to a human to a giant giraffe — has 7 neck bones!",
+        funFact: "A single cervical vertebra in an adult giraffe's neck can measure over 25 centimetres long — longer than a standard school ruler!",
         quiz: {
-          question: "How many neck bones does a towering giraffe have?",
+          question: "How many cervical (neck) vertebrae does a giraffe have?",
           options: [
-            "7 neck bones — the exact same number as a human!",
-            "70 neck bones",
-            "1 neck bone",
+            "7 cervical vertebrae — the exact same number as a human",
+            "70 cervical vertebrae",
+            "1 giant neck bone",
             "0 neck bones"
           ],
           correctIndex: 0,
-          goodFeedback: "Mind-blowing, right?! Just 7 super-sized neck vertebrae!",
-          retryFeedback: "Look at Pin 1 on the giraffe skeleton — same number as humans!"
+          goodFeedback: "Mind-blowing! Just 7 elongated cervical vertebrae.",
+          retryFeedback: "Check Pin #1 on the giraffe neck diagram!"
         }
       },
       {
         id: 24,
-        topic: "Dinosaur Bone Detectives",
-        title: "What Giant Fossil Bones Tell Us!",
-        photo: PHOTOS.trexSkeleton,
+        topic: "Paleontology & Fossils",
+        title: "Dinosaur Bone Detectives: Reading 67-Million-Year-Old Fossils!",
+        diagram: "comparative_animals",
+        diagramCaption: "Tyrannosaurus rex fossil skull, vertebrae & femur",
         hotspots: [
-          { id: "trexSkull", num: 1, label: "1.5-Metre Skull", x: 24, y: 25, theme: "theme-amber", info: "Sue's giant skull had massive jaw muscles and banana-sized teeth!" },
-          { id: "trexRibs", num: 2, label: "Barrel Rib Cage", x: 52, y: 42, theme: "theme-green", info: "Scientists even found healed broken ribs on Sue's skeleton!" },
-          { id: "trexTail", num: 3, label: "Counter-Balance Tail", x: 84, y: 34, theme: "theme-blue", info: "A heavy bony tail balanced out Sue's giant head so she wouldn't tip forward." }
+          { id: "trexSkull", num: 1, label: "T. rex Cranium & Mandible", x: 74, y: 74, theme: "theme-pink", info: "Fossilized muscle scars and healed bone calluses reveal how dinosaurs moved and survived injuries." },
+          { id: "birdKeel", num: 2, label: "Avian-Dinosaur Link", x: 26, y: 74, theme: "theme-green", info: "Modern birds share hollow bones and wishbones (furculae) with theropod dinosaurs!" }
         ],
         sentences: [
-          { target: "trexSkull", theme: "theme-amber", badge: "1. Meet Sue the T. rex", text: "This real fossil skeleton is named Sue — one of the biggest, most complete Tyrannosaurus rex skeletons ever dug out of the rock!" },
-          { target: "trexRibs", theme: "theme-green", badge: "2. Clues Frozen in Stone", text: "Dinosaur bone detectives study bumps, tooth marks, and healed cracks on fossil bones like clues in a mystery book to figure out how dinosaurs walked, ate, and battled!" }
+          { target: "trexSkull", text: "Paleontologists read fossilized dinosaur skeletons like forensic detectives! Rough muscle-attachment scars on a Tyrannosaurus rex femur reveal how massive its leg muscles were, while healed bone calluses on fossil ribs prove it survived epic battles." },
+          { target: "birdKeel", text: "Even cooler: cutting thin slices of fossilized dinosaur femurs reveals microscopic annual growth rings — just like tree rings — showing how fast dinosaurs grew!" }
         ],
-        funFact: "Even after 67 million years in the ground, scientists can count tiny growth rings inside dinosaur leg bones — just like tree rings — to tell how old the dinosaur was!",
+        funFact: "The famous T. rex specimen 'Sue' has a 1.5-metre-long skull and 58 serrated teeth — some as big as bananas!",
         quiz: {
-          question: "How can dinosaur bone detectives tell if a T. rex survived an injury millions of years ago?",
+          question: "How can paleontologists tell if a dinosaur survived a broken rib millions of years ago?",
           options: [
-            "By spotting bumpy healed bone bridges on its fossil ribs or legs",
-            "By reading the dinosaur's diary",
-            "By checking old photographs",
-            "Dinosaur bones never healed"
+            "By spotting a mineralized bone callus on the fossilized rib",
+            "By reading ancient dinosaur medical charts",
+            "Because fossil bones glow blue when cracked",
+            "Dinosaur bones could never heal"
           ],
           correctIndex: 0,
-          goodFeedback: "Detective skills 10/10! Healed bone bumps stay visible even when bones turn into fossils.",
-          retryFeedback: "Remember how healing bones leave a bumpy bridge? Scientists spot those on fossils!"
+          goodFeedback: "Paleontology 10/10! Mineralized bone calluses stay preserved in fossil stone for millions of years.",
+          retryFeedback: "Remember how healing bones form a bone callus? That bump fossilizes too!"
         }
       },
       {
         id: 25,
-        topic: "Weird & Wonderful Facts",
-        title: "5 Wild Bone Facts to Blow Your Friends' Minds",
-        photo: PHOTOS.skull3D,
+        topic: "Fascinating Anatomy Trivia",
+        title: "3 Mind-Bending Skeletal Facts to Stump Your Friends!",
+        diagram: "skull_anatomy",
+        diagramCaption: "Cranium, Maxilla, Mandible & Enamel-Coated Teeth",
         hotspots: [
-          { id: "earBone", num: 1, label: "Rice-Sized Ear Bone", x: 68, y: 54, theme: "theme-purple", info: "Hidden deep inside your ear are 3 tiny bones — the smallest is 3 millimetres!" },
-          { id: "teeth", num: 2, label: "Teeth Aren't Bones!", x: 48, y: 74, theme: "theme-amber", info: "Surprise! Teeth look like bones, but they're actually made of harder enamel." }
+          { id: "earBone", num: 1, label: "Auditory Ossicles (Ear)", x: 62, y: 46, theme: "theme-purple", info: "Inside each middle ear sit 3 tiny bones (malleus, incus, stapes) — the stapes is only 3 mm long!" },
+          { id: "teeth", num: 2, label: "Teeth (Enamel, Not Bone!)", x: 38, y: 66, theme: "theme-amber", info: "Teeth are made of dentin and ultra-hard enamel — they are NOT bones and cannot self-heal fractures." }
         ],
         sentences: [
-          { target: "earBone", theme: "theme-purple", badge: "1. Tiny Sound Hammer", text: "Fact one: the smallest bone in your body is the stirrup bone deep inside your ear — it is only 3 millimetres long, smaller than a grain of rice, and vibrates so you can hear music!" },
-          { target: "teeth", theme: "theme-amber", badge: "2. Teeth Twist!", text: "Fact two: even though your teeth sit in your jaw, teeth are NOT bones! They are coated in enamel — the hardest stuff in your whole body — and can't heal themselves like bones do." }
+          { target: "earBone", text: "Fact one: hidden deep inside your temporal bone are three microscopic ear ossicles — the malleus, incus, and stapes — and the stapes is only 3 millimetres long, smaller than a grain of rice!" },
+          { target: "teeth", text: "Fact two: even though teeth sit anchored in your maxilla and mandible, teeth are NOT bones! They are coated in crystalline enamel — the hardest substance in the human body — and cannot regenerate like bone tissue." }
         ],
-        funFact: "Another wild fact: your hyoid bone under your tongue is the ONLY bone in your body that doesn't connect to any other bone — it just hangs in muscle!",
+        funFact: "Fact three: your U-shaped hyoid bone in your upper neck is the ONLY bone in your body that does not articulate with any other bone — it anchors your tongue muscles!",
         quiz: {
-          question: "True or False: Your teeth are actually bones.",
+          question: "True or False: Your teeth are classified as bones.",
           options: [
-            "False — teeth are coated in enamel and are not bones",
-            "True — teeth are made of bone marrow"
+            "False — teeth are made of dentin and enamel, not bone tissue",
+            "True — teeth are filled with red bone marrow"
           ],
           correctIndex: 0,
-          goodFeedback: "Gotcha! Teeth are super tough, but they're made of enamel and dentin, not bone.",
-          retryFeedback: "Check Pin 2 on the 3D skull!"
+          goodFeedback: "Gotcha! Teeth are super strong, but they're made of enamel and dentin rather than living bone.",
+          retryFeedback: "Check Pin #2 on the skull diagram!"
         }
       },
       {
         id: 26,
-        topic: "Movement Challenge #1",
-        title: "20-Second Skeleton Joint Freeze!",
-        photo: PHOTOS.fullSkeleton,
+        topic: "Kinesthetic Lab #1",
+        title: "20-Second Synovial Joint Warm-Up & Freeze!",
+        diagram: "four_joints",
+        diagramCaption: "Ball-and-socket shoulder rotation + Hinge knee flexion",
         hotspots: [
-          { id: "arms", num: 1, label: "Shoulder Circles", x: 35, y: 26, theme: "theme-blue", info: "Windmill your ball-and-socket shoulder joints!" },
-          { id: "knees", num: 2, label: "Knee Hinges", x: 46, y: 73, theme: "theme-green", info: "March with high knees using your hinge joints!" }
+          { id: "ball", num: 1, label: "Shoulder Ball-and-Socket", x: 74, y: 24, theme: "theme-blue", info: "Circumduct your humerus in full circles at the glenohumeral ball-and-socket joint!" },
+          { id: "hinge", num: 2, label: "Knee Hinge Flexion", x: 26, y: 24, theme: "theme-green", info: "Flex and extend your tibia and femur at your hinge knee joints!" }
         ],
         sentences: [
-          { target: "arms", theme: "theme-blue", badge: "1. Stand Up & Stretch", text: "Time to give your joints some natural oil! Stand up beside your desk and get ready for a 20-second skeleton workout." },
-          { target: "knees", theme: "theme-green", badge: "2. Move & Freeze", text: "Hit the Start Timer button, do big shoulder circles and high-knee marches for 20 seconds, and freeze like a museum skeleton when the buzzer hits zero!" }
+          { target: "ball", text: "Time to circulate fresh synovial fluid across your articular cartilage! Stand beside your chair and get ready for a 20-second biomechanics challenge." },
+          { target: "hinge", text: "Press Start Timer, perform big arm circles with your ball-and-socket shoulder joints and high-knee marches with your hinge joints, then FREEZE like an anatomical model at zero!" }
         ],
-        funFact: "Every time you move your joints, fresh slippery fluid washes over your cartilage like a mini car wash for your bones!",
+        funFact: "Joint motion stimulates your synovial membrane to secrete fresh lubricating fluid across your articular cartilage!",
         type: "movement",
-        challengeText: "Do big shoulder circles + high-knee marches, then FREEZE like a skeleton at 0!"
+        challengeText: "Rotate your ball-and-socket shoulders + march your hinge knees for 20s, then FREEZE at 0!"
       },
       {
         id: 27,
-        topic: "True or False Challenge",
-        title: "Bone Fact or Total Baloney?",
-        photo: PHOTOS.birdSkeleton,
+        topic: "Science Fact Check",
+        title: "True Science or Total Baloney?",
+        diagram: "comparative_animals",
+        diagramCaption: "Human vs. Giraffe cervical vertebrae & infant ossification",
         hotspots: [
-          { id: "birdWing", num: 1, label: "Bird Wing Bones", x: 26, y: 32, theme: "theme-blue", info: "Birds have arm bones like us, just shaped for feathers!" },
-          { id: "birdKeel", num: 2, label: "Big Chest Fin", x: 52, y: 58, theme: "theme-amber", info: "That giant chest bone holds powerful flapping muscles." }
+          { id: "giraffeNeck", num: 1, label: "7 Cervical Vertebrae", x: 74, y: 24, theme: "theme-amber", info: "Humans and giraffes both have 7 cervical vertebrae!" },
+          { id: "catSpine", num: 2, label: "Infant Bone Count", x: 26, y: 24, theme: "theme-blue", info: "Newborn humans have ~300 bones before ossification fuses them to 206." }
         ],
         sentences: [
-          { target: "birdWing", theme: "theme-blue", badge: "1. Test Your Brain", text: "Think you know your bones? Read or hear this statement and decide if it is 100% True Science or Total Baloney!" },
-          { target: "birdKeel", theme: "theme-amber", badge: "2. Think Carefully", text: "Statement: A human baby has MORE bones than an adult, AND a giraffe has the exact same number of neck bones as a human." }
+          { target: "catSpine", text: "Put your science memory to the test! Listen carefully to this double-fact claim and decide if it is 100% Verified Anatomy or Total Baloney." },
+          { target: "giraffeNeck", text: "Claim: A newborn human baby has MORE bones than an adult (~300 vs. 206), AND a giraffe has the exact same number of cervical vertebrae (7) as a human." }
         ],
-        funFact: "Look at this real bird skeleton — its huge chest bone (called a keel) acts like a boat's fin to anchor super-strong flying muscles!",
+        funFact: "Both facts are 100% true — infant ossification fuses ~300 bones down to 206, and mammals share 7 cervical vertebrae!",
         quiz: {
-          question: "True or False: Babies have more bones than adults, AND giraffes have 7 neck bones just like humans.",
+          question: "Is this double-fact claim Verified Anatomy or Total Baloney?",
           options: [
-            "100% TRUE! Both facts are real science!",
-            "Total Baloney! Both facts are fake!"
+            "100% Verified Anatomy! Both facts are scientifically true!",
+            "Total Baloney! Both facts are false!"
           ],
           correctIndex: 0,
-          goodFeedback: "Double truth! Babies start with ~300 bones, and giraffes have 7 giant neck vertebrae.",
-          retryFeedback: "Both parts are actually true! Tap the first button."
+          goodFeedback: "Double truth! You nailed both infant ossification and giraffe cervical anatomy.",
+          retryFeedback: "Both parts are actually true! Tap the first choice."
         }
       },
       {
         id: 28,
-        topic: "Guess-the-Bone Riddle",
-        title: "Riddle
+        topic: "Anatomy Mystery Riddle",
+        title: "Mystery Bone Riddle: Can You Name This Structure?",
+        diagram: "pelvis_femur",
+        diagramCaption: "Identify the mystery bone from its anatomical clues",
+        hotspots: [
+          { id: "base", num: 1, label: "Mystery Bone Clue", x: 37, y: 74, theme: "theme-purple", info: "Articulates with the pelvis above and the tibia & patella below!" }
+        ],
+        sentences: [
+          { target: "base", text: "Riddle time! Clue 1: I am the longest, heaviest, and strongest bone in the human skeleton. Clue 2: My rounded head plugs into the hip socket of your pelvis." },
+          { target: "base", text: "Clue 3: My lower condyles meet your tibia and patella at the knee, and my name starts with F — what bone am I?" }
+        ],
+        funFact: "In a 180-centimetre-tall adult, the femur measures roughly 48 centimetres long!",
+        quiz: {
+          question: "Which anatomical bone matches all three clues?",
+          options: [
+            "The Femur",
+            "The Mandible",
+            "The Stapes",
+            "The Sternum"
+          ],
+          correctIndex: 0,
+          goodFeedback: "Riddle solved! The mighty femur powers every stride, jump, and kick.",
+          retryFeedback: "Starts with F and stretches from your hip socket to your knee!"
+        }
+      },
+      {
+        id: 29,
+        topic: "Structure & Function Match",
+        title: "Match Each Anatomical Structure to Its Function!",
+        diagram: "full_skeleton",
+        diagramCaption: "Cranium, Thoracic Rib Cage, Red Bone Marrow & Articular Cartilage",
+        hotspots: [
+          { id: "skull", num: 1, label: "Cranium", x: 50, y: 10, theme: "theme-blue", info: "Encloses and protects the brain." },
+          { id: "ribs", num: 2, label: "Thoracic Rib Cage", x: 52, y: 31, theme: "theme-green", info: "Shields the heart and lungs." },
+          { id: "femur", num: 3, label: "Red Bone Marrow", x: 44, y: 63, theme: "theme-pink", info: "Manufactures blood cells." },
+          { id: "tibia", num: 4, label: "Articular Cartilage", x: 44, y: 82, theme: "theme-amber", info: "Prevents friction inside joints." }
+        ],
+        sentences: [
+          { target: "skull", text: "Tap an anatomical structure on the left column, then tap its matching physiological function on the right column to lock in all four pairs!" },
+          { target: "femur", text: "Need a hint? Tap the speaker button beside any card to hear it read aloud." }
+        ],
+        funFact: "In anatomy, 'form follows function' — every bone's shape is tailored to its exact mechanical job!",
+        type: "matching",
+        pairs: [
+          { id: "p1", left: "Cranium", right: "Encloses and shields the brain" },
+          { id: "p2", left: "Thoracic Rib Cage", right: "Protects the heart and lungs" },
+          { id: "p3", left: "Red Bone Marrow", right: "Produces red & white blood cells" },
+          { id: "p4", left: "Articular Cartilage", right: "Cushions bone ends inside joints" }
+        ]
+      },
+      {
+        id: 30,
+        topic: "Kinesthetic Lab #2",
+        title: "20-Second Tarsal, Metatarsal & Phalanges Balance Test!",
+        diagram: "knee_patella",
+        diagramCaption: "Lower limb stability: Femur, Patella, Tibia, Fibula & 26 Foot Bones",
+        hotspots: [
+          { id: "balanceKnee", num: 1, label: "Stabilized Knee Joint", x: 50, y: 46, theme: "theme-blue", info: "Ligaments and leg muscles keep your femur and tibia aligned." },
+          { id: "balanceShin", num: 2, label: "Tibia & Fibula", x: 54, y: 74, theme: "theme-green", info: "Your tibia carries your weight down to the 26 bones of your foot." }
+        ],
+        sentences: [
+          { target: "balanceKnee", text: "Can the 26 tarsals, metatarsals, and phalanges in one foot keep you balanced like a statue? Stand up and balance on one foot for 20 seconds!" },
+          { target: "balanceShin", text: "Feel how your ankle ligaments and lower-leg muscles make dozens of tiny micro-adjustments every second to hold your centre of gravity steady!" }
+        ],
+        funFact: "Your foot's longitudinal arch acts like a natural leaf spring, storing and returning energy with every step!",
+        type: "movement",
+        challengeText: "Balance on ONE foot (10s left foot, 10s right foot) without touching your desk!"
+      },
+      {
+        id: 31,
+        topic: "Final Boss Review",
+        title: "Ultimate Skeletal System Boss Question!",
+        diagram: "bone_cross_section",
+        diagramCaption: "Compact Bone, Spongy Bone, Red Marrow & Yellow Marrow",
+        hotspots: [
+          { id: "boss1", num: 1, label: "Compact & Spongy Bone", x: 28, y: 58, theme: "theme-blue", info: "Living mineralized bone tissue maintained by osteoblasts and osteoclasts." },
+          { id: "boss2", num: 2, label: "Red Bone Marrow", x: 50, y: 45, theme: "theme-pink", info: "Produces millions of blood cells every second." }
+        ],
+        sentences: [
+          { target: "boss1", text: "You have mastered the cranium, mandible, vertebral column, thoracic cage, femur, patella, synovial joints, and fossilized dinosaur bones!" },
+          { target: "boss2", text: "Defeat this Final Boss question to unlock your official Junior Bone Scientist Certificate!" }
+        ],
+        funFact: "Thanks to constant remodeling by osteoblasts and osteoclasts, your entire skeleton replaces itself roughly every 10 years!",
+        quiz: {
+          question: "Which statement is 100% scientifically TRUE about the human skeletal system?",
+          options: [
+            "Bones are living organs that grow at epiphyseal plates, repair fractures with bone callus, and produce blood cells",
+            "Bones are non-living dry rocks that never change",
+            "Adults have 300 bones while newborn babies have only 12",
+            "Skeletal muscles push bones apart without tendons"
+          ],
+          correctIndex: 0,
+          goodFeedback: "VICTORY! You conquered the Final Boss! Tap Next to claim your official certificate!",
+          retryFeedback: "Remember: bones are living organs that grow, remodel, heal, and make blood cells!"
+        }
+      },
+      {
+        id: 32,
+        topic: "Graduation Day!",
+        title: "Official Junior Bone Scientist Certificate",
+        diagram: "full_skeleton",
+        diagramCaption: "Congratulations on mastering human skeletal anatomy!",
+        hotspots: [
+          { id: "skull", num: 1, label: "Certified Anatomist!", x: 50, y: 11, theme: "theme-amber", info: "You completed all 32 Bone Explorer anatomy lessons and labs!" }
+        ],
+        sentences: [
+          { target: "skull", text: "Woohoo! Congratulations on completing all 32 pages of Bone Explorers! Type your name below to personalize your official Junior Bone Scientist Certificate!" }
+        ],
+        funFact: "Click Print Certificate to save a PDF or print a copy to celebrate your anatomy mastery!",
+        type: "certificate"
+      }
+    ];
+
+    // =========================================================================
+    // 3. STATE & SANDBOX-SAFE HELPERS
+    // =========================================================================
+    let currentView = "home";
+    let currentIndex = 0;
+    let stars = 0;
+    let completedPages = new Set();
+    let activeHotspotId = null;
+    let studentName = "";
+    let selectedLeft = null;
+    let matchedPairIds = new Set();
+    let timerInterval = null;
+    let timerSeconds = 20;
+
+    // =========================================================================
+    // 4. VOICE 5 ONLY SPEECH ENGINE + BIG PARAGRAPH FIRST HIGHLIGHTING
+    // =========================================================================
+    const synth = window.speechSynthesis || null;
+    let voice5 = null;
+    let isSpeaking = false;
+    let isPaused = false;
+    let activeTimers = [];
+    let currentUtterance = null;
+    let lastSpeakSegments = [];
+
+    function loadVoice5() {
+      if (!synth) return;
+      const voices = synth.getVoices() || [];
+      if (voices.length >= 5) {
+        voice5 = voices[4]; // Strictly Voice 5 (0-based index 4)
+      } else if (voices.length > 0) {
+        voice5 = voices[voices.length - 1];
+      }
+      const badge = document.getElementById("voice5Badge");
+      if (badge && voice5) {
+        const shortName = voice5.name.replace("Microsoft ", "").replace("Google ", "");
+        badge.textContent = `Voice 5: ${shortName}`;
+      }
+    }
+
+    if (synth) {
+      loadVoice5();
+      synth.onvoiceschanged = loadVoice5;
+      setTimeout(loadVoice5, 150);
+      setTimeout(loadVoice5, 600);
+      setTimeout(loadVoice5, 1500);
+    }
+
+    function cleanForSpeech(str) {
+      return (str || "")
+        .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, "")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function clearHighlightTimers() {
+      activeTimers.forEach(t => clearTimeout(t));
+      activeTimers = [];
+    }
+
+    function clearAllVisualHighlights() {
+      document.querySelectorAll(".speaking").forEach(el => el.classList.remove("speaking"));
+      const paraBox = document.getElementById("bigParagraphCard");
+      if (paraBox) paraBox.classList.remove("para-speaking");
+    }
+
+    function activateSegmentVisual(seg) {
+      clearAllVisualHighlights();
+      if (seg.inBigPara) {
+        const paraBox = document.getElementById("bigParagraphCard");
+        if (paraBox) paraBox.classList.add("para-speaking");
+      }
+      if (seg.elementId) {
+        const el = document.getElementById(seg.elementId);
+        if (el) el.classList.add("speaking");
+      }
+      if (seg.targetId) {
+        highlightHotspot(seg.targetId, false);
+      }
+    }
+
+    function updateAudioUI(stateText) {
+      const statusEl = document.getElementById("audioStatus");
+      const hearBtn = document.getElementById("hearPageBtn");
+      const hearLabel = document.getElementById("hearPageLabel");
+      const pauseBtn = document.getElementById("pauseBtn");
+      const stopBtn = document.getElementById("stopBtn");
+
+      if (statusEl && stateText) statusEl.textContent = stateText;
+
+      if (isSpeaking && !isPaused) {
+        hearBtn.classList.add("active");
+        hearLabel.textContent = "Listening...";
+        pauseBtn.disabled = false;
+        pauseBtn.textContent = "Pause";
+        stopBtn.disabled = false;
+      } else if (isSpeaking && isPaused) {
+        hearBtn.classList.remove("active");
+        hearLabel.textContent = "Paused";
+        pauseBtn.disabled = false;
+        pauseBtn.textContent = "Resume";
+        stopBtn.disabled = false;
+      } else {
+        hearBtn.classList.remove("active");
+        hearLabel.textContent = "Hear Page";
+        pauseBtn.disabled = true;
+        pauseBtn.textContent = "Pause";
+        stopBtn.disabled = true;
+      }
+    }
+
+    function stopSpeech() {
+      clearHighlightTimers();
+      if (synth) synth.cancel();
+      isSpeaking = false;
+      isPaused = false;
+      currentUtterance = null;
+      clearAllVisualHighlights();
+      updateAudioUI('Tap "Hear Page" to listen!');
+    }
+
+    function togglePauseSpeech() {
+      if (!synth || !isSpeaking) return;
+      if (isPaused) {
+        synth.resume();
+        isPaused = false;
+        updateAudioUI("Listening...");
+      } else {
+        synth.pause();
+        isPaused = true;
+        clearHighlightTimers();
+        updateAudioUI("Paused — tap Resume to continue.");
+      }
+    }
+
+    function replaySpeech() {
+      if (lastSpeakSegments.length > 0) {
+        speakSegments(lastSpeakSegments);
+      } else {
+        hearCurrentPage();
+      }
+    }
+
+    function speakSegments(segments) {
+      if (!synth) {
+        updateAudioUI("Audio is not supported in this browser.");
+        return;
+      }
+
+      loadVoice5();
+      stopSpeech();
+      lastSpeakSegments = segments;
+
+      const prepared = [];
+      let cursor = 0;
+
+      segments.forEach(seg => {
+        const cleaned = cleanForSpeech(seg.text);
+        if (!cleaned) return;
+        const start = cursor;
+        const end = start + cleaned.length;
+        prepared.push({ ...seg, cleaned, start, end });
+        cursor = end + 1;
+      });
+
+      if (prepared.length === 0) return;
+
+      const fullText = prepared.map(p => p.cleaned).join(" ");
+      const utter = new SpeechSynthesisUtterance(fullText);
+      currentUtterance = utter;
+
+      if (voice5) {
+        utter.voice = voice5;
+        utter.lang = voice5.lang || "en-US";
+      } else {
+        utter.lang = "en-US";
+      }
+
+      utter.rate = 0.96;
+      utter.pitch = 1.03;
+
+      let activeSegIdx = -1;
+      let boundaryWorked = false;
+
+      function setSegByIndex(idx) {
+        if (idx !== activeSegIdx && prepared[idx]) {
+          activeSegIdx = idx;
+          activateSegmentVisual(prepared[idx]);
+        }
+      }
+
+      utter.onboundary = (event) => {
+        if (typeof event.charIndex === "number") {
+          boundaryWorked = true;
+          clearHighlightTimers();
+          const ci = event.charIndex;
+          const foundIdx = prepared.findIndex(p => ci >= p.start && ci <= p.end + 1);
+          if (foundIdx !== -1) setSegByIndex(foundIdx);
+        }
+      };
+
+      utter.onstart = () => {
+        isSpeaking = true;
+        isPaused = false;
+        setSegByIndex(0);
+        updateAudioUI("Listening...");
+
+        let elapsedMs = 0;
+        const msPerChar = 60;
+        prepared.forEach((p, idx) => {
+          if (idx > 0) {
+            const t = setTimeout(() => {
+              if (!boundaryWorked && isSpeaking && !isPaused) setSegByIndex(idx);
+            }, elapsedMs);
+            activeTimers.push(t);
+          }
+          elapsedMs += p.cleaned.length * msPerChar + 240;
+        });
+      };
+
+      utter.onend = () => {
+        clearHighlightTimers();
+        isSpeaking = false;
+        isPaused = false;
+        clearAllVisualHighlights();
+        updateAudioUI('Done! Tap "Replay" to hear again.');
+      };
+
+      utter.onerror = () => {
+        clearHighlightTimers();
+        isSpeaking = false;
+        isPaused = false;
+        clearAllVisualHighlights();
+        updateAudioUI('Tap "Hear Page" to listen!');
+      };
+
+      synth.speak(utter);
+    }
+
+    // Hear Page highlights the BIG PARAGRAPH FIRST, then the bonus & question!
+    function hearCurrentPage() {
+      if (currentView === "home") {
+        speakSegments([
+          {
+            text: "Welcome to Bone Explorers! Tap Start Exploring to dive into 32 interactive anatomy pages packed with diagrams, quizzes, riddles, and movement labs!",
+            elementId: null,
+            targetId: null,
+            inBigPara: false
+          }
+        ]);
+        return;
+      }
+
+      const page = PAGES[currentIndex];
+      const segs = [];
+
+      // 1. Highlight the BIG PARAGRAPH FIRST as it reads sentence-by-sentence
+      page.sentences.forEach((s, i) => {
+        segs.push({
+          text: s.text,
+          elementId: `sent-${i}`,
+          targetId: s.target,
+          inBigPara: true
+        });
+      });
+
+      // 2. Then highlight the Fun Fact Bonus
+      segs.push({
+        text: "Anatomy Bonus: " + page.funFact,
+        elementId: "funFactBox",
+        targetId: null,
+        inBigPara: false
+      });
+
+      // 3. Then highlight the Question (if present)
+      if (page.quiz) {
+        segs.push({
+          text: "Question: " + page.quiz.question,
+          elementId: "quizQuestionText",
+          targetId: null,
+          inBigPara: false
+        });
+      }
+
+      speakSegments(segs);
+    }
+
+    function hearBigParagraphOnly() {
+      const page = PAGES[currentIndex];
+      if (!page) return;
+      const segs = page.sentences.map((s, i) => ({
+        text: s.text,
+        elementId: `sent-${i}`,
+        targetId: s.target,
+        inBigPara: true
+      }));
+      speakSegments(segs);
+    }
+
+    function hearTitle() {
+      const page = PAGES[currentIndex];
+      if (page) speakSegments([{ text: page.title, elementId: "lessonTitleBanner", targetId: null }]);
+    }
+
+    function hearSentence(idx) {
+      const page = PAGES[currentIndex];
+      if (page && page.sentences[idx]) {
+        const s = page.sentences[idx];
+        speakSegments([{ text: s.text, elementId: `sent-${idx}`, targetId: s.target || null, inBigPara: true }]);
+      }
+    }
+
+    function hearBonus() {
+      const page = PAGES[currentIndex];
+      if (page) speakSegments([{ text: page.funFact, elementId: "funFactBox", targetId: null }]);
+    }
+
+    function hearQuestion() {
+      const page = PAGES[currentIndex];
+      if (page && page.quiz) speakSegments([{ text: page.quiz.question, elementId: "quizQuestionText", targetId: null }]);
+    }
+
+    function hearOption(oIdx) {
+      const page = PAGES[currentIndex];
+      if (page && page.quiz && page.quiz.options[oIdx]) {
+        speakSegments([{ text: page.quiz.options[oIdx], elementId: `optBtn-${oIdx}`, targetId: null }]);
+      }
+    }
+
+    function hearChallenge() {
+      const page = PAGES[currentIndex];
+      if (page && page.challengeText) speakSegments([{ text: page.challengeText, elementId: null, targetId: null }]);
+    }
+
+    function hearMatchPair(pairId, side) {
+      const page = PAGES[currentIndex];
+      if (!page || !page.pairs) return;
+      const p = page.pairs.find(item => item.id === pairId);
+      if (p) speakSegments([{ text: side === "left" ? p.left : p.right, elementId: null, targetId: null }]);
+    }
+
+    // =========================================================================
+    // 5. ANATOMICAL DIAGRAM PIN & GLOW INTERACTIVITY
+    // =========================================================================
+    function highlightHotspot(hotspotId, speakInfo = false) {
+      activeHotspotId = hotspotId;
+      document.querySelectorAll(".hotspot-pin").forEach(pin => {
+        pin.classList.toggle("active-pin", pin.dataset.id === hotspotId);
+      });
+
+      const page = PAGES[currentIndex];
+      if (!page) return;
+
+      const diagContainer = document.getElementById("diagramContainer");
+      if (diagContainer) {
+        diagContainer.innerHTML = renderAnatomicalDiagram(page.diagram, hotspotId);
+      }
+
+      const hs = page.hotspots.find(h => h.id === hotspotId);
+      const calloutBox = document.getElementById("activeCalloutText");
+      if (hs && calloutBox) {
+        calloutBox.innerHTML = `<strong>#${hs.num} ${escapeHtml(hs.label)}:</strong> ${escapeHtml(hs.info)}`;
+        if (speakInfo) {
+          speakSegments([{ text: `${hs.label}. ${hs.info}`, elementId: null, targetId: hs.id }]);
+        }
+      }
+    }
+
+    // =========================================================================
+    // 6. PAGE RENDERING
+    // =========================================================================
+    function escapeHtml(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function updateChrome() {
+      const progressWrap = document.getElementById("progressWrap");
+      const bottomNav = document.getElementById("bottomNav");
+      const starPill = document.getElementById("starPill");
+      starPill.textContent = `Stars: ${stars}`;
+
+      if (currentView === "home") {
+        progressWrap.style.visibility = "hidden";
+        bottomNav.style.display = "none";
+      } else {
+        progressWrap.style.visibility = "visible";
+        bottomNav.style.display = "flex";
+        const pageNum = currentIndex + 1;
+        document.getElementById("pageBadge").textContent = `Page ${pageNum} of ${PAGES.length}`;
+        document.getElementById("progressFill").style.width = `${Math.round((pageNum / PAGES.length) * 100)}%`;
+
+        document.getElementById("prevBtn").disabled = currentIndex === 0;
+        const nextBtn = document.getElementById("nextBtn");
+        nextBtn.disabled = currentIndex === PAGES.length - 1;
+        nextBtn.textContent = currentIndex === PAGES.length - 1 ? "Finished!" : "Next";
+      }
+    }
+
+    function goHome() {
+      stopSpeech();
+      clearInterval(timerInterval);
+      currentView = "home";
+      updateChrome();
+      renderHome();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function openPage(index) {
+      stopSpeech();
+      clearInterval(timerInterval);
+      currentView = "lesson";
+      currentIndex = Math.max(0, Math.min(PAGES.length - 1, index));
+      selectedLeft = null;
+      matchedPairIds = new Set();
+      timerSeconds = 20;
+      updateChrome();
+      renderLesson();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function nextPage() {
+      if (currentIndex < PAGES.length - 1) {
+        completedPages.add(PAGES[currentIndex].id);
+        openPage(currentIndex + 1);
+      }
+    }
+
+    function prevPage() {
+      if (currentIndex > 0) openPage(currentIndex - 1);
+    }
+
+    function renderHome() {
+      const main = document.getElementById("appMain");
+      main.innerHTML = `
+        <div class="home-hero">
+          <h1>Bone Explorers: The Human Skeletal System</h1>
+          <p>Explore 32 interactive anatomy pages with labelled skeletal diagrams, synovial joint labs, fossil mysteries, and movement challenges. Tap <strong>Hear Page</strong> anytime to listen!</p>
+          <button class="start-big-btn" onclick="openPage(0)">Start Exploring (Page 1)</button>
+        </div>
+
+        <div class="chapters-grid">
+          ${PAGES.map((p, idx) => `
+            <button class="chapter-card ${completedPages.has(p.id) ? "done" : ""}" onclick="openPage(${idx})">
+              <div class="chapter-num">Page ${p.id} • ${escapeHtml(p.topic)} ${completedPages.has(p.id) ? "★" : ""}</div>
+              <div class="chapter-name">${escapeHtml(p.title)}</div>
+            </button>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function renderLesson() {
+      const page = PAGES[currentIndex];
+      const firstHs = page.hotspots[0];
+      activeHotspotId = firstHs ? firstHs.id : null;
+
+      const pinsHtml = page.hotspots.map((hs, idx) => `
+        <button
+          class="hotspot-pin ${hs.theme} ${idx === 0 ? "active-pin" : ""}"
+          data-id="${hs.id}"
+          style="left: ${hs.x}%; top: ${hs.y}%;"
+          onclick="highlightHotspot('${hs.id}', true)"
+          title="Tap to highlight and hear ${escapeHtml(hs.label)}"
+        >
+          <span class="pin-num">${hs.num}</span>
+          <span>${escapeHtml(hs.label)}</span>
+        </button>
+      `).join("");
+
+      const bigParagraphSentencesHtml = page.sentences.map((s, idx) => `
+        <span
+          class="inline-sentence"
+          id="sent-${idx}"
+          onclick="hearSentence(${idx})"
+          title="Tap to hear this sentence and highlight the bone"
+        >${escapeHtml(s.text)}</span>
+      `).join(" ");
+
+      const chipsHtml = page.hotspots.map(hs => `
+        <button class="anat-chip ${hs.theme}" onclick="highlightHotspot('${hs.id}', true)">
+          <span>#${hs.num} ${escapeHtml(hs.label)}</span>
+        </button>
+      `).join("");
+
+      let interactiveHtml = "";
+
+      if (page.quiz) {
+        interactiveHtml = `
+          <div class="activity-box">
+            <div class="quiz-q-row">
+              <h2 class="quiz-question" id="quizQuestionText">${escapeHtml(page.quiz.question)}</h2>
+              <button class="mini-hear-btn" onclick="hearQuestion()">
+                🔊 Hear Question
+              </button>
+            </div>
+            <div class="options-grid">
+              ${page.quiz.options.map((opt, oIdx) => `
+                <div class="option-row">
+                  <button class="option-btn" id="optBtn-${oIdx}" onclick="checkAnswer(${oIdx})">
+                    ${escapeHtml(opt)}
+                  </button>
+                  <button class="opt-hear-btn" onclick="hearOption(${oIdx})" title="Hear this choice">
+                    🔊
+                  </button>
+                </div>
+              `).join("")}
+            </div>
+            <div class="feedback-banner" id="quizFeedback">
+              <span id="quizFeedbackText"></span>
+              <button class="mini-hear-btn" id="hearFeedbackBtn">🔊 Hear</button>
+            </div>
+          </div>
+        `;
+      } else if (page.type === "movement") {
+        interactiveHtml = `
+          <div class="timer-card">
+            <div style="font-size: 21px; font-weight: 900; color: #4c1d95;">${escapeHtml(page.challengeText)}</div>
+            <div class="timer-display" id="timerDisplay">20s</div>
+            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+              <button class="action-btn" id="startTimerBtn" onclick="startMovementTimer()">Start 20-Second Timer</button>
+              <button class="mini-hear-btn" onclick="hearChallenge()">🔊 Hear Challenge</button>
+            </div>
+          </div>
+        `;
+      } else if (page.type === "matching") {
+        const shuffledRight = [...page.pairs].sort((a, b) => a.right.localeCompare(b.right));
+        interactiveHtml = `
+          <div class="activity-box">
+            <div class="quiz-q-row">
+              <h2 class="quiz-question">Tap an anatomical structure on the left, then tap its function on the right!</h2>
+              <button class="mini-hear-btn" onclick="speakSegments([{text: 'Tap an anatomical structure on the left, then tap its function on the right!'}])">🔊 Hear</button>
+            </div>
+            <div class="match-grid">
+              <div class="match-col">
+                ${page.pairs.map(p => `
+                  <div class="match-item" id="mLeft-${p.id}" onclick="selectMatchLeft('${p.id}')">
+                    <span>${escapeHtml(p.left)}</span>
+                    <button class="opt-hear-btn" style="padding: 4px 10px;" onclick="event.stopPropagation(); hearMatchPair('${p.id}', 'left')">🔊</button>
+                  </div>
+                `).join("")}
+              </div>
+              <div class="match-col">
+                ${shuffledRight.map(p => `
+                  <div class="match-item" id="mRight-${p.id}" onclick="selectMatchRight('${p.id}')">
+                    <span>${escapeHtml(p.right)}</span>
+                    <button class="opt-hear-btn" style="padding: 4px 10px;" onclick="event.stopPropagation(); hearMatchPair('${p.id}', 'right')">🔊</button>
+                  </div>
+                `).join("")}
+              </div>
+            </div>
+            <div class="feedback-banner" id="matchFeedback">
+              <span id="matchFeedbackText"></span>
+            </div>
+          </div>
+        `;
+      } else if (page.type === "certificate") {
+        interactiveHtml = `
+          <div class="cert-box">
+            <div style="font-size: 16px; font-weight: 900; color: #92400e; text-transform: uppercase; letter-spacing: 1px;">Official Anatomy Award</div>
+            <h2 style="font-size: 32px; color: #1e3a8a; margin: 8px 0;">Junior Bone Scientist Certificate</h2>
+            <p style="font-size: 19px; margin: 8px 0;">This certifies that</p>
+            <input
+              type="text"
+              class="cert-input"
+              id="certNameInput"
+              placeholder="Type your name here..."
+              value="${escapeHtml(studentName)}"
+              oninput="studentName = this.value"
+            />
+            <p style="font-size: 19px; max-width: 600px; margin: 10px auto;">
+              has mastered human skeletal anatomy, synovial joints, bone tissue structure, and comparative vertebrate skeletons with <strong>${stars} Explorer Stars</strong>!
+            </p>
+            <div class="no-print" style="margin-top: 18px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+              <button class="action-btn" onclick="window.print()">Print Certificate</button>
+              <button class="mini-hear-btn" onclick="celebrateGrad()">🔊 Hear Congratulations</button>
+            </div>
+          </div>
+        `;
+      }
+
+      const main = document.getElementById("appMain");
+      main.innerHTML = `
+        <article class="lesson-card">
+          <div class="topic-tag">Page ${page.id} of ${PAGES.length} • ${escapeHtml(page.topic)}</div>
+
+          <div class="lesson-title-banner" id="lessonTitleBanner">
+            <h1 class="lesson-title">${escapeHtml(page.title)}</h1>
+            <button class="mini-hear-btn" onclick="hearTitle()">
+              🔊 Hear Title
+            </button>
+          </div>
+
+          <div class="content-grid">
+            <!-- Left: Custom Interactive Anatomical Diagram -->
+            <div class="visual-stage">
+              <div class="diagram-frame">
+                <div id="diagramContainer" style="width: 100%; height: 100%;">
+                  ${renderAnatomicalDiagram(page.diagram, activeHotspotId)}
+                </div>
+                ${pinsHtml}
+              </div>
+              <div class="active-callout-box" id="activeCalloutBox">
+                <span id="activeCalloutText">
+                  ${firstHs ? `<strong>#${firstHs.num} ${escapeHtml(firstHs.label)}:</strong> ${escapeHtml(firstHs.info)}` : ""}
+                </span>
+                ${firstHs ? `<button class="mini-hear-btn" style="padding: 5px 10px; font-size: 14px;" onclick="speakActivePin()">🔊 Hear Label</button>` : ""}
+              </div>
+              <div class="photo-caption-bar">
+                <span>${escapeHtml(page.diagramCaption)}</span>
+                <span style="color: #93c5fd; font-weight: 800;">Tap any anatomical label!</span>
+              </div>
+            </div>
+
+            <!-- Right: BIG READ-ALONG PARAGRAPH FIRST (Highlighted as it reads!) -->
+            <div class="story-panel">
+              <div class="big-paragraph-card" id="bigParagraphCard">
+                <div class="big-para-header">
+                  <span class="big-para-label">Read &amp; Listen Along</span>
+                  <button class="mini-hear-btn" style="padding: 5px 12px; font-size: 14px;" onclick="hearBigParagraphOnly()">
+                    🔊 Hear Story
+                  </button>
+                </div>
+                <p class="big-paragraph-text">
+                  ${bigParagraphSentencesHtml}
+                </p>
+              </div>
+
+              <div class="anat-chips-box">
+                <div class="anat-chips-title">Anatomical Terms on This Diagram (Tap to Highlight):</div>
+                <div class="anat-chips-row">
+                  ${chipsHtml}
+                </div>
+              </div>
+
+              <div class="fun-fact-box" id="funFactBox">
+                <div class="fun-fact-header">
+                  <span>Anatomy Bonus Fact!</span>
+                  <button class="mini-hear-btn" style="padding: 5px 12px; font-size: 14px;" onclick="hearBonus()">
+                    🔊 Hear Bonus
+                  </button>
+                </div>
+                <div>${escapeHtml(page.funFact)}</div>
+              </div>
+            </div>
+          </div>
+
+          ${interactiveHtml}
+        </article>
+      `;
+    }
+
+    function speakActivePin() {
+      const page = PAGES[currentIndex];
+      const hs = page.hotspots.find(h => h.id === activeHotspotId) || page.hotspots[0];
+      if (hs) speakSegments([{ text: `${hs.label}. ${hs.info}`, elementId: null, targetId: hs.id }]);
+    }
+
+    // =========================================================================
+    // 7. INTERACTIVE ACTIVITIES LOGIC
+    // =========================================================================
+    function checkAnswer(chosenIdx) {
+      const page = PAGES[currentIndex];
+      if (!page || !page.quiz) return;
+
+      const isRight = chosenIdx === page.quiz.correctIndex;
+      const btn = document.getElementById(`optBtn-${chosenIdx}`);
+      const fb = document.getElementById("quizFeedback");
+      const fbText = document.getElementById("quizFeedbackText");
+      const hearFbBtn = document.getElementById("hearFeedbackBtn");
+
+      if (isRight) {
+        btn.classList.add("correct");
+        fb.className = "feedback-banner show good";
+        fbText.textContent = page.quiz.goodFeedback;
+        if (!completedPages.has(page.id)) {
+          completedPages.add(page.id);
+          stars += 1;
+          updateChrome();
+        }
+        hearFbBtn.onclick = () => speakSegments([{ text: page.quiz.goodFeedback }]);
+        speakSegments([{ text: page.quiz.goodFeedback }]);
+      } else {
+        btn.classList.add("wrong");
+        fb.className = "feedback-banner show try-again";
+        fbText.textContent = page.quiz.retryFeedback;
+        hearFbBtn.onclick = () => speakSegments([{ text: page.quiz.retryFeedback }]);
+        speakSegments([{ text: page.quiz.retryFeedback }]);
+      }
+    }
+
+    function startMovementTimer() {
+      clearInterval(timerInterval);
+      timerSeconds = 20;
+      const display = document.getElementById("timerDisplay");
+      const btn = document.getElementById("startTimerBtn");
+      btn.disabled = true;
+      display.textContent = "20s";
+      speakSegments([{ text: "Go! Move those synovial joints for 20 seconds!" }]);
+
+      timerInterval = setInterval(() => {
+        timerSeconds -= 1;
+        if (timerSeconds > 0) {
+          display.textContent = `${timerSeconds}s`;
+        } else {
+          clearInterval(timerInterval);
+          display.textContent = "FREEZE!";
+          btn.disabled = false;
+          btn.textContent = "Do It Again!";
+          const page = PAGES[currentIndex];
+          if (!completedPages.has(page.id)) {
+            completedPages.add(page.id);
+            stars += 1;
+            updateChrome();
+          }
+          speakSegments([{ text: "Time's up! Freeze like an anatomical model! Awesome job, you earned a star!" }]);
+        }
+      }, 1000);
+    }
+
+    function selectMatchLeft(pairId) {
+      if (matchedPairIds.has(pairId)) return;
+      selectedLeft = pairId;
+      document.querySelectorAll("[id^='mLeft-']").forEach(el => el.classList.remove("selected"));
+      const el = document.getElementById(`mLeft-${pairId}`);
+      if (el) el.classList.add("selected");
+    }
+
+    function selectMatchRight(pairId) {
+      if (!selectedLeft || matchedPairIds.has(pairId)) return;
+      const fb = document.getElementById("matchFeedback");
+      const fbText = document.getElementById("matchFeedbackText");
+
+      if (selectedLeft === pairId) {
+        matchedPairIds.add(pairId);
+        const lEl = document.getElementById(`mLeft-${pairId}`);
+        const rEl = document.getElementById(`mRight-${pairId}`);
+        if (lEl) {
+          lEl.classList.remove("selected");
+          lEl.classList.add("matched");
+        }
+        if (rEl) rEl.classList.add("matched");
+        selectedLeft = null;
+
+        const page = PAGES[currentIndex];
+        if (matchedPairIds.size === page.pairs.length) {
+          fb.className = "feedback-banner show good";
+          fbText.textContent = "All 4 anatomical structures matched! You earned a star!";
+          if (!completedPages.has(page.id)) {
+            completedPages.add(page.id);
+            stars += 1;
+            updateChrome();
+          }
+          speakSegments([{ text: "All 4 anatomical structures matched! You earned a star!" }]);
+        } else {
+          fb.className = "feedback-banner show good";
+          fbText.textContent = "Exact match! Keep going!";
+          speakSegments([{ text: "Exact match!" }]);
+        }
+      } else {
+        fb.className = "feedback-banner show try-again";
+        fbText.textContent = "Not quite — try matching that structure with a different function!";
+        speakSegments([{ text: "Not quite — try a different match!" }]);
+      }
+    }
+
+    function celebrateGrad() {
+      const who = studentName.trim() ? studentName.trim() : "Junior Bone Scientist";
+      speakSegments([{ text: `Huge congratulations, ${who}! You officially mastered the human skeletal system with ${stars} Explorer Stars!` }]);
+    }
+
+    // Boot up immediately
+    updateChrome();
+    renderHome();
+  </script>
+</body>
+</html>
